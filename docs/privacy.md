@@ -17,12 +17,12 @@ Metadata classifier (`packages/core/src/classification`):
 
 - Hard-excluded types: password, hidden, file, button, submit, reset, image, email, tel, url, number, date/time family, range, color.
 - State: disabled (incl. fieldset), read-only, inert, not rendered.
-- `autocomplete`: off; current/new-password, one-time-code, webauthn, username, cc-_, transaction-_, name tokens, email, impp, tel*, address tokens, postal-code, country, bday*, sex.
+- `autocomplete` tokens: `off`, `current-password`, `new-password`, `one-time-code`, `webauthn`, `username`, `cc-*`, `transaction-*`, name tokens, `email`, `impp`, `tel*`, address tokens, `postal-code`, `country`, `bday*`, `sex`.
 - `data-form-rescue="off"` on the field or any ancestor (crossing open shadow roots); `autocomplete="off"` on the form.
 - Term list over id, name, label, aria-label/labelledby, placeholder, group label (bounded to 200 chars, NFKD-normalized, camelCase split, simple leetspeak): credentials in 14 languages, OTP/2FA, tokens/API keys/secrets/seed and recovery phrases/PIN, payment and banking, government IDs (SSN, national ID, Aadhaar, PAN with context, passport, tax ID, TIN/SIN with context, NIF, DNI, CURP, CPF, personnummer), medical records. Short ambiguous tokens match whole tokens or need a context token.
 - Contact terms (email, phone, address, birthday, names, login) apply to single-line inputs only, so prose fields such as "Message for our phone team" stay eligible.
 - Consent/payment/billing terms exclude checkboxes and radio groups.
-- Whole-form exclusion if any control is a password, OTP, cc-* or secret-term control, or any label/legend in the container carries secret terms.
+- Whole-form exclusion if any control is a password, OTP, `cc-*` or secret-term control, or any label/legend in the container carries secret terms.
 
 Transient screening (content script, before messaging): private-key headers, AWS/GitHub/Slack/Stripe/OpenAI-style/Google API tokens, JWTs, `password=`-style assignments, Luhn-valid card numbers, US SSNs, Verhoeff-valid Aadhaar numbers, mod-97-valid IBANs, Indian PAN. A match sends a purge instead of the value; saved copies of that field are deleted across the site's revisions.
 
