@@ -25,7 +25,7 @@ Long answers, support requests and applications get lost when a page refreshes, 
 
 [Install (developer build)](#install-the-developer-build) · [Website docs](apps/website/src/pages/docs/) · [Demo](apps/website/src/pages/demo.astro) · [Privacy](docs/privacy.md) · [Issues](.github/ISSUE_TEMPLATE/) · [License](LICENSE)
 
-> The public website and repository URLs are not configured yet. Once published, the website will live at the configured origin and this README will link to it.
+> Source: https://github.com/darkaimzzz/Form-Rescue. The website is deployed on Vercel (see [Deploying the website](#deploying-the-website)).
 
 ## Features
 
@@ -128,6 +128,10 @@ See [docs/architecture.md](docs/architecture.md) and [docs/data-model.md](docs/d
 
 - **Next (P1):** plain-text `contenteditable` recovery, same-origin frames (with a security review), more framework adapters, translations, optional encrypted export/import.
 - **Not planned (P2):** accounts, sync, servers, telemetry, AI features, password/payment recovery, automatic restore or submission, mobile/Safari/private-mode support.
+
+## Deploying the website
+
+The site deploys to Vercel from `vercel.json` (pnpm 12 install, `apps/website/dist` output). Production deployments take their canonical origin from Vercel's production domain; preview deployments are `noindex`. Set `PUBLIC_SITE_ORIGIN` in Vercel to use a custom domain, and `PUBLIC_*_STORE_URL` once store listings are approved.
 
 ## Support, security and license
 

@@ -210,9 +210,7 @@ if (publish) {
   const env = process.env;
   const need = {
     PUBLIC_SITE_ORIGIN: "production website origin",
-    PUBLIC_REPO_URL: "public repository URL",
     VITE_FR_WEBSITE_ORIGIN: "website origin baked into the extension build",
-    VITE_FR_REPO_URL: "repository URL baked into the extension build",
   };
   for (const [k, what] of Object.entries(need)) check(`publish input: ${k} (${what})`, /^https:\/\//.test(env[k] ?? ""));
   const license = await read("LICENSE");

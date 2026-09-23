@@ -24,16 +24,16 @@ Build environment for the first packages: Windows 11, Node 26.5.1 locally (CI pi
 
 ## Configuration required before publication
 
-| Input                             | Where                                                                          | Status                                |
-| --------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------- |
-| Copyright holder                  | `LICENSE`                                                                      | **Unknown** — replace the placeholder |
-| Repository URL                    | `PUBLIC_REPO_URL`, `VITE_FR_REPO_URL`                                          | **Unknown**                           |
-| Website origin                    | `PUBLIC_SITE_ORIGIN`, `VITE_FR_WEBSITE_ORIGIN`                                 | **Unknown**                           |
-| Store URLs                        | `PUBLIC_CHROME_STORE_URL`, `PUBLIC_EDGE_STORE_URL`, `PUBLIC_FIREFOX_STORE_URL` | Pending review/approval               |
-| Maintainers                       | `.github/CODEOWNERS`                                                           | **Unknown**                           |
-| Private vulnerability reporting   | `SECURITY.md`                                                                  | Not enabled                           |
-| Conduct reporting route           | `CODE_OF_CONDUCT.md`                                                           | Not set                               |
-| Store developer accounts and fees | Chrome Web Store, Microsoft Partner Center, addons.mozilla.org                 | Owner action                          |
+| Input                             | Where                                                                                                          | Status                                                |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Copyright holder                  | `LICENSE`                                                                                                      | Set: darkaimzzz and Form Rescue contributors          |
+| Repository URL                    | defaults in `apps/website/astro.config.mjs` and `apps/extension/src/ui/links.ts`                               | Set: https://github.com/darkaimzzz/Form-Rescue        |
+| Website origin                    | Vercel production domain (automatic) or `PUBLIC_SITE_ORIGIN`; `VITE_FR_WEBSITE_ORIGIN` for the extension build | Vercel; set `VITE_FR_WEBSITE_ORIGIN` before packaging |
+| Store URLs                        | `PUBLIC_CHROME_STORE_URL`, `PUBLIC_EDGE_STORE_URL`, `PUBLIC_FIREFOX_STORE_URL`                                 | Pending review/approval                               |
+| Maintainers                       | `.github/CODEOWNERS`                                                                                           | **Unknown**                                           |
+| Private vulnerability reporting   | `SECURITY.md`                                                                                                  | Not enabled                                           |
+| Conduct reporting route           | `CODE_OF_CONDUCT.md`                                                                                           | Not set                                               |
+| Store developer accounts and fees | Chrome Web Store, Microsoft Partner Center, addons.mozilla.org                                                 | Owner action                                          |
 
 `pnpm release:validate --publish` fails until every item above is set. Nothing here is invented.
 
