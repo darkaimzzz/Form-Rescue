@@ -1,0 +1,70 @@
+$ node scripts/validate-release/validate.mjs
+PASS chrome: manifest_version 3
+PASS chrome: permissions exactly activeTab, alarms, scripting, storage
+PASS chrome: no required host permissions
+PASS chrome: optional hosts are http/https only
+PASS chrome: no content_scripts/externally_connectable/web_accessible_resources
+PASS chrome: incognito not_allowed
+PASS chrome: CSP script-src 'self', connect-src 'none', no unsafe-*
+PASS chrome: manifest version matches package.json
+PASS chrome: service worker background
+PASS firefox: manifest_version 3
+PASS firefox: permissions exactly activeTab, alarms, scripting, storage
+PASS firefox: no required host permissions
+PASS firefox: optional hosts are http/https only
+PASS firefox: no content_scripts/externally_connectable/web_accessible_resources
+PASS firefox: incognito not_allowed
+PASS firefox: CSP script-src 'self', connect-src 'none', no unsafe-*
+PASS firefox: manifest version matches package.json
+PASS firefox: event-page background scripts
+PASS firefox: declares no data collection
+PASS firefox: add-on id set
+PASS chrome: bundles free of network APIs, trackers, remote code, secrets, test instrumentation
+PASS firefox: bundles free of network APIs, trackers, remote code, secrets, test instrumentation
+PASS release/SHA256SUMS.txt exists
+PASS checksum matches: form-rescue-0.1.0-chrome.zip
+PASS checksum matches: form-rescue-0.1.0-firefox.zip
+PASS checksum matches: form-rescue-0.1.0-source.zip
+PASS checksum matches: sbom.cdx.json
+PASS checksum matches: third-party-licenses.json
+PASS chrome ZIP: manifest at root with version 0.1.0
+PASS chrome ZIP: icons 16/32/48/128
+PASS chrome ZIP: background, content script, popup and pages
+PASS chrome ZIP: no dev host grants, source maps, profiles or secrets
+PASS firefox ZIP: manifest at root with version 0.1.0
+PASS firefox ZIP: icons 16/32/48/128
+PASS firefox ZIP: background, content script, popup and pages
+PASS firefox ZIP: no dev host grants, source maps, profiles or secrets
+PASS release/sbom.cdx.json present
+PASS release/third-party-licenses.json present
+PASS release/form-rescue-0.1.0-source.zip present
+PASS shipped dependency licenses are permissive and inventoried
+PASS docs/third-party-notices.md lists every shipped dependency
+PASS CHANGELOG has an entry for 0.1.0
+PASS website config version matches
+PASS present: README.md
+PASS present: LICENSE
+PASS present: CONTRIBUTING.md
+PASS present: CODE_OF_CONDUCT.md
+PASS present: SECURITY.md
+PASS present: CLAUDE.md
+PASS present: docs/PRD.md
+PASS present: docs/architecture.md
+PASS present: docs/threat-model.md
+PASS present: docs/data-model.md
+PASS present: docs/permissions.md
+PASS present: docs/privacy.md
+PASS present: docs/browser-support.md
+PASS present: docs/testing.md
+PASS present: docs/release.md
+FAIL present: docs/implementation-status.md
+PASS present: docs/third-party-notices.md
+PASS present: .github/workflows/ci.yml
+PASS present: .github/workflows/release.yml
+PASS present: .github/PULL_REQUEST_TEMPLATE.md
+PASS present: .github/ISSUE_TEMPLATE/bug.yml
+PASS website built
+PASS website has no placeholder domains or remote scripts
+
+65/66 checks passed.
+[ELIFECYCLE] Command failed with exit code 1.

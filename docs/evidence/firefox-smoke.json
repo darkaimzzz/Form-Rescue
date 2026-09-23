@@ -1,0 +1,67 @@
+{
+  "browser": "firefox 156.0.1",
+  "os": "win32",
+  "ranAt": "2026-09-23T20:29:25.325Z",
+  "results": [
+    {
+      "name": "temporary add-on installs",
+      "ok": true,
+      "detail": "{6840dc1a-5f46-48d7-a8a0-e00d34c14f5c}"
+    },
+    {
+      "name": "extension page can see the fixture tab",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "name": "enable flow reaches Protection on",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "content script registered for the site",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "save acknowledged after durable commit",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "field empty after reload",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "page untouched before confirmation",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "restore reports success",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "restored exact text",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "sensitive login form never stored",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "draft stored in extension IndexedDB",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "delete all verifies empty library",
+      "ok": true,
+      "detail": "{\"ok\":true,\"remaining\":0}"
+    }
+  ]
+}

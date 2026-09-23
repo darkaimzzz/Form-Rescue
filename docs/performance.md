@@ -11,10 +11,10 @@ Budgets from PRD §13, measured locally. These are lab measurements on one machi
 
 | Metric                                                          | Budget          | Chromium 153                      | Edge 153 |
 | --------------------------------------------------------------- | --------------- | --------------------------------- | -------- |
-| Content handler p95                                             | < 5 ms          | 0.6 ms                            | 0.6 ms   |
-| Content handler max                                             | no task > 50 ms | 31–34 ms (first edit of the form) | 38.5 ms  |
+| Content handler p95                                             | < 5 ms          | 0.6–0.7 ms                        | 0.6 ms   |
+| Content handler max                                             | no task > 50 ms | 31–41 ms (first edit of the form) | 38–39 ms |
 | Long tasks > 50 ms while typing                                 | 0               | 0                                 | 0        |
-| Settled edit → committed ack p95 (300 ms debounce + round trip) | < 1000 ms       | ~328 ms                           | ~328 ms  |
+| Settled edit → committed ack p95 (300 ms debounce + round trip) | < 1000 ms       | 325–328 ms                        | ~330 ms  |
 | Commits while idle (5 s)                                        | 0               | 0                                 | 0        |
 
 The first edit on a form is the most expensive: it computes the form descriptor and the whole-form sensitivity scan once (cached until DOM mutations).

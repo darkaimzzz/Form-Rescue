@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-09-23T20:31:19.977Z",
+  "node": "v26.5.1",
+  "files": [
+    {
+      "file": "form-rescue-0.1.0-chrome.zip",
+      "first": "19747f5f4ca0e938d8d5959be9ac7bc25ef8e5da4741d38d5bb92850a9b5fe25",
+      "second": "19747f5f4ca0e938d8d5959be9ac7bc25ef8e5da4741d38d5bb92850a9b5fe25",
+      "identical": true
+    },
+    {
+      "file": "form-rescue-0.1.0-firefox.zip",
+      "first": "b8dfe54b1b33b204d4cfcd2e8251f44548a72e26c47241ce8d3d5039ac64bf0c",
+      "second": "b8dfe54b1b33b204d4cfcd2e8251f44548a72e26c47241ce8d3d5039ac64bf0c",
+      "identical": true
+    }
+  ]
+}

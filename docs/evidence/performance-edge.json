@@ -1,0 +1,19 @@
+{
+  "measuredAt": "2026-09-23T20:30:32.844Z",
+  "browser": "chromium 153.0.4234.48",
+  "machine": {
+    "platform": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 5 210H",
+    "cores": 12,
+    "memoryGiB": 16
+  },
+  "fixture": "tests/fixtures/pages/perf.html (200 controls)",
+  "handlerSamples": 609,
+  "handlerP95Ms": 0.6,
+  "handlerMaxMs": 39.1,
+  "commitSamples": 40,
+  "commitRoundTripP95Ms": 29.7,
+  "settledEditToAckP95Ms": 329.7,
+  "longTasksOver50Ms": 0,
+  "idleCommitsDuring5s": 0
+}

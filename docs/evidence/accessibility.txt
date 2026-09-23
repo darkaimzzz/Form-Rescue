@@ -1,0 +1,26 @@
+02:00:36 [build] ✓ Completed in 88ms.
+02:00:36 [vite] ✓ built in 313ms
+02:00:36 [vite] ✓ built in 27ms
+02:00:36 ✓ Completed in 55ms.
+02:00:36 [build] ✓ Completed in 433ms.
+  ✓   1 [a11y] › tests\accessibility\extension.spec.ts:21:1 › extension pages pass axe in every main state, reflow at 320 px, and support keyboard use (9.0s)
+  ✓   2 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: / (1.7s)
+  ✓   3 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /demo/ (1.4s)
+  ✓   4 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /privacy/ (1.4s)
+  ✓   5 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /try/ (1.3s)
+  ✓   6 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /docs/ (1.5s)
+  ✓   7 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /docs/getting-started/ (1.5s)
+  ✓   8 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /docs/recovery/ (1.4s)
+  ✓   9 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /docs/privacy-and-storage/ (1.5s)
+  ✓  10 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /docs/permissions/ (1.3s)
+  ✓  11 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /docs/browser-support/ (1.5s)
+  ✓  12 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /docs/troubleshooting/ (1.4s)
+  ✓  13 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /docs/contributing/ (1.4s)
+  ✓  14 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /changelog/ (1.3s)
+  ✓  15 [a11y] › tests\accessibility\website.spec.ts:37:3 › axe + reflow + no external requests: /404.html (1.3s)
+  ✓  16 [a11y] › tests\accessibility\website.spec.ts:62:1 › demo simulation: every state passes axe and works by keyboard; nothing persists (1.8s)
+  ✓  17 [a11y] › tests\accessibility\website.spec.ts:84:1 › mobile menu: keyboard opens, Escape closes and returns focus (857ms)
+  ✓  18 [a11y] › tests\accessibility\website.spec.ts:98:1 › prelaunch CTAs are honest: developer build link resolves, no store links (244ms)
+  ✓  19 [a11y] › tests\accessibility\website.spec.ts:107:1 › internal links resolve (926ms)
+  ✓  20 [a11y] › tests\accessibility\website.spec.ts:130:1 › reduced motion and forced colors render without violations (851ms)
+  20 passed (35.7s)

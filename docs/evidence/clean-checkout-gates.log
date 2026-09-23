@@ -1,0 +1,17 @@
+=== install: PASS
+=== format: PASS
+=== build: PASS
+=== lint: PASS
+=== typecheck: PASS
+=== unit: PASS
+=== integration: PASS
+=== e2e-chromium: PASS
+=== e2e-edge: PASS
+=== firefox: PASS
+=== performance: PASS
+=== performance-edge: PASS
+=== a11y: PASS
+=== package: PASS
+=== validate: FAIL
+=== reproducible: PASS
+DONE
