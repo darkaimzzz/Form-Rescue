@@ -1,4 +1,9 @@
+import { existsSync } from "node:fs";
 import { defineConfig } from "@playwright/test";
+
+// The built website is only served when it exists (pnpm test:a11y builds it first);
+// extension-only runs such as test:e2e:chrome don't need it.
+const websiteBuilt = existsSync("apps/website/dist/index.html");
 
 export default defineConfig({
   timeout: 60_000,
@@ -12,12 +17,16 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
       timeout: 120_000,
     },
-    {
-      // Built website (pnpm build); used by tests/accessibility/website.spec.ts.
-      command: "node scripts/serve-static.mjs apps/website/dist 4321",
-      url: "http://127.0.0.1:4321/robots.txt",
-      reuseExistingServer: !process.env.CI,
-    },
+    ...(websiteBuilt
+      ? [
+          {
+            // Built website; used by tests/accessibility/website.spec.ts.
+            command: "node scripts/serve-static.mjs apps/website/dist 4321",
+            url: "http://127.0.0.1:4321/robots.txt",
+            reuseExistingServer: !process.env.CI,
+          },
+        ]
+      : []),
   ],
   projects: [
     { name: "e2e", testDir: "tests/e2e", testIgnore: /performance/ },
