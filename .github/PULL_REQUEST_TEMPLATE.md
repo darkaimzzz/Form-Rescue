@@ -4,13 +4,13 @@
 
 ## Privacy impact
 
-- [ ] No new data read, stored, logged or transmitted — or explained below
+- [ ] No new data read, stored, logged or transmitted, or explained below
 - [ ] Eligibility still decided from metadata before any value is read
 - [ ] Draft values still rendered as text only
 
 ## Permission changes
 
-- [ ] None — or ADR added and `docs/permissions.md`, website docs and store disclosures updated
+- [ ] None, or ADR added and `docs/permissions.md`, website docs and store disclosures updated
 
 ## Tests
 

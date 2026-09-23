@@ -4,7 +4,7 @@ title: Getting started
 description: Install the Form Rescue developer build in Chrome, Edge or Firefox and protect your first site.
 ---
 
-Form Rescue isn't distributed through the browser stores. You install the developer build yourself — it takes about a minute.
+Form Rescue isn't distributed through the browser stores. You install the developer build yourself, it takes about a minute.
 
 ## Three steps
 

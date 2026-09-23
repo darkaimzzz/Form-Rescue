@@ -14,7 +14,7 @@ Target: WCAG 2.2 AA for extension UI and website. Automated checks are necessary
 
 ## Design measures
 
-44×44 px targets; visible 3 px focus outline; saved/current values labelled in text, not colour; restrained live regions (popup status, restore result, demo steps) — nothing announces per keystroke; native `<dialog>` for focus containment; skip link and landmarks on the website; one `h1` per page; centralized strings with ICU-style plurals.
+44×44 px targets; visible 3 px focus outline; saved/current values labelled in text, not colour; restrained live regions (popup status, restore result, demo steps), nothing announces per keystroke; native `<dialog>` for focus containment; skip link and landmarks on the website; one `h1` per page; centralized strings with ICU-style plurals.
 
 ## Contrast (light tokens)
 

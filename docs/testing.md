@@ -24,7 +24,7 @@ The E2E build also compiles in User Timing marks (`fr-handler`, `fr-commit`) for
 
 ### Crash harness
 
-`durability.spec.ts` installs and cleanly closes the profile once, relaunches, saves, then hard-kills every browser process for that profile (`Stop-Process -Force` / `pkill -9`) and relaunches. A kill seconds after a _first-ever_ install loses Chrome's install record and Chrome then garbage-collects that extension's storage — a harness artifact unrelated to real users, which is why the clean install step exists. The test asserts that the acknowledged commit survives; it makes no claim about text typed after the last acknowledgement.
+`durability.spec.ts` installs and cleanly closes the profile once, relaunches, saves, then hard-kills every browser process for that profile (`Stop-Process -Force` / `pkill -9`) and relaunches. A kill seconds after a _first-ever_ install loses Chrome's install record and Chrome then garbage-collects that extension's storage, a harness artifact unrelated to real users, which is why the clean install step exists. The test asserts that the acknowledged commit survives; it makes no claim about text typed after the last acknowledgement.
 
 ## Evidence matrix
 

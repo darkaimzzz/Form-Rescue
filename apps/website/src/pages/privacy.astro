@@ -2,11 +2,11 @@
 import Base from "../layouts/Base.astro";
 ---
 
-<Base title="Privacy" description="How Form Rescue handles your drafts: local storage in your browser profile, no accounts, no uploads, no telemetry — and the honest limits.">
+<Base title="Privacy" description="How Form Rescue handles your drafts: local storage in your browser profile, no accounts, no uploads, no telemetry, and the limits.">
   <article class="section">
     <div class="wrap reading prose">
       <h1>Privacy</h1>
-      <p class="lead">Your drafts stay in this browser profile. This page explains exactly what that means, including the limits.</p>
+      <p class="lead">Your drafts stay in this browser profile. Here is what that means, including the limits.</p>
 
       <h2 id="extension">The extension</h2>
       <ul>
@@ -22,7 +22,7 @@ import Base from "../layouts/Base.astro";
         Before reading any value, Form Rescue checks a field's type, autocomplete hints, name, id and labels. Password, one-time-code, payment, bank, identity and medical-record fields are never saved, and neither is any form that contains them. Email, phone, URL, number, date and similar inputs are excluded, and so is anything marked <code>autocomplete="off"</code> or <code>data-form-rescue="off"</code>.
       </p>
       <p>
-        Values that pass those checks are screened for obvious secrets — private keys, access tokens, card and identity numbers — and dropped if they match. <strong>These are heuristics.</strong> If you type something private into an ordinary message box, it can still be saved. For sites where you write highly sensitive text, leave protection off or exclude the field.
+        Values that pass those checks are screened for obvious secrets (private keys, access tokens, card and identity numbers) and dropped if they match. <strong>These are heuristics.</strong> If you type something private into an ordinary message box, it can still be saved. For sites where you write highly sensitive text, leave protection off or exclude the field.
       </p>
 
       <h2 id="storage">What is stored</h2>
@@ -52,7 +52,7 @@ import Base from "../layouts/Base.astro";
       <p>Links to browser stores, GitHub and other sites take you to those services, which have their own privacy practices.</p>
 
       <h2 id="diagnostics">Diagnostics</h2>
-      <p>Settings can show a diagnostic summary with the extension version, browser, schema version, counts and error codes — no sites, addresses, labels or draft text. You see the exact text before copying it, and it goes nowhere unless you paste it into an issue yourself.</p>
+      <p>Settings can show a diagnostic summary with the extension version, browser, schema version, counts and error codes. It has no sites, addresses, labels or draft text. You see the exact text before copying it, and it goes nowhere unless you paste it into an issue yourself.</p>
     </div>
   </article>
 </Base>

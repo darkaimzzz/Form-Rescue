@@ -8,7 +8,7 @@ versions map to browser manifest versions.
 
 Nothing yet.
 
-## [0.1.0] — alpha (not yet published to any store)
+## [0.1.0] (alpha, distributed as a developer build)
 
 First public alpha of the extension, website and documentation.
 

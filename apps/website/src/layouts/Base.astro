@@ -9,7 +9,7 @@ interface Props {
   description: string;
 }
 const { title, description } = Astro.props;
-const fullTitle = title === "Form Rescue" ? "Form Rescue — Get your words back" : `${title} — Form Rescue`;
+const fullTitle = title === "Form Rescue" ? "Form Rescue: Get your words back" : `${title} | Form Rescue`;
 const canonical = config.siteOrigin ? new URL(Astro.url.pathname, config.siteOrigin).toString() : null;
 const ogImage = config.siteOrigin ? `${config.siteOrigin}/social-preview.png` : "/social-preview.png";
 const nav = [
@@ -83,7 +83,7 @@ const year = new Date().getFullYear();
       <div class="wrap footer-grid">
         <div>
           <a href="/" class="brand"><Mark size={26} /><span>Form Rescue</span></a>
-          <p class="small muted">A quiet safety net for your words. Local to your browser. Open source under the MIT License.</p>
+          <p class="small muted">Form draft recovery for your browser. Local only, open source under the MIT License.</p>
           <p class="small muted">Version {config.version} · {config.status}</p>
         </div>
         <nav aria-label="Footer">

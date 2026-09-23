@@ -1,13 +1,13 @@
-# CLAUDE.md — working on Form Rescue
+# CLAUDE.md: working on Form Rescue
 
 Spec: `docs/PRD.md`. Status and evidence: `docs/implementation-status.md` (keep it current).
 
 ## Architecture (short)
 
-- `packages/core` — pure TS: `classifyField` (metadata-only eligibility), `looksSensitiveValue`, zod schemas + `LIMITS`, `fieldIdentity`/`formKey`/`routeHash` (HMAC via injected hasher), `matchFields`, retention.
-- `packages/storage` — IndexedDB (`idb`): `commitEdit` (one strict-durability transaction), epochs, deletion, field rules, pruning.
-- `apps/extension/src/background` — message routing, `classifySender` authorization, capabilities (per tab/document), script registration, recovery plans.
-- `apps/extension/src/content` — isolated-world capture (trusted `input`/`change` only), debounce 300 ms / max 1 s, apply + verify + undo.
+- `packages/core`: pure TypeScript, including `classifyField` (metadata-only eligibility), `looksSensitiveValue`, zod schemas + `LIMITS`, `fieldIdentity`/`formKey`/`routeHash` (HMAC via injected hasher), `matchFields`, retention.
+- `packages/storage`: IndexedDB (`idb`): `commitEdit` (one strict-durability transaction), epochs, deletion, field rules, pruning.
+- `apps/extension/src/background`: message routing, `classifySender` authorization, capabilities (per tab/document), script registration, recovery plans.
+- `apps/extension/src/content`: isolated-world capture (trusted `input`/`change` only), debounce 300 ms / max 1 s, apply + verify + undo.
 - UI: React pages; strings in `src/ui/strings.ts`.
 - Website: Astro in `apps/website`; config/links in `src/config.ts`.
 
@@ -27,4 +27,4 @@ Spec: `docs/PRD.md`. Status and evidence: `docs/implementation-status.md` (keep 
 
 ## Verification protocol
 
-Before claiming something works: run the relevant tests and read the output. Use `pressSequentially`/keyboard in E2E (Playwright `fill`/`selectOption` are untrusted and ignored by design). Record browser versions actually used. Never mark untested browsers or unpublished listings as done. Tool input may turn `‮`-style escapes into literal characters — build such strings with `String.fromCharCode` in tests.
+Before claiming something works: run the relevant tests and read the output. Use `pressSequentially`/keyboard in E2E (Playwright `fill`/`selectOption` are untrusted and ignored by design). Record browser versions actually used. Never mark untested browsers or unpublished listings as done. Tool input may turn Unicode escapes for bidi control characters (such as U+202E) into literal characters, so build such strings with `String.fromCharCode` in tests.

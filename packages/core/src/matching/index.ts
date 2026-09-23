@@ -3,7 +3,7 @@ import type { StoredField } from "../schemas/stored.js";
 
 /**
  * Deterministic, conservative field matching (PRD §8.2). Anything short of a
- * clear, unique, one-to-one match becomes manual copy — never a guess.
+ * clear, unique, one-to-one match becomes manual copy, never a guess.
  */
 
 export const SCORE = { id: 60, name: 50, label: 25, group: 20, ordinal: 5 } as const;

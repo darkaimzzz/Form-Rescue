@@ -86,7 +86,7 @@ test("SPA route changes create separate scopes; a stale plan is blocked after na
   await expect(page.locator("#body")).toHaveValue("");
 });
 
-test("session expiry: sign in again, return, recover only the prose — credentials never stored", async ({ context, sw, extId }) => {
+test("session expiry: sign in again, return, recover only the prose; credentials never stored", async ({ context, sw, extId }) => {
   const page = await context.newPage();
   await page.goto(`${A}/session/form`); // redirected to login first
   await page.locator("#u").fill("synthetic-user");

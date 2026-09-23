@@ -34,9 +34,9 @@ import { config } from "../config";
   <section class="section" id="demo" aria-labelledby="demo-heading">
     <div class="wrap">
       <div class="center">
-        <p class="eyebrow">See it work</p>
-        <h2 id="demo-heading">A refresh doesn't have to cost you a paragraph.</h2>
-        <p class="lead">Write, get interrupted, review what was saved, and choose what to put back. Nothing is restored until you say so.</p>
+        <p class="eyebrow">Demo</p>
+        <h2 id="demo-heading">How recovery works</h2>
+        <p class="lead">Type on a site you enabled, lose the page, then choose which saved fields to put back. Nothing is restored until you confirm.</p>
       </div>
       <div class="demo-wrap">
         <Demo id="home-demo" />
@@ -46,7 +46,7 @@ import { config } from "../config";
 
   <section class="section" aria-labelledby="steps-heading">
     <div class="wrap">
-      <h2 id="steps-heading" class="center">Three steps. No account.</h2>
+      <h2 id="steps-heading" class="center">Getting started</h2>
       <ol class="steps grid-3">
         <li class="card">
           <img src="/images/popup-enable.jpg" width="760" height="640" loading="lazy" alt="The Form Rescue popup on a synthetic support site, showing Not enabled and the button Enable protection for this site." />
@@ -69,15 +69,15 @@ import { config } from "../config";
 
   <section class="section" id="features" aria-labelledby="features-heading">
     <div class="wrap">
-      <h2 id="features-heading">Built for the moment a page lets you down.</h2>
+      <h2 id="features-heading">Features</h2>
       <div class="features">
         <article class="feature">
           <h3>Recovery after interruptions</h3>
-          <p class="muted">Refreshes, back and forward navigation, closed tabs, browser restarts, crashes after a save, and sign-ins that expired mid-sentence. Sign in again, return to the form, and restore your text — Form Rescue never touches login details.</p>
+          <p class="muted">Refreshes, back and forward navigation, closed tabs, browser restarts, crashes after a save, and expired sign-ins. Sign in again, go back to the form, and restore your text. Form Rescue never saves login details.</p>
         </article>
         <article class="feature">
           <h3>You choose what to restore</h3>
-          <p class="muted">Saved and current values sit side by side in a page the website can't see. Empty fields can be filled in one click; anything already on the page needs an explicit “Replace”. If a field can't be matched with confidence, you get a copy button instead of a guess — and an undo button after restoring.</p>
+          <p class="muted">Saved and current values are shown side by side on a page the website can't see. Empty fields can be filled in one click; anything already on the page needs an explicit “Replace”. If a field can't be matched with confidence, you get a copy button instead of a guess, and you can undo a restore.</p>
         </article>
         <article class="feature">
           <h3>A local draft history</h3>
@@ -96,12 +96,12 @@ import { config } from "../config";
       <div>
         <p class="eyebrow">Privacy</p>
         <h2 id="privacy-heading">Your drafts stay in this browser profile.</h2>
-        <p class="lead">No account. No uploads. No telemetry. Passwords, one-time codes and payment fields are excluded, drafts expire, and deleting them is one click.</p>
+        <p class="lead">There's no account, nothing is uploaded, and there's no telemetry. Passwords, one-time codes and payment fields are skipped, drafts expire after 7 days by default, and you can delete them at any time.</p>
         <p><a href="/privacy/">Read the privacy details and limits</a></p>
       </div>
       <ul class="facts">
         <li><strong>Local only.</strong> Drafts live in extension storage that websites can't read. The extension makes no network requests.</li>
-        <li><strong>Sensitive fields skipped.</strong> Credential, payment and identity fields — and whole forms containing them — are never saved.</li>
+        <li><strong>Sensitive fields skipped.</strong> Credential, payment and identity fields, and whole forms that contain them, are never saved.</li>
         <li><strong>Honest limits.</strong> Storage isn't encrypted by Form Rescue, and private text typed into an ordinary message box can still be saved.</li>
         <li><strong>Expiry and deletion.</strong> 7-day default expiry; delete a draft, a site, or everything at any time.</li>
       </ul>
@@ -110,7 +110,7 @@ import { config } from "../config";
 
   <section class="section" aria-labelledby="compat-heading">
     <div class="wrap">
-      <h2 id="compat-heading">Where it works — and where it doesn't.</h2>
+      <h2 id="compat-heading">Browser support and limits</h2>
       <div class="grid-2">
         <div class="card">
           <h3>Tested browsers</h3>
@@ -134,9 +134,8 @@ import { config } from "../config";
   <section class="section" aria-labelledby="oss-heading">
     <div class="wrap grid-2">
       <div>
-        <p class="eyebrow">Open source</p>
-        <h2 id="oss-heading">Read every line that touches your words.</h2>
-        <p class="lead">Form Rescue is MIT-licensed. Tests run against synthetic pages only, so contributors never need real drafts.</p>
+                <h2 id="oss-heading">Open source</h2>
+        <p class="lead">Form Rescue is MIT-licensed. The tests use synthetic pages only, so you never need real drafts to contribute.</p>
         <div class="btn-row">
           {config.repoUrl ? <a class="btn" href={config.repoUrl}>View the source</a> : <span class="small muted">The public repository link will appear here once it is published.</span>}
           <a class="btn" href="/docs/contributing/">Contributing guide</a>
@@ -165,8 +164,8 @@ pnpm test:e2e:chrome</code></pre>
 
   <section class="section closing center" aria-labelledby="closing-heading">
     <div class="wrap">
-      <h2 id="closing-heading">Keep writing. We'll keep a copy.</h2>
-      <p class="lead">Protect the sites where losing a draft would hurt.</p>
+      <h2 id="closing-heading">Try it</h2>
+      <p class="lead">Install the developer build and turn it on for the sites where you write long text.</p>
       <InstallCta>
         <a class="btn" href="/docs/">Read the docs</a>
       </InstallCta>

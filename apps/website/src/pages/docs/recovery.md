@@ -16,7 +16,7 @@ The review page belongs to the extension; the website can't see it.
 
 1. **Choose one draft.** If you worked on the same form in two tabs, each tab has its own draft. They're never merged.
 2. **Compare.** Each saved field is shown next to what's on the page now.
-3. **Select.** Empty fields with a confident match start selected. Fields that already contain something — and every dropdown, checkbox and radio group — start unselected. For a field that has content, the option reads **Replace what's on the page**.
+3. **Select.** Empty fields with a confident match start selected. Fields that already contain something, and every dropdown, checkbox and radio group, start unselected. For a field that has content, the option reads **Replace what's on the page**.
 4. **Restore selected fields.** Restoring makes these values available to the website.
 
 Form Rescue then reports how many fields were restored, skipped, conflicted, unsupported or failed.
@@ -31,7 +31,7 @@ Just before restoring, Form Rescue checks again that the page is the same one yo
 
 ## Copy-only fields
 
-If a saved field can't be matched to exactly one field on the page with confidence — for example, two identical answer boxes, a changed list of options, or a redesigned form — Form Rescue won't guess. It shows the saved value with a **Copy** button.
+If a saved field can't be matched to exactly one field on the page with confidence (for example two identical answer boxes, a changed list of options, or a redesigned form), Form Rescue won't guess. It shows the saved value with a **Copy** button.
 
 ## Undo
 
@@ -39,7 +39,7 @@ After restoring, **Undo this restore** puts back what was in each field before, 
 
 ## After an expired sign-in
 
-Form Rescue never saves or restores sign-in details. Sign in the usual way, go back to the form, and use **Review drafts**. If you use more than one account on the site, check you're signed in to the right one — Form Rescue can't tell accounts apart.
+Form Rescue never saves or restores sign-in details. Sign in the usual way, go back to the form, and use **Review drafts**. If you use more than one account on the site, check you're signed in to the right one, Form Rescue can't tell accounts apart.
 
 ## After submitting
 

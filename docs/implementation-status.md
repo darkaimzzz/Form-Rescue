@@ -41,7 +41,7 @@ Last updated: 2026-09-24. Overall: **complete as a casual open-source project.**
 ## Known limitations and deliberate deferrals
 
 - No in-page "Saved draft available" chip (optional in the PRD); the toolbar badge shows a count.
-- `contenteditable`, frames, localization beyond English, encrypted export — P1.
+- `contenteditable`, frames, localization beyond English, encrypted export (all P1).
 - Content scripts don't observe attribute changes inside shadow roots attached after start; eligibility is still rechecked at every capture and before every restore.
 - Firefox smoke is narrower than the Chromium suite (12 checks). Firefox temporary installs lose storage on restart.
 - `web-ext lint`: 0 errors, 4 warnings from bundled zod (unused `Function` probe; jitless mode is set) and React DOM (`innerHTML` internals our code never feeds).
@@ -54,4 +54,4 @@ Last updated: 2026-09-24. Overall: **complete as a casual open-source project.**
 3. **Screen reader** passes: NVDA on Windows, VoiceOver on macOS.
 4. Test **previous major versions** and macOS/Linux, or keep minimums at 153/156.
 5. Store accounts and credentials (not needed for the current developer-build distribution). Copyright holder, repository, website, maintainers and reporting routes are set.
-6. Recorded usability check (new user completes the demo in under two minutes) — not done.
+6. Recorded usability check (new user completes the demo in under two minutes): not done.

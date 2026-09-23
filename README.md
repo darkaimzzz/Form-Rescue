@@ -19,7 +19,7 @@
   <sub>Website: <a href="https://form-rescue.vercel.app">form-rescue.vercel.app</a> · <a href="assets/recordings/recovery.webm">Watch the 30-second recording</a> (real extension, synthetic test page, <a href="assets/recordings/recovery.vtt">captions</a>).</sub>
 </p>
 
-Long answers, support requests and applications get lost when a page refreshes, navigates, signs you out or fails. Form Rescue is a small safety net: turn it on for a site, write as usual, and if the page lets you down, review what was saved and restore the fields you pick. Drafts stay in your browser profile — no account, no server, no telemetry.
+Long answers, support requests and applications get lost when a page refreshes, navigates, signs you out or fails. Form Rescue is a small safety net: turn it on for a site, write as usual, and if the page lets you down, review what was saved and restore the fields you pick. Drafts stay in your browser profile, no account, no server, no telemetry.
 
 **Maturity: alpha.** Everything below is implemented and tested on synthetic pages; it is distributed as a developer build, not through browser stores. See [docs/implementation-status.md](docs/implementation-status.md).
 
@@ -30,7 +30,7 @@ Long answers, support requests and applications get lost when a page refreshes, 
 ## Features
 
 - **Opt-in per site.** Access is requested for one scheme + host, only when you click _Enable protection for this site_.
-- **Saves what you edit** in text areas, text inputs, non-sensitive dropdowns, checkboxes and radio groups — including forms added after load, common React/Vue forms, open shadow DOM and fields outside `<form>`. Search boxes only if you opt them in.
+- **Saves what you edit** in text areas, text inputs, non-sensitive dropdowns, checkboxes and radio groups, including forms added after load, common React/Vue forms, open shadow DOM and fields outside `<form>`. Search boxes only if you opt them in.
 - **Honest save status.** "Saved locally at …" appears only after the database transaction commits.
 - **Review before restoring.** An extension-owned page shows saved and current values side by side. Nothing is restored automatically; existing text is only replaced when you choose _Replace_.
 - **Conservative matching.** If a field can't be matched with confidence, you get a _Copy_ button, not a guess. Conflicts are detected at restore time, and _Undo this restore_ is available.
@@ -41,7 +41,7 @@ Long answers, support requests and applications get lost when a page refreshes, 
 
 - The newest ~1 second of typing can be lost if the browser crashes or the power fails.
 - Not supported: rich-text/`contenteditable` editors, iframes, file uploads, closed shadow roots, private windows, mobile browsers, Safari.
-- Restores field content only — not logins, server state, attachments or submissions.
+- Restores field content only, not logins, server state, attachments or submissions.
 - Local storage isn't a backup: uninstalling, clearing browser data or losing the profile deletes drafts.
 
 ## Getting started
@@ -63,7 +63,7 @@ Firefox temporary add-ons (and their drafts) are removed when Firefox restarts. 
 ## Privacy
 
 - Drafts are stored only in this browser profile (extension IndexedDB). Nothing is transmitted; there are no analytics, crash reports or remote configuration.
-- Sensitive fields — passwords, one-time codes, payment, bank and identity fields, and whole forms containing them — are excluded from metadata before any value is read. Values are also screened for obvious secrets. **These are heuristics:** private prose typed into an ordinary field can still be saved.
+- Sensitive fields (passwords, one-time codes, payment, bank and identity fields, and whole forms containing them) are excluded from metadata before any value is read. Values are also screened for obvious secrets. **These are heuristics:** private prose typed into an ordinary field can still be saved.
 - **No application-level encryption.** Anyone who can use your browser profile can read drafts.
 - Drafts expire (7 days by default) and can be deleted per draft, per site or all at once. Uninstalling deletes everything.
 

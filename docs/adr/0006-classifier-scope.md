@@ -1,4 +1,4 @@
-# ADR 0006 — Classifier scope
+# ADR 0006: Classifier scope
 
 **Status:** accepted, 2026-09-23
 

@@ -1,4 +1,4 @@
-# ADR 0005 — Real-extension testing
+# ADR 0005: Real-extension testing
 
 **Status:** accepted, 2026-09-24
 

@@ -2,7 +2,7 @@
 export const faq: { q: string; a: string }[] = [
   {
     q: "What is saved?",
-    a: "Text you type into ordinary text boxes and text areas, plus choices in non-sensitive dropdowns, checkboxes and radio groups — only fields you actually edited, only on sites you enabled. Form Rescue saves about a second after you pause and keeps the latest three versions of each draft.",
+    a: "Text you type into ordinary text boxes and text areas, plus choices in non-sensitive dropdowns, checkboxes and radio groups, only fields you actually edited, only on sites you enabled. Form Rescue saves about a second after you pause and keeps the latest three versions of each draft.",
   },
   {
     q: "Which sites are protected?",
@@ -42,7 +42,7 @@ export const faq: { q: string; a: string }[] = [
   },
   {
     q: "What if a website changes?",
-    a: "Form Rescue matches fields conservatively. If a form was redesigned or a field can't be identified with confidence, it won't guess — you can still copy the saved text from the review page or the draft library.",
+    a: "Form Rescue matches fields conservatively. If a form was redesigned or a field can't be identified with confidence, it won't guess, you can still copy the saved text from the review page or the draft library.",
   },
   {
     q: "Does it work in private browsing?",

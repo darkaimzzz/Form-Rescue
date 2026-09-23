@@ -8,9 +8,9 @@ Database `form-rescue`, schema version 1 (`packages/storage/src/index.ts`). Reco
 | ----------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
 | `drafts`          | `id`     | `origin`, `route [origin, routeHash, formKey]`, `session [origin, documentSessionId, routeHash, formKey]`, `updatedAt`, `expiresAt` | One per document session × route × form                |
 | `revisions`       | `id`     | `draftId`                                                                                                                           | Up to 3 snapshots per draft                            |
-| `sitePolicies`    | `origin` | —                                                                                                                                   | `enabled`, `epoch`, `keepDraftsOnRemoval`              |
+| `sitePolicies`    | `origin` | n/a                                                                                                                                 | `enabled`, `epoch`, `keepDraftsOnRemoval`              |
 | `fieldExclusions` | `id`     | `origin`                                                                                                                            | Opaque field rules: `exclude` or `include-search`      |
-| `metadata`        | `"meta"` | —                                                                                                                                   | `globalEpoch`, `totalBytes`, `retentionDays`, `paused` |
+| `metadata`        | `"meta"` | n/a                                                                                                                                 | `globalEpoch`, `totalBytes`, `retentionDays`, `paused` |
 
 Extension-local storage holds only the HMAC key (`hmacKey`) and install state (`onboarded`).
 

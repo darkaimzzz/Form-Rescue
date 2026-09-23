@@ -226,7 +226,7 @@ if (publish) {
   check("publish input: conduct reporting route configured", !/NOT YET CONFIGURED/.test(coc));
 }
 
-for (const r of results) console.log(`${r.ok ? "PASS" : "FAIL"} ${r.name}${!r.ok && r.detail ? ` — ${r.detail}` : ""}`);
+for (const r of results) console.log(`${r.ok ? "PASS" : "FAIL"} ${r.name}${!r.ok && r.detail ? `: ${r.detail}` : ""}`);
 const failed = results.filter((r) => !r.ok);
 console.log(`\n${results.length - failed.length}/${results.length} checks passed${publish ? " (publication mode)" : ""}.`);
 process.exit(failed.length ? 1 : 0);

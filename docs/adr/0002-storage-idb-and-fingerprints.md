@@ -1,4 +1,4 @@
-# ADR 0002 — IndexedDB, keyed fingerprints, strict durability
+# ADR 0002: IndexedDB, keyed fingerprints, strict durability
 
 **Status:** accepted, 2026-09-23
 

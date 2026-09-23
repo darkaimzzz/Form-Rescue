@@ -88,7 +88,7 @@ const artifacts = [];
 for (const target of ["chrome", "firefox"]) {
   const dir = path.join(root, "apps/extension/dist", target);
   const manifest = JSON.parse(await readFile(path.join(dir, "manifest.json"), "utf8"));
-  if (manifest.host_permissions) throw new Error(`${target}: development host grants present — build without --e2e`);
+  if (manifest.host_permissions) throw new Error(`${target}: development host grants present, build without --e2e`);
   const file = `form-rescue-${version}-${target}.zip`;
   await writeFile(path.join(out, file), zip(await filesUnder(dir)));
   artifacts.push(file);

@@ -4,7 +4,7 @@ title: Contributing
 description: Build Form Rescue from source, run its tests, and contribute safely using synthetic fixtures.
 ---
 
-Form Rescue is open source. Contributions are welcome — code, tests, docs, translations and compatibility reports.
+Form Rescue is open source. Contributions are welcome, code, tests, docs, translations and compatibility reports.
 
 ## Prerequisites
 

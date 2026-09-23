@@ -18,9 +18,9 @@ Form Rescue starts on a page when it loads. Pages that were already open before 
 
 The popup only reports "Saved" after the draft is stored. If it says **Couldn't save**:
 
-- _Storage is full_ — delete old drafts in **All drafts** or **Settings**.
-- _A field is too large_ — values over 64 KiB are skipped, not shortened.
-- _Site access was removed_ — enable the site again.
+- _Storage is full_: delete old drafts in **All drafts** or **Settings**.
+- _A field is too large_: values over 64 KiB are skipped, not shortened.
+- _Site access was removed_: enable the site again.
 
 ## My last sentence is missing
 
@@ -28,7 +28,7 @@ Drafts are stored about a second after you pause. Text typed in the final moment
 
 ## The review says "Copy only"
 
-The field couldn't be matched to exactly one field on the page with confidence — for example, the form changed or has identical fields. Use **Copy** and paste it yourself.
+The field couldn't be matched to exactly one field on the page with confidence, for example, the form changed or has identical fields. Use **Copy** and paste it yourself.
 
 ## "The page changed since you opened this review"
 
@@ -46,7 +46,7 @@ Drafts expire after the retention period (7 days by default). Disabling a site w
 
 Please use the project's GitHub issue forms. **Don't include passwords, real drafts, private URLs, tokens or browser profile exports.** A minimal synthetic HTML page that reproduces the problem is the most useful thing you can share.
 
-**Settings → Diagnostic summary** shows a short text you can paste into an issue. It contains the extension version, browser and version, counts and error codes — no sites, addresses, labels or draft text — and you see all of it before copying.
+**Settings → Diagnostic summary** shows a short text you can paste into an issue. It contains the extension version, browser and version, counts and error codes. It has no sites, addresses, labels or draft text, and you see all of it before copying.
 
 Security problems should be reported privately; see `SECURITY.md` in the repository. Please don't post vulnerability details in public issues.
 

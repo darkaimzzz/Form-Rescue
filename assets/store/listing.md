@@ -8,7 +8,7 @@ Form Rescue
 
 ## Short description (≤132 characters)
 
-Recover form drafts after refreshes, closed tabs and expired sign-ins — on sites you choose, stored only in your browser.
+Recover form drafts after refreshes, closed tabs and expired sign-ins, on sites you choose, stored only in your browser.
 
 ## Detailed description
 
@@ -34,21 +34,21 @@ Store data-type answers (verify wording per store): website content (form text t
 
 ## Permission justifications
 
-- **storage** — keeps the extension's install state and a random local key used to fingerprint page addresses. Drafts themselves are stored in the extension's local database.
-- **scripting** — runs Form Rescue's packaged script only on the sites the user enables, to save and restore form fields.
-- **activeTab** — lets the popup show which site is open when the user clicks the toolbar button.
-- **alarms** — periodically deletes expired drafts.
-- **Optional host access (http/https)** — requested for a single site only when the user enables protection for it; needed to save drafts on that site across page loads.
+- **storage**: keeps the extension's install state and a random local key used to fingerprint page addresses. Drafts themselves are stored in the extension's local database.
+- **scripting**: runs Form Rescue's packaged script only on the sites the user enables, to save and restore form fields.
+- **activeTab**: lets the popup show which site is open when the user clicks the toolbar button.
+- **alarms**: periodically deletes expired drafts.
+- **Optional host access (http/https)**: requested for a single site only when the user enables protection for it; needed to save drafts on that site across page loads.
 
 Single purpose: save and restore form drafts on user-enabled websites.
 
 ## Category suggestion
 
-Productivity (Chrome Web Store, Edge Add-ons); Privacy & Security or Other (addons.mozilla.org — choose per current category list).
+Productivity (Chrome Web Store, Edge Add-ons); Privacy & Security or Other (addons.mozilla.org, choose per current category list).
 
 ## Support link
 
-Repository issues page (URL not yet configured; see docs/release.md).
+https://github.com/darkaimzzz/Form-Rescue/issues
 
 ## Screenshots
 

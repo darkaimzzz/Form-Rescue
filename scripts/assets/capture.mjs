@@ -65,7 +65,7 @@ await stage.setContent(`<!doctype html><html><head><style>
   #chapter{position:absolute;inset:0;background:rgba(247,248,250,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#151a23;transition:opacity .4s}
   #chapter h1{font-size:44px;margin:0;letter-spacing:-.02em} #chapter p{font-size:20px;color:#586170;margin:0}
 </style></head><body>
-  <div class="chrome"><div class="tabs"><div class="tab on" id="t1">Contact support</div><div class="tab" id="t2" hidden>Review drafts — Form Rescue</div></div>
+  <div class="chrome"><div class="tabs"><div class="tab on" id="t1">Contact support</div><div class="tab" id="t2" hidden>Review drafts | Form Rescue</div></div>
   <div class="addr"><span id="url"></span><span class="icon" title="Form Rescue"><span class="badge" id="badge" hidden></span></span></div></div>
   <img id="main" alt=""><img id="popup" alt=""><div id="cap"></div>
   <div id="chapter"><h1>Form Rescue</h1><p>Real extension · synthetic test page · test build</p></div>
@@ -127,7 +127,7 @@ await sleep(1800);
 await stage.evaluate(() => (document.getElementById("chapter").style.opacity = "0"));
 await sleep(1200);
 showPopup = true;
-await say("Enable protection for this site — access to this one site only.");
+await say("Enable protection for this site. It gets access to this one site only.");
 await sleep(1500);
 await popup.getByRole("button", { name: "Enable protection for this site" }).click();
 await popup.getByText("Protection on", { exact: true }).waitFor();
@@ -142,7 +142,7 @@ await say("About a second after a pause, the draft is committed to this browser.
 await popup.getByText(/Saved locally at/).waitFor({ timeout: 10_000 });
 await sleep(2200);
 showPopup = false;
-await say("The page refreshes — and the text is gone.");
+await say("The page refreshes, and the text is gone.");
 await site.reload();
 await setChrome("127.0.0.1:4173/demo.html", false, "1");
 await sleep(2400);

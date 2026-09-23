@@ -24,7 +24,7 @@ Checked from metadata before the value is read:
 - Password, hidden, file and button inputs; disabled, read-only, inert and invisible fields.
 - Email, phone, URL, number, date/time, range and color inputs.
 - `autocomplete` hints for passwords, one-time codes, usernames, payment, contact, address and birthday details.
-- Names, ids and labels that indicate passwords, codes, tokens, API keys, secrets, recovery phrases, card or bank numbers, government IDs (for example SSN, Aadhaar, PAN, passport) or medical records — in several languages.
+- Names, ids and labels that indicate passwords, codes, tokens, API keys, secrets, recovery phrases, card or bank numbers, government IDs (for example SSN, Aadhaar, PAN, passport) or medical records, in several languages.
 - Consent and payment choices in checkboxes and radio groups.
 - Anything with `autocomplete="off"` or `data-form-rescue="off"` on the field, its form, or an ancestor.
 - **Whole forms** that contain a password, one-time-code, payment or identity-secret field.

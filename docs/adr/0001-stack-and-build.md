@@ -1,4 +1,4 @@
-# ADR 0001 — Stack and build
+# ADR 0001: Stack and build
 
 **Status:** accepted, 2026-09-23
 

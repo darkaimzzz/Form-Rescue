@@ -20,7 +20,7 @@ report publication or credentials blockers separately with exact next steps.
 
 ---
 
-# Form Rescue — Product Requirements & Autonomous Build Specification
+# Form Rescue, Product Requirements & Autonomous Build Specification
 
 Version: 1.0 of the specification  
 Prepared: 2026-09-23  
@@ -113,7 +113,7 @@ Choose opt-in sites over blanket protection: less coverage initially, but permis
 2. Explain sensitive-field exclusions, seven-day expiry, and the final-unsaved-changes limitation in plain language.
 3. Offer “Try the demo” and “Enable on a site.” Do not request every host or launch unrelated pages.
 4. On a chosen ordinary page, the popup shows its hostname and “Enable protection for this site.” A direct user click requests only the matching scheme and host.
-5. After permission is granted, register and inject the content script for that site. Display “Protection on — saving starts when you edit a supported field.”
+5. After permission is granted, register and inject the content script for that site. Display “Protection on, saving starts when you edit a supported field.”
 6. Permission denial leaves the site unprotected with an explanation and a retry button; it is not an error loop.
 
 Site consent and browser permission are separate checks. Existing permission alone must never enable a site that the user disabled in Form Rescue.
@@ -547,7 +547,7 @@ Implement a small accessible demo state machine: `ready → writing → interrup
 - Store demo input in component memory only; no cookies, localStorage, IndexedDB, network calls, or analytics. Reloading the actual website clears the demo.
 - “Simulate refresh” clears the visible simulated form but retains an in-memory draft. It does not actually refresh the browser.
 - “Review saved draft” presents the synthetic saved text and a checkbox; “Restore” fills the simulated field.
-- Label it “Interactive simulation — the real extension requires installation and site permission.”
+- Label it “Interactive simulation, the real extension requires installation and site permission.”
 - Provide a keyboard-operable step-through experience and a static transcript/poster for no-JavaScript users and reduced motion.
 - Keep a real-extension demo fixture in the repository and record the actual extension recovering there. The marketing simulation is not evidence that the extension works.
 
@@ -844,7 +844,7 @@ Produce original, synthetic assets from the working implementation:
 
 Keep `docs/implementation-status.md` with requirement IDs, status, evidence paths, known limitations, and next action. Commit logically cohesive changes if working in an initialized repository; do not overwrite unrelated user work. Every milestone includes code, fixtures, tests, and documentation together.
 
-### M0 — Establish repository and feasibility evidence
+### M0, Establish repository and feasibility evidence
 
 Tasks:
 
@@ -857,7 +857,7 @@ Tasks:
 
 Exit: minimal real extension works on a synthetic enabled site, disabled sites remain untouched, and clean builds run. This is a feasibility gate, not a marketing-ready alpha.
 
-### M1 — Safe capture and persistence
+### M1, Safe capture and persistence
 
 Tasks:
 
@@ -867,7 +867,7 @@ Tasks:
 
 Exit: supported edits persist and survive restart; all excluded-field and no-network tests pass; deletion cannot resurrect data.
 
-### M2 — Recovery and core UX
+### M2, Recovery and core UX
 
 Tasks:
 
@@ -877,7 +877,7 @@ Tasks:
 
 Exit: full Chrome recovery matrix passes on fixtures; no automatic overwrite or ambiguous restoration; keyboard flows work.
 
-### M3 — Browser parity and hardening
+### M3, Browser parity and hardening
 
 Tasks:
 
@@ -887,7 +887,7 @@ Tasks:
 
 Exit: browser evidence matrix complete for available environments; untested required environments remain explicit release blockers.
 
-### M4 — Website, docs, and assets
+### M4, Website, docs, and assets
 
 Tasks:
 
@@ -898,7 +898,7 @@ Tasks:
 
 Exit: production website build is polished and usable, no fabricated claims/links, and docs match the extension.
 
-### M5 — Release candidate and handoff
+### M5, Release candidate and handoff
 
 Tasks:
 
@@ -999,10 +999,10 @@ Do not mark the overall goal complete when a required implementation or verifica
 
 The requirements above are product decisions. These official sources inform browser API details; re-check them at implementation and submission time because APIs and store requirements can change.
 
-- [Chrome optional permissions API](https://developer.chrome.com/docs/extensions/reference/api/permissions) — request permissions from a user gesture and handle runtime access changes.
-- [Chrome scripting API](https://developer.chrome.com/docs/extensions/reference/api/scripting) — packaged script injection and dynamic registration.
-- [Chrome extension service-worker lifecycle](https://developer.chrome.com/docs/extensions/develop/concepts/service-workers/lifecycle) — persist authoritative state outside worker globals.
-- [MDN browser extension background configuration](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background) — browser-specific background architecture.
-- [Firefox built-in consent for data collection and transmission](https://extensionworkshop.com/documentation/develop/firefox-builtin-data-consent/) — current Firefox manifest/submission consent requirements.
+- [Chrome optional permissions API](https://developer.chrome.com/docs/extensions/reference/api/permissions): request permissions from a user gesture and handle runtime access changes.
+- [Chrome scripting API](https://developer.chrome.com/docs/extensions/reference/api/scripting): packaged script injection and dynamic registration.
+- [Chrome extension service-worker lifecycle](https://developer.chrome.com/docs/extensions/develop/concepts/service-workers/lifecycle): persist authoritative state outside worker globals.
+- [MDN browser extension background configuration](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background): browser-specific background architecture.
+- [Firefox built-in consent for data collection and transmission](https://extensionworkshop.com/documentation/develop/firefox-builtin-data-consent/): current Firefox manifest/submission consent requirements.
 
 These sources were checked while preparing the specification on 2026-09-23. This document specifies work to build and verify; it is not evidence that Form Rescue has already been implemented or released.

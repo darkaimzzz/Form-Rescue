@@ -1,4 +1,4 @@
-# ADR 0003 — Permissions, origin policy, browser minimums
+# ADR 0003: Permissions, origin policy, browser minimums
 
 **Status:** accepted, 2026-09-24
 

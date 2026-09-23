@@ -59,7 +59,7 @@ export const DEFAULT_META: Metadata = {
 /**
  * Opens (and migrates) the database. A database from a newer, unknown schema
  * version raises VersionError; callers must stop saving and show a repair
- * message — never delete the database as a recovery shortcut.
+ * message, never delete the database as a recovery shortcut.
  */
 export function openDatabase(name = DB_NAME): Promise<Db> {
   return openDB<Schema>(name, DB_VERSION, {

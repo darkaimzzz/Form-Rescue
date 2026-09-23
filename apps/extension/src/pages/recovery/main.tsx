@@ -224,7 +224,7 @@ function Recovery() {
                   <li key={i.fieldKey} className="card stack">
                     <h3 dir="auto">
                       {i.label}
-                      {i.currentLabel ? <span className="muted"> — {i.currentLabel}</span> : null}
+                      {i.currentLabel ? <span className="muted">: {i.currentLabel}</span> : null}
                     </h3>
                     <div className="compare">
                       <div>

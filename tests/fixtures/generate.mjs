@@ -6,7 +6,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 
 const out = new URL("./pages/", import.meta.url);
 const page = (title, bar, body, script = "") =>
-  `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title} — synthetic</title><link rel="stylesheet" href="/fixture.css"></head>
+  `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title} (synthetic)</title><link rel="stylesheet" href="/fixture.css"></head>
 <body><div class="bar">${bar}</div><main>
 ${body}
 </main>${script ? `<script>${script}</script>` : ""}</body></html>
@@ -148,7 +148,7 @@ if (sessionStorage.getItem("prefill")) document.getElementById("summary").value 
 
   "session/login.html": page(
     "Session expired",
-    "Synthetic app — signed out",
+    "Synthetic app: signed out",
     `<h1>Your session expired</h1>
 <form id="signin" method="post" action="/session/login"><label for="u">Username</label><input id="u" name="username" autocomplete="username">
 <label for="p">Password</label><input id="p" name="password" type="password"><button id="signin-btn">Sign in</button></form>`,
@@ -156,7 +156,7 @@ if (sessionStorage.getItem("prefill")) document.getElementById("summary").value 
 
   "session/form.html": page(
     "Application",
-    'Synthetic app — signed in <a href="/session/logout" id="logout">Sign out</a>',
+    'Synthetic app: signed in <a href="/session/logout" id="logout">Sign out</a>',
     `<form id="app"><label for="essay">Why do you want this role?</label><textarea id="essay" name="essay"></textarea></form>`,
   ),
 

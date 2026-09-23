@@ -10,13 +10,13 @@ interface Props {
 }
 const { id = "demo" } = Astro.props;
 const example =
-  "Hi — since this morning the export button keeps spinning after I choose CSV. I tried two browsers and cleared my cache. Could you take a look? Thanks!";
+  "Hi, since this morning the export button keeps spinning after I choose CSV. I tried two browsers and cleared my cache. Could you take a look? Thanks!";
 ---
 
 <section class="demo" data-demo data-state="ready" aria-labelledby={`${id}-title`}>
   <div class="demo-head">
     <h3 id={`${id}-title`}>Try the recovery flow</h3>
-    <p class="label">Interactive simulation — the real extension requires installation and site permission.</p>
+    <p class="label">Interactive simulation. The real extension needs to be installed and allowed on the site.</p>
   </div>
 
   <div class="window" aria-hidden="false">
@@ -27,7 +27,7 @@ const example =
     <div class="window-body">
       <div class="page">
         <p class="page-title">Contact support</p>
-        <label for={`${id}-message`}>Your message <span class="muted small">(example text — please don't enter private information)</span></label>
+        <label for={`${id}-message`}>Your message <span class="muted small">(example text, please don't enter private information)</span></label>
         <textarea id={`${id}-message`} rows="6" data-message>{example}</textarea>
         <p class="refreshed" data-refreshed hidden>The page refreshed and the form is empty.</p>
       </div>

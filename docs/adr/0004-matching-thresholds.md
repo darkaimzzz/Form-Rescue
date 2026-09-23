@@ -1,4 +1,4 @@
-# ADR 0004 — Matching baseline and field identity
+# ADR 0004: Matching baseline and field identity
 
 **Status:** accepted, 2026-09-23
 
@@ -8,4 +8,4 @@ Field keys (used for merging and exclusion rules) combine kind, form key, id and
 
 Form descriptors are computed once per document, so later DOM changes can't change a draft's identity mid-session.
 
-**Consequences.** A textarea whose only identity is a name echoed by its label scores 75 and becomes copy-only — intentional conservatism. Changing thresholds requires a new ADR and more adversarial fixtures.
+**Consequences.** A textarea whose only identity is a name echoed by its label scores 75 and becomes copy-only. That is intentional. Changing thresholds requires a new ADR and more adversarial fixtures.
