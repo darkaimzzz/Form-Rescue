@@ -1,0 +1,73 @@
+---
+/**
+ * Install call to action. Shows store buttons only for verified store URLs.
+ * Before publication it links to real developer-install docs and says the
+ * store release is pending. Browser detection only suggests; every option
+ * stays visible and selectable.
+ */
+import { browserNames, config, type Browser } from "../config";
+
+interface Props {
+  size?: "large" | "small";
+}
+const { size = "large" } = Astro.props;
+const live = (Object.entries(config.stores) as [Browser, string | null][]).filter(([, url]) => url !== null) as [Browser, string][];
+---
+
+<div class:list={["install", size]} data-install>
+  {
+    live.length > 0 ? (
+      <div class="btn-row">
+        {live.map(([b, url], i) => (
+          <a class:list={["btn", i === 0 && "btn-primary"]} href={url} data-browser={b} rel="noopener">
+            Install for {browserNames[b]}
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/docs/getting-started/#developer-build">
+          Load the developer build
+        </a>
+        {size === "large" && <slot />}
+      </div>
+    )
+  }
+  {
+    size === "large" && live.length === 0 && (
+      <p class="small muted note">
+        Store release pending. Form Rescue is in alpha; the developer build runs in desktop Chrome, Edge and Firefox.
+      </p>
+    )
+  }
+  <p class="small muted mobile-note" hidden>
+    Form Rescue is a desktop browser extension. Open this page on a desktop computer to install it.
+  </p>
+</div>
+
+<script>
+  // Suggest, never block: reorder live store buttons for the detected desktop browser and flag mobile.
+  const ua = navigator.userAgent;
+  const mobile = /Android|iPhone|iPad|Mobile/i.test(ua);
+  const detected = /Edg\//.test(ua) ? "edge" : /Firefox\//.test(ua) ? "firefox" : /Chrome\//.test(ua) ? "chrome" : null;
+  for (const root of document.querySelectorAll<HTMLElement>("[data-install]")) {
+    if (mobile) root.querySelector<HTMLElement>(".mobile-note")?.removeAttribute("hidden");
+    const match = root.querySelector<HTMLAnchorElement>(`[data-browser="${detected}"]`);
+    if (match && match.parentElement) {
+      root.querySelectorAll("[data-browser]").forEach((a) => a.classList.remove("btn-primary"));
+      match.classList.add("btn-primary");
+      match.parentElement.prepend(match);
+    }
+  }
+</script>
+
+<style>
+  .note {
+    margin-top: var(--fr-space-3);
+  }
+  .small .btn {
+    min-height: 44px;
+    padding: 0 var(--fr-space-4);
+    font-size: 0.95rem;
+  }
+</style>

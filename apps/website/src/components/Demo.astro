@@ -1,0 +1,315 @@
+---
+/**
+ * Interactive simulation of the recovery flow. Everything stays in component
+ * memory: no cookies, storage, network or analytics. It is not the extension
+ * and is labelled as such. States: ready → writing → interrupted →
+ * draft-review → restored, plus reset.
+ */
+interface Props {
+  id?: string;
+}
+const { id = "demo" } = Astro.props;
+const example =
+  "Hi — since this morning the export button keeps spinning after I choose CSV. I tried two browsers and cleared my cache. Could you take a look? Thanks!";
+---
+
+<section class="demo" data-demo data-state="ready" aria-labelledby={`${id}-title`}>
+  <div class="demo-head">
+    <h3 id={`${id}-title`}>Try the recovery flow</h3>
+    <p class="label">Interactive simulation — the real extension requires installation and site permission.</p>
+  </div>
+
+  <div class="window" aria-hidden="false">
+    <div class="window-bar" aria-hidden="true">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="address">support.example/contact</span>
+    </div>
+    <div class="window-body">
+      <div class="page">
+        <p class="page-title">Contact support</p>
+        <label for={`${id}-message`}>Your message <span class="muted small">(example text — please don't enter private information)</span></label>
+        <textarea id={`${id}-message`} rows="6" data-message>{example}</textarea>
+        <p class="refreshed" data-refreshed hidden>The page refreshed and the form is empty.</p>
+      </div>
+
+      <aside class="review" data-review hidden aria-label="Simulated recovery review">
+        <p class="review-title">Review saved draft</p>
+        <p class="small muted">Saved locally at <span data-saved-time>10:42</span></p>
+        <div class="saved-text" data-saved-text></div>
+        <label class="check"><input type="checkbox" checked data-restore-choice /> Restore “Your message”</label>
+        <p class="small warn">Restoring makes these values available to this website.</p>
+      </aside>
+    </div>
+    <div class="status" aria-hidden="true"><span class="chip" data-chip>Saved locally</span></div>
+  </div>
+
+  <div class="controls" data-controls hidden>
+    <ol class="steps" aria-label="Steps">
+      <li data-step="ready">Write</li>
+      <li data-step="interrupted">Interruption</li>
+      <li data-step="draft-review">Review</li>
+      <li data-step="restored">Restored</li>
+    </ol>
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary" data-action="interrupt">Simulate refresh</button>
+      <button type="button" class="btn btn-primary" data-action="review" hidden>Review saved draft</button>
+      <button type="button" class="btn btn-primary" data-action="restore" hidden>Restore selected field</button>
+      <button type="button" class="btn" data-action="reset">Start over</button>
+    </div>
+    <p class="small muted live" role="status" data-live></p>
+  </div>
+
+  <details class="transcript">
+    <summary>Read the steps as text</summary>
+    <ol>
+      <li><strong>Write.</strong> You type a long support message on a site where Form Rescue is enabled. About a second after you pause, the extension saves it in your browser and shows “Saved locally”.</li>
+      <li><strong>Interruption.</strong> The page refreshes (or the tab closes, or you are signed out). The form comes back empty.</li>
+      <li><strong>Review.</strong> From the Form Rescue toolbar button you choose “Review drafts”. An extension-owned page shows the saved text and asks which fields to restore, noting that restoring makes the text available to the website.</li>
+      <li><strong>Restored.</strong> You press “Restore selected fields” and your text is back in the form. Nothing is restored automatically.</li>
+    </ol>
+  </details>
+</section>
+
+<script>
+  type State = "ready" | "writing" | "interrupted" | "draft-review" | "restored";
+  for (const root of document.querySelectorAll<HTMLElement>("[data-demo]")) {
+    const $ = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
+    const message = $<HTMLTextAreaElement>("[data-message]");
+    const live = $("[data-live]");
+    const chip = $("[data-chip]");
+    let draft = message.value; // in-memory only
+    const time = new Intl.DateTimeFormat(undefined, { timeStyle: "short" }).format(new Date());
+    $("[data-saved-time]").textContent = time;
+    $("[data-controls]").hidden = false;
+
+    const set = (state: State, announce?: string) => {
+      root.dataset.state = state;
+      const is = (s: State) => state === s;
+      $("[data-refreshed]").hidden = !is("interrupted") && !is("draft-review");
+      $("[data-review]").hidden = !is("draft-review");
+      $<HTMLButtonElement>('[data-action="interrupt"]').hidden = !(is("ready") || is("writing"));
+      $<HTMLButtonElement>('[data-action="review"]').hidden = !is("interrupted");
+      $<HTMLButtonElement>('[data-action="restore"]').hidden = !is("draft-review");
+      chip.textContent = is("interrupted") || is("draft-review") ? "1 saved draft" : is("restored") ? "Restored 1 field" : `Saved locally at ${time}`;
+      root.querySelectorAll<HTMLElement>("[data-step]").forEach((li) => {
+        const current = li.dataset.step === (is("writing") ? "ready" : state);
+        li.toggleAttribute("aria-current", current);
+        if (current) li.setAttribute("aria-current", "step");
+      });
+      if (announce) live.textContent = announce;
+    };
+
+    message.addEventListener("input", () => {
+      draft = message.value;
+      set("writing");
+    });
+    root.addEventListener("click", (e) => {
+      const action = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-action]")?.dataset.action;
+      if (action === "interrupt") {
+        message.value = "";
+        set("interrupted", "The page refreshed and the form is empty. A saved draft is available.");
+        $<HTMLButtonElement>('[data-action="review"]').focus();
+      } else if (action === "review") {
+        $("[data-saved-text]").textContent = draft; // plain text, never HTML
+        set("draft-review", "Reviewing the saved draft.");
+        $<HTMLInputElement>("[data-restore-choice]").focus();
+      } else if (action === "restore") {
+        if ($<HTMLInputElement>("[data-restore-choice]").checked) message.value = draft;
+        set("restored", $<HTMLInputElement>("[data-restore-choice]").checked ? "Restored 1 field." : "Nothing was selected, so nothing was restored.");
+        message.focus();
+      } else if (action === "reset") {
+        message.value = draft = message.defaultValue;
+        set("ready", "Demo reset.");
+      }
+    });
+    set("ready");
+  }
+</script>
+
+<style>
+  .demo {
+    display: grid;
+    gap: var(--fr-space-5);
+  }
+  .demo-head h3 {
+    margin-bottom: var(--fr-space-1);
+  }
+  .label {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--fr-muted);
+    background: var(--fr-surface-2);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin: 0;
+  }
+  .window {
+    background: var(--fr-surface);
+    border: 1px solid var(--fr-border);
+    border-radius: var(--fr-radius-card);
+    box-shadow: var(--fr-shadow);
+    overflow: hidden;
+    position: relative;
+  }
+  .window-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--fr-border);
+    background: var(--fr-surface-2);
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--fr-border-strong);
+    opacity: 0.6;
+  }
+  .address {
+    margin-left: 12px;
+    font-size: 0.85rem;
+    color: var(--fr-muted);
+    background: var(--fr-surface);
+    border-radius: 999px;
+    padding: 2px 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .window-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--fr-space-5);
+    padding: clamp(16px, 4vw, 40px);
+  }
+  @media (min-width: 900px) {
+    [data-state="draft-review"] .window-body {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+  .page-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  .page label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--fr-space-2);
+  }
+  textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--fr-ink);
+    background: var(--fr-surface);
+    border: 1px solid var(--fr-border-strong);
+    border-radius: var(--fr-radius-control);
+    padding: var(--fr-space-3);
+    resize: vertical;
+    transition: background var(--fr-slow) var(--fr-ease);
+  }
+  [data-state="restored"] textarea {
+    background: var(--fr-accent-soft);
+  }
+  .refreshed {
+    margin-top: var(--fr-space-3);
+    font-weight: 600;
+  }
+  .review {
+    border: 1px solid var(--fr-border);
+    border-radius: var(--fr-radius-control);
+    padding: var(--fr-space-4);
+    background: var(--fr-base);
+    animation: rise var(--fr-slow) var(--fr-ease);
+  }
+  .review-title {
+    font-weight: 700;
+    margin-bottom: var(--fr-space-1);
+  }
+  .saved-text {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    background: var(--fr-surface-2);
+    border-radius: var(--fr-radius-control);
+    padding: var(--fr-space-3);
+    margin: var(--fr-space-3) 0;
+    max-height: 12em;
+    overflow: auto;
+  }
+  .check {
+    display: flex;
+    gap: var(--fr-space-2);
+    align-items: center;
+    min-height: 44px;
+    font-weight: 600;
+  }
+  .check input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--fr-accent);
+  }
+  .warn {
+    color: var(--fr-muted);
+  }
+  .status {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+  }
+  .chip {
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: var(--fr-accent-soft);
+    color: var(--fr-ink);
+    border-radius: 999px;
+    padding: 3px 10px;
+  }
+  .steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fr-space-2);
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--fr-space-4);
+    counter-reset: step;
+  }
+  .steps li {
+    counter-increment: step;
+    font-size: 0.9rem;
+    color: var(--fr-muted);
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--fr-border);
+  }
+  .steps li::before {
+    content: counter(step) ". ";
+  }
+  .steps li[aria-current] {
+    color: var(--fr-on-accent);
+    background: var(--fr-accent);
+    border-color: var(--fr-accent);
+  }
+  .live {
+    min-height: 1.5em;
+    margin-top: var(--fr-space-3);
+  }
+  .transcript summary {
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    color: var(--fr-accent);
+    font-weight: 600;
+  }
+  .transcript li + li {
+    margin-top: var(--fr-space-2);
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+import Demo from "../components/Demo.astro";
+---
+
+<Base title="Demo" description="An interactive simulation of Form Rescue's recovery flow, plus a real recording of the extension recovering a synthetic form.">
+  <section class="section">
+    <div class="wrap reading">
+      <h1>See the recovery flow</h1>
+      <p class="lead">
+        Below is a simulation you can click through, followed by an unedited recording of the real extension. The simulation runs entirely inside this page; reloading the page clears it.
+      </p>
+      <Demo id="demo-page" />
+    </div>
+  </section>
+  <section class="section" aria-labelledby="real-heading">
+    <div class="wrap reading">
+      <h2 id="real-heading">The real extension, recorded</h2>
+      <p class="muted">
+        Recorded with the development build on a synthetic test page (no real data). The test build is pre-approved for the local test site, so the browser's own permission prompt doesn't appear; in normal use your browser asks before the first save on a site.
+      </p>
+      <video controls preload="none" width="1280" height="800" poster="/demos/recovery-poster.jpg">
+        <source src="/demos/recovery.webm" type="video/webm" />
+        <track kind="captions" src="/demos/recovery.vtt" srclang="en" label="English" default />
+      </video>
+      <p class="small"><a href="/demos/recovery.webm">Download the recording (WebM)</a> · <a href="/demos/recovery.vtt">Captions (WebVTT)</a></p>
+      <details class="faq">
+        <summary>Recording transcript</summary>
+        <p>
+          A synthetic “Contact support” page is open. The Form Rescue popup shows “Not enabled”; the user enables protection for the site. They type a support message; the popup reports “Saved locally”. The page is refreshed and the field is empty. The popup shows one saved draft; the user opens Review drafts, reviews the saved text beside the empty field, and restores it. The text is back in the form.
+        </p>
+      </details>
+    </div>
+  </section>
+</Base>
+
+<style>
+  video {
+    width: 100%;
+    border-radius: var(--fr-radius-card);
+    border: 1px solid var(--fr-border);
+    background: var(--fr-surface-2);
+  }
+</style>

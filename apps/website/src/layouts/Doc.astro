@@ -1,0 +1,91 @@
+---
+import Base from "./Base.astro";
+
+interface Props {
+  frontmatter: { title: string; description: string };
+}
+const { frontmatter } = Astro.props;
+export const docsNav = [
+  { href: "/docs/", label: "Overview" },
+  { href: "/docs/getting-started/", label: "Getting started" },
+  { href: "/docs/recovery/", label: "Recovering drafts" },
+  { href: "/docs/privacy-and-storage/", label: "Privacy and storage" },
+  { href: "/docs/permissions/", label: "Permissions" },
+  { href: "/docs/browser-support/", label: "Browser support" },
+  { href: "/docs/troubleshooting/", label: "Troubleshooting" },
+  { href: "/docs/contributing/", label: "Contributing" },
+];
+const path = Astro.url.pathname;
+---
+
+<Base title={frontmatter.title} description={frontmatter.description}>
+  <div class="wrap docs">
+    <nav aria-label="Documentation" class="docs-nav">
+      <ul>
+        {
+          docsNav.map((n) => (
+            <li>
+              <a href={n.href} aria-current={path === n.href ? "page" : undefined}>
+                {n.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <article class="prose reading">
+      <h1>{frontmatter.title}</h1>
+      <slot />
+    </article>
+  </div>
+</Base>
+
+<style>
+  .docs {
+    display: grid;
+    gap: var(--fr-space-6);
+    padding-top: var(--fr-space-7);
+    padding-bottom: var(--fr-space-7);
+  }
+  @media (min-width: 900px) {
+    .docs {
+      grid-template-columns: 220px minmax(0, 1fr);
+    }
+    .docs-nav {
+      position: sticky;
+      top: 96px;
+      align-self: start;
+    }
+  }
+  .docs-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--fr-space-1) var(--fr-space-4);
+  }
+  @media (min-width: 900px) {
+    .docs-nav ul {
+      flex-direction: column;
+    }
+  }
+  .docs-nav a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    color: var(--fr-muted);
+    text-decoration: none;
+  }
+  .docs-nav a[aria-current="page"],
+  .docs-nav a:hover {
+    color: var(--fr-accent);
+    font-weight: 600;
+  }
+  .prose {
+    font-size: max(16px, 1rem);
+  }
+  .prose :global(h1) {
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  }
+</style>

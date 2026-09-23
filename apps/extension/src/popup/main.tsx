@@ -166,7 +166,6 @@ function Popup() {
           <button
             type="button"
             className="btn btn-primary wide"
-            disabled={!s.candidateCount}
             onClick={() => openPage(`pages/recovery/index.html?tab=${tabId}`)}
           >
             {t("reviewDrafts")}

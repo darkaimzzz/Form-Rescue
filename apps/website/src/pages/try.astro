@@ -1,0 +1,46 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Practice form" description="A synthetic form for trying the real Form Rescue extension after installing it. Nothing on this page is sent anywhere.">
+  <section class="section">
+    <div class="wrap reading">
+      <h1>Practice form</h1>
+      <p class="lead">Use this page to try the real extension. It's a synthetic form: submitting it does nothing, and nothing you type is sent anywhere by this page.</p>
+      <ol class="muted">
+        <li>Click the Form Rescue toolbar button and choose “Enable protection for this site”.</li>
+        <li>Write something in the message box and pause for a second.</li>
+        <li>Refresh this page, open Form Rescue, and choose “Review drafts”.</li>
+      </ol>
+      <p class="notice notice-warn">Please don't type private information here. Enabling protection on this site gives Form Rescue access to it; you can disable it afterwards from the popup or Settings.</p>
+      <form class="card practice" action="#" onsubmit="return false">
+        <label for="practice-subject">Subject</label>
+        <input id="practice-subject" name="subject" type="text" />
+        <label for="practice-message">Message</label>
+        <textarea id="practice-message" name="message" rows="8"></textarea>
+        <button class="btn btn-primary" type="submit">Send (does nothing)</button>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .practice label {
+    display: block;
+    font-weight: 600;
+    margin: var(--fr-space-4) 0 var(--fr-space-2);
+  }
+  .practice input,
+  .practice textarea {
+    width: 100%;
+    font: inherit;
+    padding: var(--fr-space-3);
+    border-radius: var(--fr-radius-control);
+    border: 1px solid var(--fr-border-strong);
+    background: var(--fr-surface);
+    color: var(--fr-ink);
+  }
+  .practice button {
+    margin-top: var(--fr-space-5);
+  }
+</style>

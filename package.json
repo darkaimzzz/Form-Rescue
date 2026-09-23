@@ -26,7 +26,9 @@
     "package": "node scripts/package-release/package.mjs",
     "release:validate": "node scripts/validate-release/validate.mjs",
     "fixtures": "node tests/fixtures/generate.mjs && node tests/fixtures/server.mjs",
-    "test:firefox": "node tests/fixtures/generate.mjs && pnpm --filter @form-rescue/extension build:e2e:firefox && node tests/firefox/bidi-smoke.mjs"
+    "test:firefox": "node tests/fixtures/generate.mjs && pnpm --filter @form-rescue/extension build:e2e:firefox && node tests/firefox/bidi-smoke.mjs",
+    "assets:capture": "node tests/fixtures/generate.mjs && pnpm --filter @form-rescue/extension build:e2e && node scripts/assets/capture.mjs",
+    "assets:brand": "node scripts/assets/render-brand.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

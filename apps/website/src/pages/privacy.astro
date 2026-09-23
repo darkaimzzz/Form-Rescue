@@ -1,0 +1,58 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Privacy" description="How Form Rescue handles your drafts: local storage in your browser profile, no accounts, no uploads, no telemetry — and the honest limits.">
+  <article class="section">
+    <div class="wrap reading prose">
+      <h1>Privacy</h1>
+      <p class="lead">Your drafts stay in this browser profile. This page explains exactly what that means, including the limits.</p>
+
+      <h2 id="extension">The extension</h2>
+      <ul>
+        <li><strong>No accounts, no servers, no sync.</strong> Form Rescue has no backend. Drafts are stored in the extension's own IndexedDB storage in your browser profile, which websites cannot read.</li>
+        <li><strong>No network activity.</strong> The extension makes no network requests while saving, viewing or restoring drafts. Its pages are built with a content security policy that blocks network connections, and our automated tests observe traffic to confirm it.</li>
+        <li><strong>No telemetry.</strong> No analytics, crash reporting, install pings, remote configuration, advertising or tracking identifiers. There is no hidden opt-in.</li>
+        <li><strong>Only sites you enable.</strong> Form Rescue runs on a site only after you enable it and your browser grants access to that site.</li>
+        <li><strong>Only fields you edit.</strong> It never reads a page's existing content on load, never records keystrokes or the clipboard, and never captures network requests.</li>
+      </ul>
+
+      <h2 id="sensitive">Sensitive fields</h2>
+      <p>
+        Before reading any value, Form Rescue checks a field's type, autocomplete hints, name, id and labels. Password, one-time-code, payment, bank, identity and medical-record fields are never saved, and neither is any form that contains them. Email, phone, URL, number, date and similar inputs are excluded, and so is anything marked <code>autocomplete="off"</code> or <code>data-form-rescue="off"</code>.
+      </p>
+      <p>
+        Values that pass those checks are screened for obvious secrets — private keys, access tokens, card and identity numbers — and dropped if they match. <strong>These are heuristics.</strong> If you type something private into an ordinary message box, it can still be saved. For sites where you write highly sensitive text, leave protection off or exclude the field.
+      </p>
+
+      <h2 id="storage">What is stored</h2>
+      <ul>
+        <li>The values of fields you edited, and when you edited them.</li>
+        <li>The site's origin (scheme, host name and port) so drafts appear only on that site.</li>
+        <li>Opaque fingerprints of the page address and field details, made with a random key generated on your device. Page addresses, titles, labels and field names are not stored.</li>
+        <li>Your settings: protected sites, excluded fields, retention period, and whether saving is paused.</li>
+      </ul>
+      <p><strong>Form Rescue does not encrypt drafts.</strong> They rely on your browser's and operating system's protections. Anyone who can use your browser profile or read its files can read your drafts. The fingerprints above reduce accidental exposure of page details; they are not encryption.</p>
+
+      <h2 id="retention">Retention and deletion</h2>
+      <ul>
+        <li>Drafts expire 7 days after your last edit by default (1 or 30 days are available). Shortening the period deletes older drafts at once.</li>
+        <li>You can delete a single draft, all drafts for a site, or everything. Deletion is permanent; there is no hidden trash.</li>
+        <li>Expired and deleted data is removed from the extension's database when the extension next runs. This is not forensic secure erasure.</li>
+        <li>Uninstalling the extension or clearing browser data deletes all drafts. Form Rescue is not a backup.</li>
+      </ul>
+
+      <h2 id="restoring">When you restore</h2>
+      <p>Restoring puts saved values back into the page, and the website can then read them like anything you typed. Form Rescue can't tell which account you are signed in to, so check before restoring on sites where you use more than one account.</p>
+
+      <h2 id="website">This website</h2>
+      <p>
+        This site is static: no accounts, cookies, analytics, trackers or third-party embeds, and fonts and scripts are served from the site itself. The simulation on the demo page keeps text only in page memory. The site's hosting provider may keep standard HTTP access logs (such as IP addresses and requested pages) under its own policy. The website cannot see anything stored by the extension.
+      </p>
+      <p>Links to browser stores, GitHub and other sites take you to those services, which have their own privacy practices.</p>
+
+      <h2 id="diagnostics">Diagnostics</h2>
+      <p>Settings can show a diagnostic summary with the extension version, browser, schema version, counts and error codes — no sites, addresses, labels or draft text. You see the exact text before copying it, and it goes nowhere unless you paste it into an issue yourself.</p>
+    </div>
+  </article>
+</Base>

@@ -1,0 +1,256 @@
+---
+import "../styles/global.css";
+import Mark from "../components/Mark.astro";
+import InstallCta from "../components/InstallCta.astro";
+import { config, isPreview } from "../config";
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const fullTitle = title === "Form Rescue" ? "Form Rescue — Get your words back" : `${title} — Form Rescue`;
+const canonical = config.siteOrigin ? new URL(Astro.url.pathname, config.siteOrigin).toString() : null;
+const ogImage = config.siteOrigin ? `${config.siteOrigin}/social-preview.png` : "/social-preview.png";
+const nav = [
+  { href: "/#features", label: "Features" },
+  { href: "/privacy/", label: "Privacy" },
+  { href: "/docs/", label: "Docs" },
+  ...(config.repoUrl ? [{ href: config.repoUrl, label: "GitHub" }] : []),
+];
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {isPreview && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#F7F8FA" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111418" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Form Rescue" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Form Rescue mark with the words: Get your words back." />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a href="/" class="brand" aria-label="Form Rescue home">
+          <Mark size={30} />
+          <span>Form Rescue</span>
+        </a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="visually-hidden">Menu</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+        </button>
+        <nav id="site-nav" aria-label="Main" class="site-nav">
+          <ul>
+            {
+              nav.map((n) => (
+                <li>
+                  <a href={n.href} aria-current={Astro.url.pathname.startsWith(n.href) && n.href !== "/#features" ? "page" : undefined}>
+                    {n.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <InstallCta size="small" />
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div>
+          <a href="/" class="brand"><Mark size={26} /><span>Form Rescue</span></a>
+          <p class="small muted">A quiet safety net for your words. Local to your browser. Open source under the MIT License.</p>
+          <p class="small muted">Version {config.version} · {config.status}</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul>
+            <li><a href="/docs/getting-started/">Install</a></li>
+            {config.repoUrl && <li><a href={config.repoUrl}>GitHub</a></li>}
+            <li><a href="/docs/">Docs</a></li>
+            <li><a href="/privacy/">Privacy</a></li>
+            <li><a href="/docs/contributing/#license">License</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+            <li><a href={config.repoUrl ? `${config.repoUrl}/issues` : "/docs/troubleshooting/#reporting-a-problem"}>Report an issue</a></li>
+            <li><a href="/docs/troubleshooting/#accessibility-feedback">Accessibility feedback</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="wrap">
+        <p class="small muted legal">
+          © {year} Form Rescue contributors. “Chrome”, “Edge” and “Firefox” are trademarks of their respective owners; their mention does not imply endorsement.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const button = document.querySelector<HTMLButtonElement>(".menu-button");
+      const nav = document.getElementById("site-nav");
+      const close = () => {
+        button?.setAttribute("aria-expanded", "false");
+        nav?.classList.remove("open");
+      };
+      button?.addEventListener("click", () => {
+        const open = button.getAttribute("aria-expanded") !== "true";
+        button.setAttribute("aria-expanded", String(open));
+        nav?.classList.toggle("open", open);
+        if (open) nav?.querySelector("a")?.focus();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && button?.getAttribute("aria-expanded") === "true") {
+          close();
+          button.focus();
+        }
+      });
+      nav?.addEventListener("click", (e) => {
+        if ((e.target as HTMLElement).closest("a")) close();
+      });
+    </script>
+
+    <style>
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: color-mix(in srgb, var(--fr-base) 88%, transparent);
+        backdrop-filter: saturate(160%) blur(14px);
+        border-bottom: 1px solid var(--fr-border);
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        gap: var(--fr-space-4);
+        min-height: 68px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--fr-space-2);
+        color: var(--fr-ink);
+        font-weight: 700;
+        font-size: 1.1rem;
+        text-decoration: none;
+        min-height: 44px;
+      }
+      .site-nav {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: var(--fr-space-5);
+      }
+      .site-nav ul {
+        display: flex;
+        gap: var(--fr-space-5);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .site-nav a:not(.btn) {
+        color: var(--fr-ink);
+        text-decoration: none;
+        font-size: 0.95rem;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+      }
+      .site-nav a:not(.btn):hover,
+      .site-nav a[aria-current="page"] {
+        color: var(--fr-accent);
+      }
+      .menu-button {
+        display: none;
+        margin-left: auto;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        border: 1px solid var(--fr-border);
+        background: var(--fr-surface);
+        color: var(--fr-ink);
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+      }
+      @media (max-width: 860px) {
+        .menu-button {
+          display: inline-flex;
+        }
+        .site-nav {
+          display: none;
+          position: absolute;
+          top: 68px;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: var(--fr-space-3);
+          padding: var(--fr-space-4) var(--fr-space-5) var(--fr-space-5);
+          background: var(--fr-base);
+          border-bottom: 1px solid var(--fr-border);
+        }
+        .site-nav.open {
+          display: flex;
+        }
+        .site-nav ul {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
+      main:focus {
+        outline: none;
+      }
+      .site-footer {
+        border-top: 1px solid var(--fr-border);
+        padding: var(--fr-space-7) 0 var(--fr-space-5);
+        margin-top: var(--fr-space-7);
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: var(--fr-space-5);
+      }
+      .footer-grid ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        columns: 2;
+        column-gap: var(--fr-space-5);
+      }
+      .footer-grid li a {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        color: var(--fr-muted);
+        text-decoration: none;
+      }
+      .footer-grid li a:hover {
+        color: var(--fr-accent);
+      }
+      .legal {
+        margin-top: var(--fr-space-5);
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,272 @@
+---
+import Base from "../layouts/Base.astro";
+import Demo from "../components/Demo.astro";
+import InstallCta from "../components/InstallCta.astro";
+import { faq } from "../content/faq";
+import { config } from "../config";
+---
+
+<Base title="Form Rescue" description="Recover saved form drafts after refreshes, closed tabs, and interrupted sessions. Local to your browser. Open source.">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pill">Alpha · open source</span></p>
+        <h1 class="display">Get your words back.</h1>
+        <p class="lead">Recover saved form drafts after refreshes, closed tabs, and interrupted sessions. Local to your browser. Open source.</p>
+        <InstallCta>
+          <a class="btn" href="/demo/">Try the demo</a>
+        </InstallCta>
+        <p class="small muted hero-note">Protect the sites you choose. Sensitive fields are excluded by default.</p>
+      </div>
+      <figure class="hero-shot">
+        <img
+          src="/images/recovery-review.jpg"
+          width="1200"
+          height="900"
+          alt="Form Rescue's Review drafts page for a synthetic support form, showing the saved text beside the empty field on the page, a checkbox to restore it, and the note that restoring makes these values available to the website."
+          fetchpriority="high"
+        />
+        <figcaption class="small muted">The real extension's review page, captured from a synthetic test form.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="demo" aria-labelledby="demo-heading">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow">See it work</p>
+        <h2 id="demo-heading">A refresh doesn't have to cost you a paragraph.</h2>
+        <p class="lead">Write, get interrupted, review what was saved, and choose what to put back. Nothing is restored until you say so.</p>
+      </div>
+      <div class="demo-wrap">
+        <Demo id="home-demo" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="steps-heading">
+    <div class="wrap">
+      <h2 id="steps-heading" class="center">Three steps. No account.</h2>
+      <ol class="steps grid-3">
+        <li class="card">
+          <img src="/images/popup-enable.jpg" width="760" height="640" loading="lazy" alt="The Form Rescue popup on a synthetic support site, showing Not enabled and the button Enable protection for this site." />
+          <h3><span class="num">1</span> Enable a site</h3>
+          <p class="muted">Click the toolbar button on a site you write on and allow access to that one site.</p>
+        </li>
+        <li class="card">
+          <img src="/images/popup-saved.jpg" width="760" height="640" loading="lazy" alt="The popup reporting Protection on and Saved locally at a specific time." />
+          <h3><span class="num">2</span> Write as usual</h3>
+          <p class="muted">About a second after you pause, your draft is committed to this browser. “Saved” appears only once it really is.</p>
+        </li>
+        <li class="card">
+          <img src="/images/restored.jpg" width="760" height="640" loading="lazy" alt="The review page reporting Restored 1, skipped 0, conflicted 0, with an Undo this restore button." />
+          <h3><span class="num">3</span> Review and recover</h3>
+          <p class="muted">After a refresh or a closed tab, open Review drafts, compare, and restore the fields you pick.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="features" aria-labelledby="features-heading">
+    <div class="wrap">
+      <h2 id="features-heading">Built for the moment a page lets you down.</h2>
+      <div class="features">
+        <article class="feature">
+          <h3>Recovery after interruptions</h3>
+          <p class="muted">Refreshes, back and forward navigation, closed tabs, browser restarts, crashes after a save, and sign-ins that expired mid-sentence. Sign in again, return to the form, and restore your text — Form Rescue never touches login details.</p>
+        </article>
+        <article class="feature">
+          <h3>You choose what to restore</h3>
+          <p class="muted">Saved and current values sit side by side in a page the website can't see. Empty fields can be filled in one click; anything already on the page needs an explicit “Replace”. If a field can't be matched with confidence, you get a copy button instead of a guess — and an undo button after restoring.</p>
+        </article>
+        <article class="feature">
+          <h3>A local draft history</h3>
+          <p class="muted">Every draft is grouped by site in a library you can filter, expand, copy from and delete. Drafts from two tabs stay separate. Nothing is kept forever: 7 days by default, or 1 or 30.</p>
+        </article>
+        <article class="feature">
+          <h3>Site and field control</h3>
+          <p class="muted">Turn protection on per site, pause everything with one switch, exclude individual fields, and decide whether disabling a site also deletes its drafts.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section privacy-band" aria-labelledby="privacy-heading">
+    <div class="wrap grid-2 privacy-grid">
+      <div>
+        <p class="eyebrow">Privacy</p>
+        <h2 id="privacy-heading">Your drafts stay in this browser profile.</h2>
+        <p class="lead">No account. No uploads. No telemetry. Passwords, one-time codes and payment fields are excluded, drafts expire, and deleting them is one click.</p>
+        <p><a href="/privacy/">Read the privacy details and limits</a></p>
+      </div>
+      <ul class="facts">
+        <li><strong>Local only.</strong> Drafts live in extension storage that websites can't read. The extension makes no network requests.</li>
+        <li><strong>Sensitive fields skipped.</strong> Credential, payment and identity fields — and whole forms containing them — are never saved.</li>
+        <li><strong>Honest limits.</strong> Storage isn't encrypted by Form Rescue, and private text typed into an ordinary message box can still be saved.</li>
+        <li><strong>Expiry and deletion.</strong> 7-day default expiry; delete a draft, a site, or everything at any time.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="compat-heading">
+    <div class="wrap">
+      <h2 id="compat-heading">Where it works — and where it doesn't.</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Tested browsers</h3>
+          <ul class="plain">
+            <li>Chrome: {config.tested.chrome}</li>
+            <li>Edge: {config.tested.edge}</li>
+            <li>Firefox: {config.tested.firefox}</li>
+          </ul>
+          <p class="small muted">Desktop only. Brave and other Chromium browsers may work but aren't tested. <a href="/docs/browser-support/">Browser support details</a></p>
+        </div>
+        <div class="card">
+          <h3>Supported fields</h3>
+          <p class="muted">Native text boxes, text areas, dropdowns, checkboxes and radio groups on ordinary web pages, including forms added after load, common React and Vue forms, and open shadow DOM.</p>
+          <h3>Not supported</h3>
+          <p class="muted">Rich-text editors, file uploads, embedded frames, private windows, mobile browsers and Safari. The final second of typing before a crash may not be saved.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="oss-heading">
+    <div class="wrap grid-2">
+      <div>
+        <p class="eyebrow">Open source</p>
+        <h2 id="oss-heading">Read every line that touches your words.</h2>
+        <p class="lead">Form Rescue is MIT-licensed. Tests run against synthetic pages only, so contributors never need real drafts.</p>
+        <div class="btn-row">
+          {config.repoUrl ? <a class="btn" href={config.repoUrl}>View the source</a> : <span class="small muted">The public repository link will appear here once it is published.</span>}
+          <a class="btn" href="/docs/contributing/">Contributing guide</a>
+        </div>
+      </div>
+      <pre class="card code" aria-label="Build commands"><code>pnpm install --frozen-lockfile
+pnpm build        # Chrome/Edge + Firefox + website
+pnpm test         # unit tests
+pnpm test:e2e:chrome</code></pre>
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="faq-heading">
+    <div class="wrap reading">
+      <h2 id="faq-heading">Questions</h2>
+      {
+        faq.map((f) => (
+          <details class="faq">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section closing center" aria-labelledby="closing-heading">
+    <div class="wrap">
+      <h2 id="closing-heading">Keep writing. We'll keep a copy.</h2>
+      <p class="lead">Protect the sites where losing a draft would hurt.</p>
+      <InstallCta>
+        <a class="btn" href="/docs/">Read the docs</a>
+      </InstallCta>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding: clamp(48px, 8vw, 112px) 0 clamp(48px, 6vw, 96px);
+  }
+  .hero-grid {
+    display: grid;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: center;
+  }
+  @media (min-width: 980px) {
+    .hero-grid {
+      grid-template-columns: 1fr 1.05fr;
+    }
+  }
+  .hero-note {
+    margin-top: var(--fr-space-4);
+  }
+  .hero-shot {
+    margin: 0;
+  }
+  .hero-shot img {
+    display: block;
+    border-radius: var(--fr-radius-card);
+    border: 1px solid var(--fr-border);
+    box-shadow: var(--fr-shadow);
+  }
+  .hero-shot figcaption {
+    margin-top: var(--fr-space-3);
+    text-align: center;
+  }
+  .demo-wrap {
+    max-width: 920px;
+    margin: var(--fr-space-7) auto 0;
+  }
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: var(--fr-space-6) 0 0;
+  }
+  .steps img {
+    display: block;
+    border-radius: 14px;
+    border: 1px solid var(--fr-border);
+    margin-bottom: var(--fr-space-4);
+  }
+  .num {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--fr-accent);
+    color: var(--fr-on-accent);
+    font-size: 0.9rem;
+    margin-right: 6px;
+  }
+  .features {
+    display: grid;
+    gap: var(--fr-space-6) var(--fr-space-7);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    margin-top: var(--fr-space-6);
+  }
+  .feature h3 {
+    font-size: 1.4rem;
+  }
+  .privacy-band {
+    background: var(--fr-surface);
+  }
+  .privacy-grid {
+    align-items: center;
+  }
+  .facts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--fr-space-4);
+  }
+  .facts li {
+    padding-left: var(--fr-space-5);
+    border-left: 3px solid var(--fr-accent);
+  }
+  .plain {
+    padding-left: 1.2em;
+  }
+  .code {
+    font-family: var(--fr-mono);
+    font-size: 0.95rem;
+    overflow-x: auto;
+    margin: 0;
+    white-space: pre;
+  }
+  .closing h2 {
+    font-size: clamp(2rem, 1.4rem + 3vw, 3.5rem);
+  }
+</style>
