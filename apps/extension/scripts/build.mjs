@@ -28,7 +28,7 @@ for (const target of targets) {
     root: path.join(root, "src"),
     envDir: path.join(root, "../.."),
     logLevel: "warn",
-    define: { "process.env.NODE_ENV": JSON.stringify(watch ? "development" : "production") },
+    define: { "process.env.NODE_ENV": JSON.stringify(watch ? "development" : "production"), __FR_E2E__: JSON.stringify(e2e) },
   };
   const w = watch ? {} : null;
   // Extension pages (React). No module-preload polyfill: it would use fetch, which connect-src 'none' forbids.

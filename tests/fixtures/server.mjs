@@ -39,8 +39,20 @@ function handler(req, res) {
   );
 }
 
+/** Starts the fixture servers on IPv4 and IPv6 loopback; ports already in use are skipped. */
+export async function startServers() {
+  const servers = [];
+  for (const port of PORTS)
+    for (const host of ["127.0.0.1", "::1"]) {
+      const srv = createServer(handler);
+      const ok = await new Promise((resolve) => srv.once("listening", () => resolve(true)).once("error", () => resolve(false)).listen(port, host));
+      if (ok) servers.push(srv);
+    }
+  return () => servers.forEach((s) => s.close());
+}
+
 if (process.argv[1] && fileURLToPath(import.meta.url) === normalize(process.argv[1])) {
-  for (const port of PORTS) createServer(handler).listen(port, "127.0.0.1");
+  await startServers();
   // localhost resolves to 127.0.0.1 here; the hostname differs, so the origin differs.
   console.log(`Fixtures: http://127.0.0.1:${PORTS[0]}/  http://localhost:${PORTS[0]}/  http://127.0.0.1:${PORTS[1]}/`);
 }

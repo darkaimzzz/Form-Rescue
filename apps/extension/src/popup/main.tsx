@@ -63,7 +63,9 @@ function Popup() {
     setBusy(true);
     setDenied(false);
     // Must be called directly from the click: requests only this scheme + host.
-    ext.permissions.request({ origins: [originPattern(s.origin)] }).then(async (granted) => {
+    // If access was already granted (known before the click), no prompt is needed.
+    const request = s.permission ? Promise.resolve(true) : ext.permissions.request({ origins: [originPattern(s.origin)] });
+    request.then(async (granted) => {
       if (granted) await call({ type: "enableSite", tabId });
       else setDenied(true);
       setBusy(false);

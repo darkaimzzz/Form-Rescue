@@ -51,6 +51,8 @@ describe("hard-excluded controls are rejected from metadata alone", () => {
     ["api key name", `<form><input id="x" name="apiKey"></form>`],
     ["opt-out ancestor", `<div data-form-rescue="off"><form><textarea id="x"></textarea></form></div>`],
     ["form autocomplete off", `<form autocomplete="off"><textarea id="x"></textarea></form>`],
+    ["form with a payment legend", `<form><fieldset><legend>Card number</legend><input name="n"></fieldset><textarea id="x"></textarea></form>`],
+    ["form with a secret-labelled control", `<form><label>API key <input name="k"></label><textarea id="x"></textarea></form>`],
     ["poisoned form", `<form><input type="password" name="p"><textarea id="x"></textarea></form>`],
     ["disabled", `<form><textarea id="x" disabled></textarea></form>`],
     ["disabled fieldset", `<form><fieldset disabled><textarea id="x"></textarea></fieldset></form>`],

@@ -58,7 +58,7 @@ test("full browser restart with the same profile keeps committed drafts", async 
 function killBrowser(profileDir: string): void {
   if (process.platform === "win32") {
     const needle = path.basename(profileDir);
-    execFileSync("powershell", ["-NoProfile", "-Command", `Get-CimInstance Win32_Process -Filter "Name='chrome.exe'" | Where-Object { $_.CommandLine -like '*${needle}*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }`]);
+    execFileSync("powershell", ["-NoProfile", "-Command", `Get-CimInstance Win32_Process -Filter "Name='chrome.exe' OR Name='msedge.exe'" | Where-Object { $_.CommandLine -like '*${needle}*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }`]);
   } else {
     execFileSync("pkill", ["-9", "-f", profileDir]);
   }

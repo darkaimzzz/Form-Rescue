@@ -20,7 +20,8 @@ export const A2 = "http://127.0.0.1:4174";
 
 export async function launch(userDataDir: string): Promise<BrowserContext> {
   return chromium.launchPersistentContext(userDataDir, {
-    channel: "chromium",
+    // E2E_CHANNEL=msedge runs the same suite against installed Microsoft Edge.
+    channel: process.env.E2E_CHANNEL ?? "chromium",
     headless: !process.env.HEADED,
     args: [`--disable-extensions-except=${EXT_PATH}`, `--load-extension=${EXT_PATH}`],
   });

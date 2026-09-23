@@ -25,7 +25,8 @@
     "build": "pnpm --filter @form-rescue/extension build && pnpm --filter @form-rescue/website build",
     "package": "node scripts/package-release/package.mjs",
     "release:validate": "node scripts/validate-release/validate.mjs",
-    "fixtures": "node tests/fixtures/generate.mjs && node tests/fixtures/server.mjs"
+    "fixtures": "node tests/fixtures/generate.mjs && node tests/fixtures/server.mjs",
+    "test:firefox": "node tests/fixtures/generate.mjs && pnpm --filter @form-rescue/extension build:e2e:firefox && node tests/firefox/bidi-smoke.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

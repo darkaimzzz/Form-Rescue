@@ -8,7 +8,8 @@
     "build:e2e": "node scripts/build.mjs --target=chrome --e2e",
     "dev:chrome": "node scripts/build.mjs --target=chrome --watch",
     "dev:firefox": "node scripts/build.mjs --target=firefox --watch",
-    "lint:firefox": "web-ext lint --source-dir dist/firefox --self-hosted=false --warnings-as-errors=false"
+    "lint:firefox": "web-ext lint --source-dir dist/firefox --self-hosted=false --warnings-as-errors=false",
+    "build:e2e:firefox": "node scripts/build.mjs --target=firefox --e2e"
   },
   "dependencies": {
     "@form-rescue/core": "workspace:*",

@@ -138,8 +138,12 @@ function Recovery() {
     if (!r.ok) return setError(t(ERRORS[r.error ?? ""] ?? "recStale"));
     const count = (o: ApplyOutcome) => r.outcomes.filter((x) => x.outcome === o).length;
     setResult(t("recResult", { restored: count("restored"), skipped: count("skipped"), conflict: count("conflict"), unsupported: count("unsupported"), failed: count("failed") }));
-    setTimeout(() => resultRef.current?.focus(), 0);
   };
+
+  // Move focus to the outcome once it is rendered so keyboard and screen-reader users land on it.
+  useEffect(() => {
+    if (result) resultRef.current?.focus();
+  }, [result]);
 
   const undo = async () => {
     if (!plan) return;

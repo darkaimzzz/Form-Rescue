@@ -160,7 +160,9 @@ function main(): void {
         fields: g.fields.slice(0, LIMITS.fieldsPerDraft),
       };
       state = "saving";
+      const c0 = __FR_E2E__ ? performance.now() : 0;
       let reply = await send<CommitReply>(msg);
+      if (__FR_E2E__) performance.measure("fr-commit", { start: c0, end: performance.now() });
       if (reply?.error === "stale-capability" && (await handshake())) {
         // Background restarted: same request ID and sequence, fresh capability.
         reply = await send<CommitReply>({ ...msg, capability });
@@ -208,6 +210,15 @@ function main(): void {
   async function onEdit(e: Event): Promise<void> {
     // Only genuine user edits; our own restore events are untrusted and ignored.
     if (!active || !e.isTrusted) return;
+    const t0 = __FR_E2E__ ? performance.now() : 0;
+    try {
+      await handleEdit(e);
+    } finally {
+      if (__FR_E2E__) performance.measure("fr-handler", { start: t0, end: performance.now() });
+    }
+  }
+
+  async function handleEdit(e: Event): Promise<void> {
     if ((e as InputEvent).isComposing) return;
     const target = e.composedPath()[0];
     if (!isControl(target)) return;

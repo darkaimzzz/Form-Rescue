@@ -5,6 +5,7 @@
  */
 import {
   classifyField,
+  hasSensitiveTerms,
   isFormPoisoningControl,
   LIMITS,
   META_LIMIT,
@@ -67,7 +68,11 @@ function isVisible(el: Element): boolean {
   return el.getClientRects().length > 0;
 }
 
-export function buildMeta(el: Control): FieldMeta {
+/**
+ * Metadata for classification. `light` is for whole-form sensitivity scans: it skips
+ * visibility/ancestor/state checks and label lookups, which the scan does per container.
+ */
+export function buildMeta(el: Control, light = false): FieldMeta {
   const tag = el instanceof HTMLTextAreaElement ? "textarea" : el instanceof HTMLSelectElement ? "select" : "input";
   const form = el.form;
   return {
@@ -76,18 +81,18 @@ export function buildMeta(el: Control): FieldMeta {
     type: tag === "input" ? (el as HTMLInputElement).type.toLowerCase() : tag,
     autocomplete: bounded(el.getAttribute("autocomplete")).toLowerCase(),
     formAutocompleteOff: (form?.getAttribute("autocomplete") ?? "").trim().toLowerCase() === "off",
-    optOut: composedClosest(el, '[data-form-rescue="off" i]') !== null,
-    disabled: el.matches(":disabled"),
-    readOnly: tag !== "select" && (el as HTMLInputElement).readOnly,
-    inert: composedClosest(el, "[inert]") !== null,
-    visible: isVisible(el),
+    optOut: !light && composedClosest(el, '[data-form-rescue="off" i]') !== null,
+    disabled: !light && el.matches(":disabled"),
+    readOnly: !light && tag !== "select" && (el as HTMLInputElement).readOnly,
+    inert: !light && composedClosest(el, "[inert]") !== null,
+    visible: light || isVisible(el),
     multiple: tag === "select" ? (el as HTMLSelectElement).multiple : false,
     id: bounded(el.id),
     name: bounded(el.getAttribute("name")),
-    labelText: labelText(el),
+    labelText: light ? "" : labelText(el),
     ariaLabel: bounded(el.getAttribute("aria-label")),
     placeholder: bounded(el.getAttribute("placeholder")),
-    groupLabel: groupLabel(el),
+    groupLabel: light ? "" : groupLabel(el),
   };
 }
 
@@ -112,7 +117,11 @@ export function resetCaches(): void {
 export function isSensitiveContainer(container: Container): boolean {
   let hit = poisonCache.get(container);
   if (hit === undefined) {
-    hit = controlsIn(container).some((c) => isFormPoisoningControl(buildMeta(c)));
+    // Label and group text is checked once per container: per-control label lookups are O(n²) on big forms.
+    const groups = isControl(container) ? [] : Array.from(container.querySelectorAll("label, legend, [role=group][aria-label], [role=radiogroup][aria-label]")).slice(0, MAX_SCAN);
+    hit =
+      hasSensitiveTerms(groups.map((g) => bounded(g.getAttribute("aria-label") ?? g.textContent)), { includeContact: false }) ||
+      controlsIn(container).some((c) => isFormPoisoningControl(buildMeta(c, true)));
     poisonCache.set(container, hit);
   }
   return hit;
