@@ -10,6 +10,9 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+// Lets Playwright report requests made by the extension service worker.
+process.env.PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS = "1";
+
 export const EXT_PATH = path.resolve("apps/extension/dist-e2e/chrome");
 export const A = "http://127.0.0.1:4173";
 export const B = "http://localhost:4173";
@@ -23,8 +26,26 @@ export async function launch(userDataDir: string): Promise<BrowserContext> {
   });
 }
 
+/** Close pages one by one first; closing a persistent context with extension pages open can hang. */
+export async function closeAll(context: BrowserContext): Promise<void> {
+  for (const pg of context.pages()) await pg.close({ runBeforeUnload: false }).catch(() => undefined);
+  await context.close().catch(() => undefined);
+}
+
+/** The Form Rescue background worker (ignores built-in component extension workers). */
 export async function worker(context: BrowserContext): Promise<Worker> {
-  return context.serviceWorkers()[0] ?? (await context.waitForEvent("serviceworker"));
+  const ours = (w: Worker) => w.url().endsWith("/background.js");
+  return context.serviceWorkers().find(ours) ?? (await context.waitForEvent("serviceworker", { predicate: ours }));
+}
+
+/** Stops the extension service worker the way the browser does for idle workers. */
+export async function stopWorker(context: BrowserContext, extId: string): Promise<void> {
+  const si = await context.newPage();
+  await si.goto("chrome://serviceworker-internals/");
+  const reg = si.locator(".serviceworker-registration").filter({ hasText: `chrome-extension://${extId}/` });
+  await reg.getByText("Stop", { exact: true }).first().click();
+  await expect(reg.getByText("Running Status: STOPPED").first()).toBeVisible();
+  await si.close();
 }
 
 type Fixtures = { profileDir: string; context: BrowserContext; sw: Worker; extId: string };
@@ -39,7 +60,7 @@ export const test = base.extend<Fixtures>({
   context: async ({ profileDir }, use) => {
     const context = await launch(profileDir);
     await use(context);
-    await context.close().catch(() => undefined);
+    await closeAll(context);
   },
   sw: async ({ context }, use) => use(await worker(context)),
   extId: async ({ sw }, use) => use(new URL(sw.url()).host),
@@ -48,13 +69,12 @@ export { expect };
 
 export async function tabIdFor(sw: Worker, page: Page): Promise<number> {
   const url = page.url();
-  const id = await sw.evaluate(async (u) => {
-    const tabs = await chrome.tabs.query({});
-    const hits = tabs.filter((t) => t.url === u);
-    return hits.at(-1)?.id;
-  }, url);
-  if (id === undefined) throw new Error(`No tab for ${url}`);
-  return id;
+  for (let i = 0; i < 50; i++) {
+    const id = await sw.evaluate(async (u) => (await chrome.tabs.query({})).filter((t) => t.url === u).at(-1)?.id, url);
+    if (id !== undefined) return id;
+    await page.waitForTimeout(100);
+  }
+  throw new Error(`No tab for ${url}`);
 }
 
 export async function openPopup(context: BrowserContext, extId: string, tabId: number): Promise<Page> {

@@ -57,6 +57,6 @@ export async function fieldIdentity(
   if (labelT) identity.labelHash = await hash(`tok|${labelT}`);
   if (d.kind !== "text") identity.optionsHash = await hash(`opts|${d.options}`);
   const anchor = idT || nameT ? "" : `${labelT}#${d.ordinal}`;
-  const fieldKey = await hash(`field|${d.kind}|${fKey}|${idT}|${nameT}|${anchor}|${d.kind === "text" ? "" : d.options}`);
+  const fieldKey = await hash(`field|${d.kind}|${fKey}|${idT}|${nameT}|${anchor}|${d.occurrence}|${d.kind === "text" ? "" : d.options}`);
   return { fieldKey, identity };
 }

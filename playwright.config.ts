@@ -4,7 +4,7 @@ export default defineConfig({
   timeout: 60_000,
   workers: 1,
   reporter: [["list"], ["json", { outputFile: "test-results/results.json" }]],
-  use: { trace: "retain-on-failure" },
+  use: { trace: "retain-on-failure", actionTimeout: 15_000 },
   webServer: {
     command: "node tests/fixtures/generate.mjs && node tests/fixtures/server.mjs",
     url: "http://127.0.0.1:4173/index.html",

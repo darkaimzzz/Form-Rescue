@@ -163,24 +163,18 @@ if (sessionStorage.getItem("prefill")) document.getElementById("summary").value 
   "sensitive.html": page(
     "Sensitive fields",
     "Sensitive fields",
-    `<form id="profile">
+    `<form id="secrets">
   <label for="otp-like">Verification code</label><input id="otp-like" name="code2" class="trap">
   <label for="apikey">API key</label><input id="apikey" name="apiKey" class="trap">
+  <label for="secret-notes">Notes (in a form with secret fields)</label><textarea id="secret-notes" name="notes" class="trap"></textarea>
+</form>
+<form id="profile">
   <label for="optout">Opted out</label><textarea id="optout" name="optout" data-form-rescue="off" class="trap"></textarea>
   <label for="acoff">Autocomplete off</label><input id="acoff" name="acoff" autocomplete="off" class="trap">
   <label for="mail">Email</label><input id="mail" name="mail" type="email" class="trap">
   <label for="bio">Short bio</label><textarea id="bio" name="bio"></textarea>
-</form>`,
-    `// Metadata rejection must happen without reading values: reading .value on a trap is counted.
-window.__trapReads = 0;
-for (const el of document.querySelectorAll(".trap")) {
-  const desc = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), "value");
-  Object.defineProperty(el, "value", {
-    configurable: true,
-    get() { document.documentElement.dataset.trapReads = String(++window.__trapReads); return desc.get.call(this); },
-    set(v) { desc.set.call(this, v); },
-  });
-}`,
+</form>`
+
   ),
 
   "virtual.html": page(

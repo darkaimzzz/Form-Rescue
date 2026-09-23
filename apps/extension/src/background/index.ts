@@ -627,7 +627,14 @@ ext.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
 ext.runtime.onInstalled.addListener((details) => {
   void reconcile();
   void ext.alarms.create("prune", { periodInMinutes: 60 });
-  if (details.reason === "install") void ext.tabs.create({ url: ext.runtime.getURL("pages/onboarding/index.html") });
+  if (details.reason === "install") {
+    // Installation state lives in extension-local storage; show onboarding once per profile.
+    void ext.storage.local.get("onboarded").then(async ({ onboarded }) => {
+      if (onboarded) return;
+      await ext.storage.local.set({ onboarded: true });
+      await ext.tabs.create({ url: ext.runtime.getURL("pages/onboarding/index.html") });
+    });
+  }
 });
 
 ext.runtime.onStartup.addListener(() => {

@@ -103,9 +103,9 @@ function controlsIn(container: Container): Control[] {
 }
 
 let poisonCache = new WeakMap<Container, boolean>();
+/** Mutations can change sensitivity. Form descriptors stay fixed for the document so draft identity is stable. */
 export function resetCaches(): void {
   poisonCache = new WeakMap();
-  descriptorCache = new WeakMap();
 }
 
 /** A form with password/OTP/payment/identity-secret indicators is excluded as a whole. */
@@ -130,6 +130,11 @@ export function radioGroup(el: HTMLInputElement): HTMLInputElement[] {
   return all.filter((r): r is HTMLInputElement => r instanceof HTMLInputElement && r.type === "radio" && r.name === el.name).slice(0, MAX_SCAN);
 }
 
+/** Option key for checkbox/radio from the value attribute (metadata), never the value getter. */
+export function optionKey(el: HTMLInputElement): string {
+  return el.getAttribute("value") ?? "on";
+}
+
 /** Canonical element representing a field (first radio of a group). */
 export function fieldAnchor(el: Control): Control {
   return el instanceof HTMLInputElement && el.type === "radio" ? (radioGroup(el)[0] ?? el) : el;
@@ -142,7 +147,7 @@ function signatureOf(container: Container): string {
     .slice(0, LIMITS.optionsSignature);
 }
 
-let descriptorCache = new WeakMap<Container, FormDescriptor>();
+const descriptorCache = new WeakMap<Container, FormDescriptor>();
 export function formDescriptor(container: Container): FormDescriptor {
   const cached = descriptorCache.get(container);
   if (cached) return cached;
@@ -197,13 +202,21 @@ function ordinalOf(anchor: Control, container: Container): number {
   return i;
 }
 
+/** Distinguishes controls that share tag/type/id/name within a container, so they never collide. */
+function occurrenceOf(anchor: Control, container: Container): number {
+  const sig = (c: Control) => `${c.tagName}|${c instanceof HTMLInputElement ? c.type : ""}|${c.id}|${c.getAttribute("name") ?? ""}`;
+  const mine = sig(anchor);
+  const same = controlsIn(container).filter((c) => sig(c) === mine && fieldAnchor(c) === c);
+  return Math.max(0, same.indexOf(anchor));
+}
+
 export function fieldDescriptor(el: Control, kind: FieldDescriptor["kind"]): FieldDescriptor {
   const anchor = fieldAnchor(el);
   const container = containerOf(anchor);
   let options = "";
   if (el instanceof HTMLSelectElement) options = Array.from(el.options, (o) => o.value).join("\u0001");
-  else if (el instanceof HTMLInputElement && el.type === "radio") options = radioGroup(el).map((r) => r.value).join("\u0001");
-  else if (el instanceof HTMLInputElement && el.type === "checkbox") options = el.value;
+  else if (el instanceof HTMLInputElement && el.type === "radio") options = radioGroup(el).map(optionKey).join("\u0001");
+  else if (el instanceof HTMLInputElement && el.type === "checkbox") options = optionKey(el);
   const isRadio = el instanceof HTMLInputElement && el.type === "radio";
   return {
     kind,
@@ -213,6 +226,7 @@ export function fieldDescriptor(el: Control, kind: FieldDescriptor["kind"]): Fie
     group: groupLabel(el),
     options: options.slice(0, LIMITS.optionsSignature),
     ordinal: ordinalOf(anchor, container),
+    occurrence: occurrenceOf(anchor, container),
   };
 }
 
@@ -222,7 +236,7 @@ export function readValue(el: Control, kind: FieldDescriptor["kind"]): FieldValu
   if (kind === "select") return { kind, values: Array.from((el as HTMLSelectElement).selectedOptions, (o) => o.value).slice(0, LIMITS.selectValues) };
   if (kind === "checkbox") return { kind, checked: (el as HTMLInputElement).checked };
   const checked = radioGroup(el as HTMLInputElement).find((r) => r.checked);
-  return { kind: "radio", selectedOptionKey: checked ? checked.value : null };
+  return { kind: "radio", selectedOptionKey: checked ? optionKey(checked) : null };
 }
 
 /** Non-cryptographic change-detection fingerprint (cyrb53); works on http pages without crypto.subtle. */
@@ -277,7 +291,7 @@ export function applyValue(el: Control, v: FieldValue): boolean {
   if (v.kind === "radio" && el instanceof HTMLInputElement) {
     const group = radioGroup(el);
     if (v.selectedOptionKey === null) return false;
-    const target = group.filter((r) => r.value === v.selectedOptionKey);
+    const target = group.filter((r) => optionKey(r) === v.selectedOptionKey);
     if (target.length !== 1 || target[0]!.disabled) return false;
     if (!target[0]!.checked) target[0]!.click();
     return true;

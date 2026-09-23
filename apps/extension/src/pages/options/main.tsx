@@ -44,7 +44,9 @@ function Options() {
               type="checkbox"
               checked={s.paused}
               onChange={async (e) => {
-                await call({ type: "setPaused", paused: e.target.checked });
+                const paused = e.target.checked;
+                setS({ ...s, paused });
+                await call({ type: "setPaused", paused });
                 await load();
               }}
             />
@@ -55,7 +57,9 @@ function Options() {
             <select
               value={s.retentionDays}
               onChange={async (e) => {
-                await call({ type: "setRetention", days: Number(e.target.value) as 1 | 7 | 30 });
+                const days = Number(e.target.value) as 1 | 7 | 30;
+                setS({ ...s, retentionDays: days });
+                await call({ type: "setRetention", days });
                 await load();
               }}
             >

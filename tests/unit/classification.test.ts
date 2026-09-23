@@ -123,6 +123,20 @@ describe("metadata terms", () => {
   });
 });
 
+describe("choice controls", () => {
+  it.each([
+    { type: "checkbox", labelText: "I agree to the terms" },
+    { type: "checkbox", name: "gdpr_consent" },
+    { type: "radio", groupLabel: "Payment method" },
+    { type: "radio", groupLabel: "Billing plan" },
+  ])("consent/payment choice %o is excluded", (o) => {
+    expect(classifyField(meta(o), ok)).toEqual({ eligible: false, reason: "sensitive-metadata" });
+  });
+  it("choice terms do not affect prose fields", () => {
+    expect(classifyField(meta({ tag: "textarea", labelText: "Do you agree with the proposal? Explain." }), ok)).toMatchObject({ eligible: true });
+  });
+});
+
 describe("form poisoning", () => {
   it.each([
     meta({ type: "password" }),

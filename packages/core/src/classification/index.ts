@@ -129,6 +129,9 @@ const CONTACT_TERMS = [
   "surname",
 ];
 
+/** Consent and payment choices are never restored: checkboxes/radios only (PRD §8.3). */
+const CHOICE_TERMS = ["consent", "agree", "terms", "accept", "acknowledge", "gdpr", "payment", "pay with", "billing"];
+
 /** Ambiguous short tokens that only count with a qualifying neighbour token. */
 const CONTEXT_TERMS: Record<string, string[]> = {
   pan: ["card", "number", "no", "id"],
@@ -151,7 +154,7 @@ function matchesTerm(tokens: string[], joined: string, compact: string, leet: st
   return tokens.includes(t);
 }
 
-export function hasSensitiveTerms(texts: string[], { includeContact }: { includeContact: boolean }): boolean {
+export function hasSensitiveTerms(texts: string[], { includeContact, choice = false }: { includeContact: boolean; choice?: boolean }): boolean {
   const raw = texts.map((t) => t.slice(0, META_LIMIT)).join(" ");
   const tokens = normalizeTokens(raw);
   const joined = tokens.join(" ");
@@ -160,7 +163,7 @@ export function hasSensitiveTerms(texts: string[], { includeContact }: { include
     .toLowerCase()
     .replace(/[@01$35]/g, (c) => LEET[c] ?? c)
     .replace(/[^\p{L}\p{N}]+/gu, "");
-  const terms = includeContact ? [...SECRET_TERMS, ...CONTACT_TERMS] : SECRET_TERMS;
+  const terms = [...SECRET_TERMS, ...(includeContact ? CONTACT_TERMS : []), ...(choice ? CHOICE_TERMS : [])];
   if (terms.some((term) => matchesTerm(tokens, joined, compact, leet, term))) return true;
   for (const [term, context] of Object.entries(CONTEXT_TERMS)) {
     if (!tokens.includes(term)) continue;
@@ -213,7 +216,8 @@ export function classifyField(m: FieldMeta, ctx: { sensitiveForm: boolean }): El
   if (m.disabled || m.readOnly || m.inert || !m.visible) return { eligible: false, reason: "not-editable" };
   if (isSensitiveAutocomplete(ac)) return { eligible: false, reason: "sensitive-autocomplete" };
   const singleLine = m.tag === "input";
-  if (hasSensitiveTerms(metaTexts(m), { includeContact: singleLine })) {
+  const choice = kind.kind === "checkbox" || kind.kind === "radio";
+  if (hasSensitiveTerms(metaTexts(m), { includeContact: singleLine, choice })) {
     return { eligible: false, reason: "sensitive-metadata" };
   }
   return { eligible: true, ...kind };

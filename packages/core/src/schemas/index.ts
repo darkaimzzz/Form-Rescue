@@ -45,6 +45,8 @@ export const fieldDescriptorSchema = z.strictObject({
   /** Ordered option values for selects/radio groups; checkbox value. */
   options: z.string().max(LIMITS.optionsSignature),
   ordinal: z.number().int().min(0).max(10_000),
+  /** Index among controls in the same container sharing tag/type/id/name; 0 when unique. */
+  occurrence: z.number().int().min(0).max(10_000),
 });
 export type FieldDescriptor = z.infer<typeof fieldDescriptorSchema>;
 

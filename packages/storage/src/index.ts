@@ -101,7 +101,8 @@ function validDraft(raw: unknown): Draft | null {
 
 /** Runs fn in one readwrite transaction; any throw aborts every write in it. */
 async function inTx<T>(db: Db, fn: (tx: Tx) => Promise<T>): Promise<T> {
-  const tx = db.transaction(ALL, "readwrite");
+  // Strict durability: the acknowledgement follows a flushed commit, so acknowledged saves survive crashes.
+  const tx = db.transaction(ALL, "readwrite", { durability: "strict" });
   try {
     const result = await fn(tx);
     await tx.done;
