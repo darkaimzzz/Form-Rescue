@@ -9,6 +9,8 @@ export default defineConfig({
   site: origin || undefined,
   trailingSlash: "always",
   build: { format: "directory", inlineStylesheets: "auto" },
+  // Plain, high-contrast code blocks styled by our tokens (theme colors failed contrast checks).
+  markdown: { syntaxHighlight: false },
   integrations: origin ? [sitemap()] : [],
   vite: { envDir: "../.." },
 });

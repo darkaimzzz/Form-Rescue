@@ -173,8 +173,7 @@ if (sessionStorage.getItem("prefill")) document.getElementById("summary").value 
   <label for="acoff">Autocomplete off</label><input id="acoff" name="acoff" autocomplete="off" class="trap">
   <label for="mail">Email</label><input id="mail" name="mail" type="email" class="trap">
   <label for="bio">Short bio</label><textarea id="bio" name="bio"></textarea>
-</form>`
-
+</form>`,
   ),
 
   "virtual.html": page(
@@ -194,11 +193,7 @@ let internal = "";
 el.addEventListener("input", (e) => { if (e.isTrusted) internal = el.value; else requestAnimationFrame(() => { el.value = internal; }); });`,
   ),
 
-  "react.html": page(
-    "React-controlled",
-    "React-controlled inputs",
-    `<div id="app"></div>`,
-  ).replace("</body>", '<script src="/react-app.js"></script></body>'),
+  "react.html": page("React-controlled", "React-controlled inputs", `<div id="app"></div>`).replace("</body>", '<script src="/react-app.js"></script></body>'),
 
   "vue.html": page("Vue-controlled", "Vue-controlled inputs", `<div id="app"></div>`).replace(
     "</body>",
@@ -238,7 +233,12 @@ await build({
   build: {
     outDir: new URL(".", out).pathname.replace(/^\/([A-Za-z]:)/, "$1"),
     emptyOutDir: false,
-    lib: { entry: new URL("./src/react-app.jsx", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"), formats: ["iife"], name: "fixtureReact", fileName: () => "react-app.js" },
+    lib: {
+      entry: new URL("./src/react-app.jsx", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"),
+      formats: ["iife"],
+      name: "fixtureReact",
+      fileName: () => "react-app.js",
+    },
   },
 });
 const require = createRequire(new URL("../../apps/extension/package.json", import.meta.url));

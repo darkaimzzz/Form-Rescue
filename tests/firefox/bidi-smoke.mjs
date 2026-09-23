@@ -20,11 +20,7 @@ import { startServers } from "../fixtures/server.mjs";
 
 const FIREFOX =
   process.env.FIREFOX_BIN ??
-  [
-    "C:/Program Files/Mozilla Firefox/firefox.exe",
-    "/usr/bin/firefox",
-    "/Applications/Firefox.app/Contents/MacOS/firefox",
-  ].find((p) => existsSync(p));
+  ["C:/Program Files/Mozilla Firefox/firefox.exe", "/usr/bin/firefox", "/Applications/Firefox.app/Contents/MacOS/firefox"].find((p) => existsSync(p));
 const EXT = path.resolve("apps/extension/dist-e2e/firefox");
 const UUID = "5f0e7a52-0d4e-4b8a-9c1e-f00dfeed0001";
 const BASE = `moz-extension://${UUID}`;
@@ -52,7 +48,9 @@ await writeFile(
   path.join(profile, "extension-preferences.json"),
   JSON.stringify({ [FIREFOX_ID]: { permissions: [], origins: ["http://127.0.0.1/*", "http://localhost/*"] } }),
 );
-const proc = spawn(FIREFOX, ["-headless", "-no-remote", "-profile", profile, "--remote-debugging-port", String(PORT), "-remote-allow-system-access"], { stdio: "ignore" });
+const proc = spawn(FIREFOX, ["-headless", "-no-remote", "-profile", profile, "--remote-debugging-port", String(PORT), "-remote-allow-system-access"], {
+  stdio: "ignore",
+});
 
 let ws;
 for (let i = 0; i < 100 && !ws; i++) {
@@ -72,7 +70,8 @@ ws.onmessage = (ev) => {
   if (msg.id && pending.has(msg.id)) {
     const { resolve, reject } = pending.get(msg.id);
     pending.delete(msg.id);
-    msg.type === "error" ? reject(new Error(`${msg.error}: ${msg.message}`)) : resolve(msg.result);
+    if (msg.type === "error") reject(new Error(`${msg.error}: ${msg.message}`));
+    else resolve(msg.result);
   }
 };
 const cmd = (method, params = {}) =>
@@ -106,13 +105,26 @@ async function click(context, css) {
   const n = await node(context, css);
   await cmd("input.performActions", {
     context,
-    actions: [{ type: "pointer", id: "mouse", actions: [{ type: "pointerMove", x: 0, y: 0, origin: { type: "element", element: { sharedId: n.sharedId } } }, { type: "pointerDown", button: 0 }, { type: "pointerUp", button: 0 }] }],
+    actions: [
+      {
+        type: "pointer",
+        id: "mouse",
+        actions: [
+          { type: "pointerMove", x: 0, y: 0, origin: { type: "element", element: { sharedId: n.sharedId } } },
+          { type: "pointerDown", button: 0 },
+          { type: "pointerUp", button: 0 },
+        ],
+      },
+    ],
   });
   await cmd("input.releaseActions", { context });
 }
 async function type(context, css, text) {
   await click(context, css);
-  const keys = [...text].flatMap((ch) => [{ type: "keyDown", value: ch }, { type: "keyUp", value: ch }]);
+  const keys = [...text].flatMap((ch) => [
+    { type: "keyDown", value: ch },
+    { type: "keyUp", value: ch },
+  ]);
   await cmd("input.performActions", { context, actions: [{ type: "key", id: "kb", actions: keys }] });
 }
 async function newTab(url) {

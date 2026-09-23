@@ -34,7 +34,6 @@ const DEBOUNCE_MS = 300;
 const MAX_WAIT_MS = 1000;
 
 declare global {
-  // eslint-disable-next-line no-var
   var __formRescueLoaded: boolean | undefined;
 }
 
@@ -244,9 +243,13 @@ function main(): void {
     listening = true;
     const opts = { capture: true };
     document.addEventListener("input", (e) => void onEdit(e), opts);
-    document.addEventListener("change", (e) => {
-      void onEdit(e).then(() => flush());
-    }, opts);
+    document.addEventListener(
+      "change",
+      (e) => {
+        void onEdit(e).then(() => flush());
+      },
+      opts,
+    );
     document.addEventListener("compositionend", (e) => void onEdit(e), opts);
     document.addEventListener("focusout", () => void flush(), opts);
     document.addEventListener("visibilitychange", () => {
@@ -301,7 +304,15 @@ function main(): void {
       refs.set(ref, el);
       const current = readValue(el, e.kind);
       const d = fieldDescriptor(el, e.kind);
-      out.push({ ref, descriptor: d, form: formDescriptor(containerOf(el)), search: e.search, current, fingerprint: fingerprint(current), displayLabel: d.label });
+      out.push({
+        ref,
+        descriptor: d,
+        form: formDescriptor(containerOf(el)),
+        search: e.search,
+        current,
+        fingerprint: fingerprint(current),
+        displayLabel: d.label,
+      });
       if (out.length >= 300) break;
     }
     return out;

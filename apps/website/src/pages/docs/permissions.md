@@ -4,13 +4,13 @@ title: Permissions
 description: Every permission Form Rescue requests, why, and how per-site access and revocation work.
 ---
 
-| Permission | Why | Limits |
-| --- | --- | --- |
-| `storage` | Presentation preferences and install state | Drafts are never synced; they live in IndexedDB |
-| `scripting` | Run Form Rescue's packaged script on sites you enabled | Only enabled sites; no remote code |
-| `activeTab` | Read the current tab's address when you click the toolbar button | Not used for ongoing protection |
-| `alarms` | Periodic clean-up of expired drafts | Timing isn't exact; clean-up also runs on use |
-| Optional site access (`http`/`https`) | Save drafts on a site across reloads | Requested for one scheme + host at a time, only when you click Enable |
+| Permission                            | Why                                                              | Limits                                                                |
+| ------------------------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `storage`                             | Presentation preferences and install state                       | Drafts are never synced; they live in IndexedDB                       |
+| `scripting`                           | Run Form Rescue's packaged script on sites you enabled           | Only enabled sites; no remote code                                    |
+| `activeTab`                           | Read the current tab's address when you click the toolbar button | Not used for ongoing protection                                       |
+| `alarms`                              | Periodic clean-up of expired drafts                              | Timing isn't exact; clean-up also runs on use                         |
+| Optional site access (`http`/`https`) | Save drafts on a site across reloads                             | Requested for one scheme + host at a time, only when you click Enable |
 
 Form Rescue doesn't request access to all sites, your tabs list, history, cookies, network requests, downloads, clipboard reading, or unlimited storage.
 

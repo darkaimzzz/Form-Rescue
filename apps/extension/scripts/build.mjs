@@ -6,7 +6,12 @@ import react from "@vitejs/plugin-react";
 import { buildManifest } from "../../../scripts/build-manifests/manifest.mjs";
 
 const root = path.resolve(fileURLToPath(import.meta.url), "../..");
-const args = new Map(process.argv.slice(2).map((a) => a.replace(/^--/, "").split("=")).map(([k, v]) => [k, v ?? true]));
+const args = new Map(
+  process.argv
+    .slice(2)
+    .map((a) => a.replace(/^--/, "").split("="))
+    .map(([k, v]) => [k, v ?? true]),
+);
 const targets = args.get("target") === "all" ? ["chrome", "firefox"] : [args.get("target") ?? "chrome"];
 const e2e = args.has("e2e");
 const watch = args.has("watch");

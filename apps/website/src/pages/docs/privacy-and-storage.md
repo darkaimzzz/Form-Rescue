@@ -45,14 +45,14 @@ Drafts expire 1, 7 (default) or 30 days after your last edit. Viewing or restori
 
 ## Limits on size
 
-| Limit | Value | At the limit |
-| --- | --- | --- |
-| One text value | 64 KiB | Skipped with a warning, never shortened |
-| Fields per draft | 100 | Extra fields skipped and reported |
-| One version | 256 KiB | Save rejected with a visible status |
-| Versions per draft | 3 | Oldest removed |
-| Drafts | 200 | Oldest other draft removed |
-| All drafts | 20 MiB | Oldest removed; if still full, the save fails visibly |
+| Limit              | Value   | At the limit                                          |
+| ------------------ | ------- | ----------------------------------------------------- |
+| One text value     | 64 KiB  | Skipped with a warning, never shortened               |
+| Fields per draft   | 100     | Extra fields skipped and reported                     |
+| One version        | 256 KiB | Save rejected with a visible status                   |
+| Versions per draft | 3       | Oldest removed                                        |
+| Drafts             | 200     | Oldest other draft removed                            |
+| All drafts         | 20 MiB  | Oldest removed; if still full, the save fails visibly |
 
 ## Deleting
 

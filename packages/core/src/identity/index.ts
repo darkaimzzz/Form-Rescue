@@ -21,9 +21,7 @@ export async function routeHash(hash: Hasher, href: string): Promise<string> {
 }
 
 export async function formKey(hash: Hasher, form: FormDescriptor): Promise<string> {
-  return hash(
-    ["form", form.virtual ? "v" : "f", tok(form.id), tok(form.name), form.action, form.signature, form.virtual ? form.ordinal : ""].join("|"),
-  );
+  return hash(["form", form.virtual ? "v" : "f", tok(form.id), tok(form.name), form.action, form.signature, form.virtual ? form.ordinal : ""].join("|"));
 }
 
 const GENERIC: Record<StoredField["kind"], string> = {
@@ -42,11 +40,7 @@ export function genericLabel(kind: StoredField["kind"], ordinal: number): string
  * detected after hashing (an id and name carrying the same token count as
  * one matching signal).
  */
-export async function fieldIdentity(
-  hash: Hasher,
-  fKey: string,
-  d: FieldDescriptor,
-): Promise<{ fieldKey: string; identity: Identity }> {
+export async function fieldIdentity(hash: Hasher, fKey: string, d: FieldDescriptor): Promise<{ fieldKey: string; identity: Identity }> {
   const [idT, nameT, labelT] = [tok(d.id), tok(d.name), tok(d.label)];
   const identity: Identity = {
     groupHash: await hash(`group|${fKey}|${tok(d.group)}`),

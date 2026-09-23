@@ -1,0 +1,50 @@
+name: Site or form compatibility
+description: A form or field type isn't saved or restored as expected.
+labels: [compatibility]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A **minimized synthetic HTML fixture** that reproduces the problem is the most useful thing you can share. Naming a real site is optional; never include private URLs, real drafts or credentials.
+  - type: dropdown
+    id: field
+    attributes:
+      label: Field type
+      options: [textarea, text input, search input (opted in), select, checkbox, radio group, other / not sure]
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: What went wrong?
+      options:
+        [
+          Not saved,
+          Saved but not offered for this page,
+          Copy only instead of restore,
+          Restore failed or was undone by the page,
+          Something was saved that should not be,
+          Other,
+        ]
+    validations:
+      required: true
+  - type: textarea
+    id: fixture
+    attributes:
+      label: Minimal synthetic fixture (HTML)
+      render: html
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed restore behavior and outcome counts
+  - type: input
+    id: browser
+    attributes:
+      label: Browser, version and OS
+    validations:
+      required: true
+  - type: input
+    id: site
+    attributes:
+      label: Public site (optional)
+      description: Only if public and non-sensitive.

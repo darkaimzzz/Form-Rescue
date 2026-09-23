@@ -20,11 +20,11 @@ It's an **alpha**. Everything described here is implemented and tested on synthe
 
 ## What it can and can't do
 
-| It will | It won't |
-| --- | --- |
-| Save text you edit in ordinary text boxes and text areas on enabled sites | Save anything on sites you haven't enabled |
-| Save non-sensitive dropdown, checkbox and radio choices | Save passwords, codes, payment, bank or identity fields |
-| Keep up to three recent versions per draft for 1, 7 or 30 days | Keep drafts forever or sync them anywhere |
-| Show saved values in its own page and restore the fields you pick | Restore anything automatically, or submit forms |
-| Offer copy-only recovery when a field can't be matched confidently | Guess which field a saved value belongs to |
-| Survive refreshes, tab closure, browser restarts and crashes after a save | Guarantee the last second of typing before a crash |
+| It will                                                                   | It won't                                                |
+| ------------------------------------------------------------------------- | ------------------------------------------------------- |
+| Save text you edit in ordinary text boxes and text areas on enabled sites | Save anything on sites you haven't enabled              |
+| Save non-sensitive dropdown, checkbox and radio choices                   | Save passwords, codes, payment, bank or identity fields |
+| Keep up to three recent versions per draft for 1, 7 or 30 days            | Keep drafts forever or sync them anywhere               |
+| Show saved values in its own page and restore the fields you pick         | Restore anything automatically, or submit forms         |
+| Offer copy-only recovery when a field can't be matched confidently        | Guess which field a saved value belongs to              |
+| Survive refreshes, tab closure, browser restarts and crashes after a save | Guarantee the last second of typing before a crash      |

@@ -51,7 +51,7 @@ function Onboarding() {
             {REPO_URL ? (
               <>
                 {" "}
-                <a href={`${REPO_URL}#try-it`}>{t("onbDemoReadme")}</a>
+                <a href={`${REPO_URL}#contributor-quick-start`}>{t("onbDemoReadme")}</a>
               </>
             ) : null}
           </p>

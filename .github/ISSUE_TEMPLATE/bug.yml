@@ -1,0 +1,60 @@
+name: Bug report
+description: Something in Form Rescue didn't work as documented.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Please don't include passwords, real drafts, private URLs, tokens, account names or browser profile exports.** Describe the page generically or attach a minimal synthetic HTML page instead. Security problems: follow SECURITY.md, not this form.
+  - type: input
+    id: version
+    attributes:
+      label: Form Rescue version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: "Firefox 156.0.1"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system and version
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Use synthetic text and a minimal synthetic page where possible.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostic summary (optional)
+      description: Settings → Diagnostic summary. It contains no sites or draft text.
+      render: text
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: This report contains no real drafts, credentials, private URLs or profile data.
+          required: true

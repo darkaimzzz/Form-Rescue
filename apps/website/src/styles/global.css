@@ -246,9 +246,11 @@ p {
 }
 .prose pre {
   background: var(--fr-surface-2);
+  color: var(--fr-ink);
   padding: var(--fr-space-4);
   border-radius: var(--fr-radius-control);
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-size: 0.9rem;
 }
 .prose pre code {

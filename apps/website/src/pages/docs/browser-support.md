@@ -6,14 +6,14 @@ description: Which browsers and versions Form Rescue has actually been tested on
 
 Form Rescue is an alpha. This table lists only what has actually been exercised.
 
-| Browser | Version tested | How | Status |
-| --- | --- | --- | --- |
-| Chromium (Playwright build) | 153.0.8010.12 | Full automated suite: recovery, privacy, durability incl. crash, scenarios, accessibility, performance | Passing |
-| Microsoft Edge | 153.0.4234.48 | Full automated suite with the installed browser | Passing |
-| Firefox | 156.0.1 | Automated smoke over WebDriver BiDi: install, enable, save, reload, review, restore, sensitive-form check, delete all | Passing |
-| Google Chrome (branded) | 153 | Chrome no longer loads unpacked extensions from the command line, so automation uses Chromium; a manual check is pending | Pending |
-| Brave, Opera, Vivaldi | — | Not tested | Unknown |
-| Safari, mobile browsers | — | Not supported | — |
+| Browser                     | Version tested | How                                                                                                                      | Status  |
+| --------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------ | ------- |
+| Chromium (Playwright build) | 153.0.8010.12  | Full automated suite: recovery, privacy, durability incl. crash, scenarios, accessibility, performance                   | Passing |
+| Microsoft Edge              | 153.0.4234.48  | Full automated suite with the installed browser                                                                          | Passing |
+| Firefox                     | 156.0.1        | Automated smoke over WebDriver BiDi: install, enable, save, reload, review, restore, sensitive-form check, delete all    | Passing |
+| Google Chrome (branded)     | 153            | Chrome no longer loads unpacked extensions from the command line, so automation uses Chromium; a manual check is pending | Pending |
+| Brave, Opera, Vivaldi       | —              | Not tested                                                                                                               | Unknown |
+| Safari, mobile browsers     | —              | Not supported                                                                                                            | —       |
 
 Tested on Windows 11. macOS and Linux runs, and older browser versions, haven't been done yet. The extension declares its minimum as the oldest version actually validated (Chrome/Edge 153, Firefox 156).
 

@@ -32,17 +32,9 @@ export interface FieldMeta {
 }
 
 export type ExclusionReason =
-  | "sensitive-form"
-  | "opted-out"
-  | "autocomplete-off"
-  | "unsupported-type"
-  | "not-editable"
-  | "sensitive-autocomplete"
-  | "sensitive-metadata";
+  "sensitive-form" | "opted-out" | "autocomplete-off" | "unsupported-type" | "not-editable" | "sensitive-autocomplete" | "sensitive-metadata";
 
-export type Eligibility =
-  | { eligible: true; kind: FieldKind; search: boolean }
-  | { eligible: false; reason: ExclusionReason };
+export type Eligibility = { eligible: true; kind: FieldKind; search: boolean } | { eligible: false; reason: ExclusionReason };
 
 /** Bound on any metadata string we inspect (PRD: bounded metadata only). */
 export const META_LIMIT = 200;
@@ -99,33 +91,118 @@ const LEET: Record<string, string> = { "@": "a", "0": "o", "1": "i", $: "s", "3"
  */
 const SECRET_TERMS = [
   // credentials (en, de, es, fr, pt, nl, it, pl, ru, zh, ja, ko, ar, hi)
-  "password", "passwd", "passphrase", "passcode", "passwort", "kennwort", "contrasena",
-  "mot de passe", "senha", "wachtwoord", "haslo", "пароль", "密码", "密碼", "パスワード",
-  "비밀번호", "كلمة المرور", "पासवर्ड", "pwd",
+  "password",
+  "passwd",
+  "passphrase",
+  "passcode",
+  "passwort",
+  "kennwort",
+  "contrasena",
+  "mot de passe",
+  "senha",
+  "wachtwoord",
+  "haslo",
+  "пароль",
+  "密码",
+  "密碼",
+  "パスワード",
+  "비밀번호",
+  "كلمة المرور",
+  "पासवर्ड",
+  "pwd",
   // one-time codes and authentication
-  "otp", "one time code", "one time password", "verification code", "security code",
-  "auth code", "authentication code", "2fa", "mfa", "totp", "authenticator",
+  "otp",
+  "one time code",
+  "one time password",
+  "verification code",
+  "security code",
+  "auth code",
+  "authentication code",
+  "2fa",
+  "mfa",
+  "totp",
+  "authenticator",
   // secrets
-  "token", "api key", "access key", "secret", "private key", "seed phrase", "mnemonic",
-  "recovery phrase", "recovery code", "backup code", "pin",
+  "token",
+  "api key",
+  "access key",
+  "secret",
+  "private key",
+  "seed phrase",
+  "mnemonic",
+  "recovery phrase",
+  "recovery code",
+  "backup code",
+  "pin",
   // payment and banking
-  "credit card", "debit card", "card number", "cardnumber", "ccnumber", "cvv", "cvv2", "cvc",
-  "csc", "card verification", "iban", "routing number", "account number", "sort code", "swift",
-  "bic", "bank account",
+  "credit card",
+  "debit card",
+  "card number",
+  "cardnumber",
+  "ccnumber",
+  "cvv",
+  "cvv2",
+  "cvc",
+  "csc",
+  "card verification",
+  "iban",
+  "routing number",
+  "account number",
+  "sort code",
+  "swift",
+  "bic",
+  "bank account",
   // government identity
-  "ssn", "social security", "national id", "national insurance", "aadhaar", "aadhar",
-  "passport", "driver license", "drivers license", "driving licence", "tax id", "nif", "dni",
-  "curp", "cpf", "personnummer",
+  "ssn",
+  "social security",
+  "national id",
+  "national insurance",
+  "aadhaar",
+  "aadhar",
+  "passport",
+  "driver license",
+  "drivers license",
+  "driving licence",
+  "tax id",
+  "nif",
+  "dni",
+  "curp",
+  "cpf",
+  "personnummer",
   // medical records
-  "diagnosis", "medical record", "mrn", "health insurance", "patient id", "nhs number",
+  "diagnosis",
+  "medical record",
+  "mrn",
+  "health insurance",
+  "patient id",
+  "nhs number",
   "medicare",
 ];
 
 /** Personal contact/identity terms: applied to single-line inputs only, so prose fields such as "Message for our phone team" stay eligible. */
 const CONTACT_TERMS = [
-  "email", "e mail", "phone", "telephone", "mobile", "username", "user name", "login",
-  "street address", "home address", "postal address", "address", "zip", "zipcode", "postcode",
-  "postal code", "birthday", "date of birth", "dob", "full name", "first name", "last name",
+  "email",
+  "e mail",
+  "phone",
+  "telephone",
+  "mobile",
+  "username",
+  "user name",
+  "login",
+  "street address",
+  "home address",
+  "postal address",
+  "address",
+  "zip",
+  "zipcode",
+  "postcode",
+  "postal code",
+  "birthday",
+  "date of birth",
+  "dob",
+  "full name",
+  "first name",
+  "last name",
   "surname",
 ];
 
@@ -178,9 +255,24 @@ function metaTexts(m: FieldMeta): string[] {
 }
 
 const HARD_EXCLUDED_TYPES = new Set([
-  "password", "hidden", "file", "button", "submit", "reset", "image",
-  "email", "tel", "url", "number", "date", "datetime-local", "month", "week", "time",
-  "range", "color",
+  "password",
+  "hidden",
+  "file",
+  "button",
+  "submit",
+  "reset",
+  "image",
+  "email",
+  "tel",
+  "url",
+  "number",
+  "date",
+  "datetime-local",
+  "month",
+  "week",
+  "time",
+  "range",
+  "color",
 ]);
 
 function kindOf(m: FieldMeta): { kind: FieldKind; search: boolean } | null {

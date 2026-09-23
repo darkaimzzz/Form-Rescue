@@ -18,7 +18,10 @@ test("200-control form: typing budget, handler p95, commit latency, idle quiet",
   await enableSite(context, sw, extId, page);
   await page.evaluate(() => {
     (window as unknown as { __long: number[] }).__long = [];
-    new PerformanceObserver((l) => l.getEntries().forEach((e) => (window as unknown as { __long: number[] }).__long.push(e.duration))).observe({ type: "longtask", buffered: false });
+    new PerformanceObserver((l) => l.getEntries().forEach((e) => (window as unknown as { __long: number[] }).__long.push(e.duration))).observe({
+      type: "longtask",
+      buffered: false,
+    });
   });
 
   // Type into 20 fields spread across the form, pausing so debounced commits happen.
@@ -43,7 +46,12 @@ test("200-control form: typing budget, handler p95, commit latency, idle quiet",
   const result = {
     measuredAt: new Date().toISOString(),
     browser: `${browserName} ${context.browser()?.version() ?? (await sw.evaluate(() => navigator.userAgent))}`,
-    machine: { platform: `${os.platform()} ${os.release()}`, cpu: os.cpus()[0]?.model, cores: os.cpus().length, memoryGiB: Math.round(os.totalmem() / 2 ** 30) },
+    machine: {
+      platform: `${os.platform()} ${os.release()}`,
+      cpu: os.cpus()[0]?.model,
+      cores: os.cpus().length,
+      memoryGiB: Math.round(os.totalmem() / 2 ** 30),
+    },
     fixture: "tests/fixtures/pages/perf.html (200 controls)",
     handlerSamples: m.handler.length,
     handlerP95Ms: +pct(m.handler, 95).toFixed(2),

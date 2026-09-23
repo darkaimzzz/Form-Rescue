@@ -65,15 +65,18 @@ function Popup() {
     // Must be called directly from the click: requests only this scheme + host.
     // If access was already granted (known before the click), no prompt is needed.
     const request = s.permission ? Promise.resolve(true) : ext.permissions.request({ origins: [originPattern(s.origin)] });
-    request.then(async (granted) => {
-      if (granted) await call({ type: "enableSite", tabId });
-      else setDenied(true);
-      setBusy(false);
-      await refresh(tabId);
-    }, () => {
-      setDenied(true);
-      setBusy(false);
-    });
+    request.then(
+      async (granted) => {
+        if (granted) await call({ type: "enableSite", tabId });
+        else setDenied(true);
+        setBusy(false);
+        await refresh(tabId);
+      },
+      () => {
+        setDenied(true);
+        setBusy(false);
+      },
+    );
   };
 
   const disable = async (keepDrafts: boolean) => {
@@ -127,12 +130,16 @@ function Popup() {
 
       {!s.supported ? (
         <section aria-labelledby="site">
-          <h1 id="site" className="site">{t("stateUnsupported")}</h1>
+          <h1 id="site" className="site">
+            {t("stateUnsupported")}
+          </h1>
           <p className="muted">{t("popupUnsupported")}</p>
         </section>
       ) : !s.enabled ? (
         <section aria-labelledby="site">
-          <h1 id="site" className="site">{s.hostname}</h1>
+          <h1 id="site" className="site">
+            {s.hostname}
+          </h1>
           <p className="state" role="status">
             {t("popupNotEnabled")}
           </p>
@@ -151,7 +158,9 @@ function Popup() {
         </section>
       ) : (
         <section aria-labelledby="site">
-          <h1 id="site" className="site">{s.hostname}</h1>
+          <h1 id="site" className="site">
+            {s.hostname}
+          </h1>
           <p className="pill pill-ok">{t("protectionOn")}</p>
           <p className="state" role="status" aria-live="polite">
             {stateText}
@@ -163,11 +172,7 @@ function Popup() {
             </button>
           )}
           <p>{t("draftsForPage", { count: s.candidateCount ?? 0 })}</p>
-          <button
-            type="button"
-            className="btn btn-primary wide"
-            onClick={() => openPage(`pages/recovery/index.html?tab=${tabId}`)}
-          >
+          <button type="button" className="btn btn-primary wide" onClick={() => openPage(`pages/recovery/index.html?tab=${tabId}`)}>
             {t("reviewDrafts")}
           </button>
           <div className="btn-row spaced">

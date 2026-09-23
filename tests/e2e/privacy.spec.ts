@@ -8,7 +8,8 @@ test("hard-excluded fields and forms are never stored; only the eligible bio is"
   const page = await context.newPage();
   await page.goto(`${A}/sensitive.html`);
   await enableSite(context, sw, extId, page);
-  for (const id of ["#otp-like", "#apikey", "#secret-notes", "#optout", "#acoff", "#mail"]) await page.locator(id).pressSequentially(`${SENTINEL}${id}`, { delay: 1 });
+  for (const id of ["#otp-like", "#apikey", "#secret-notes", "#optout", "#acoff", "#mail"])
+    await page.locator(id).pressSequentially(`${SENTINEL}${id}`, { delay: 1 });
   await page.locator("#bio").pressSequentially("I grow tomatoes.", { delay: 2 });
   await waitSaved(context, sw, extId, page);
   const db = await dumpDb(sw);
@@ -89,7 +90,10 @@ test("search boxes are skipped until explicitly included; exclusions delete save
   await expect(rec.getByText("Excluded", { exact: true })).toBeVisible();
   await expect.poll(async () => (await dumpDb(sw)).includes(SENTINEL), { timeout: 5000 }).toBe(false);
 
-  for (const [sel, text] of [["#site-search", " two"], ["#details", " more"]] as const) {
+  for (const [sel, text] of [
+    ["#site-search", " two"],
+    ["#details", " more"],
+  ] as const) {
     await page.locator(sel).focus();
     await page.keyboard.press("End");
     await page.keyboard.type(text);
@@ -124,7 +128,16 @@ test("forged UI messages are rejected by schema and size checks", async ({ conte
   const replies = await ui.evaluate(async () => {
     const send = (m: unknown) => chrome.runtime.sendMessage(m);
     return {
-      contentTypeFromUi: await send({ type: "commit", capability: "abcdefgh", requestId: "abcdefgh", sequence: 1, epoch: { global: 0, site: 0 }, url: "http://x/", form: {}, fields: [] }),
+      contentTypeFromUi: await send({
+        type: "commit",
+        capability: "abcdefgh",
+        requestId: "abcdefgh",
+        sequence: 1,
+        epoch: { global: 0, site: 0 },
+        url: "http://x/",
+        form: {},
+        fields: [],
+      }),
       extraKey: await send({ type: "listDrafts", admin: true }),
       oversized: await send({ type: "getDraft", draftId: "a".repeat(400 * 1024) }),
       unknownDraft: await send({ type: "getDraft", draftId: "doesnotexist" }),

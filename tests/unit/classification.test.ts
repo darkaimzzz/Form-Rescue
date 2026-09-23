@@ -38,12 +38,28 @@ describe("supported controls", () => {
     expect(classifyField(meta({ type: "search" }), ok)).toEqual({ eligible: true, kind: "text", search: true });
   });
 
-  it.each(["password", "hidden", "file", "button", "submit", "reset", "image", "email", "tel", "url", "number", "date", "datetime-local", "month", "week", "time", "range", "color"])(
-    "type=%s is hard-excluded",
-    (type) => {
-      expect(classifyField(meta({ type }), ok)).toMatchObject({ eligible: false });
-    },
-  );
+  it.each([
+    "password",
+    "hidden",
+    "file",
+    "button",
+    "submit",
+    "reset",
+    "image",
+    "email",
+    "tel",
+    "url",
+    "number",
+    "date",
+    "datetime-local",
+    "month",
+    "week",
+    "time",
+    "range",
+    "color",
+  ])("type=%s is hard-excluded", (type) => {
+    expect(classifyField(meta({ type }), ok)).toMatchObject({ eligible: false });
+  });
 
   it.each([{ disabled: true }, { readOnly: true }, { inert: true }, { visible: false }])("%o is not editable", (o) => {
     expect(classifyField(meta(o), ok)).toEqual({ eligible: false, reason: "not-editable" });
@@ -66,9 +82,26 @@ describe("opt-outs and precedence", () => {
 
 describe("autocomplete tokens", () => {
   it.each([
-    "current-password", "new-password", "one-time-code", "username", "cc-number", "cc-csc", "cc-exp", "transaction-amount",
-    "email", "tel", "tel-national", "street-address", "address-line1", "postal-code", "bday", "bday-year", "given-name",
-    "section-a shipping street-address", "billing cc-name", "webauthn",
+    "current-password",
+    "new-password",
+    "one-time-code",
+    "username",
+    "cc-number",
+    "cc-csc",
+    "cc-exp",
+    "transaction-amount",
+    "email",
+    "tel",
+    "tel-national",
+    "street-address",
+    "address-line1",
+    "postal-code",
+    "bday",
+    "bday-year",
+    "given-name",
+    "section-a shipping street-address",
+    "billing cc-name",
+    "webauthn",
   ])("%s is sensitive", (ac) => {
     expect(isSensitiveAutocomplete(ac)).toBe(true);
     expect(classifyField(meta({ autocomplete: ac }), ok)).toEqual({ eligible: false, reason: "sensitive-autocomplete" });
@@ -80,21 +113,54 @@ describe("autocomplete tokens", () => {
 
 describe("metadata terms", () => {
   it.each([
-    { name: "password" }, { id: "userPassword" }, { name: "new_passwd" }, { labelText: "Passcode" }, { ariaLabel: "Your PIN" },
-    { placeholder: "Enter OTP" }, { labelText: "Verification code" }, { name: "api_key" }, { id: "apiKey" }, { labelText: "Client secret" },
-    { labelText: "Seed phrase" }, { labelText: "Recovery code" }, { name: "ssn" }, { labelText: "National ID" }, { labelText: "Aadhaar number" },
-    { labelText: "PAN card" }, { labelText: "PAN" }, { labelText: "Passport number" }, { labelText: "Routing number" }, { name: "iban" },
-    { labelText: "CVV" }, { labelText: "Card number" }, { labelText: "Diagnosis" }, { labelText: "Medical record number" },
-    { labelText: "Contraseña" }, { labelText: "Mot de passe" }, { labelText: "Passwort" }, { labelText: "Пароль" }, { labelText: "密码" },
-    { labelText: "パスワード" }, { labelText: "비밀번호" }, { name: "p@ssw0rd" }, { labelText: "Access token" }, { labelText: "Tax ID" },
-    { labelText: "TIN number" }, { groupLabel: "Payment card" + " number" },
+    { name: "password" },
+    { id: "userPassword" },
+    { name: "new_passwd" },
+    { labelText: "Passcode" },
+    { ariaLabel: "Your PIN" },
+    { placeholder: "Enter OTP" },
+    { labelText: "Verification code" },
+    { name: "api_key" },
+    { id: "apiKey" },
+    { labelText: "Client secret" },
+    { labelText: "Seed phrase" },
+    { labelText: "Recovery code" },
+    { name: "ssn" },
+    { labelText: "National ID" },
+    { labelText: "Aadhaar number" },
+    { labelText: "PAN card" },
+    { labelText: "PAN" },
+    { labelText: "Passport number" },
+    { labelText: "Routing number" },
+    { name: "iban" },
+    { labelText: "CVV" },
+    { labelText: "Card number" },
+    { labelText: "Diagnosis" },
+    { labelText: "Medical record number" },
+    { labelText: "Contraseña" },
+    { labelText: "Mot de passe" },
+    { labelText: "Passwort" },
+    { labelText: "Пароль" },
+    { labelText: "密码" },
+    { labelText: "パスワード" },
+    { labelText: "비밀번호" },
+    { name: "p@ssw0rd" },
+    { labelText: "Access token" },
+    { labelText: "Tax ID" },
+    { labelText: "TIN number" },
+    { groupLabel: "Payment card" + " number" },
   ])("%o is excluded", (o) => {
     expect(classifyField(meta(o), ok)).toEqual({ eligible: false, reason: "sensitive-metadata" });
   });
 
   it.each([
-    { labelText: "Email address" }, { name: "phone" }, { labelText: "Date of birth" }, { labelText: "Street address" },
-    { labelText: "First name" }, { name: "zip" }, { labelText: "Username" },
+    { labelText: "Email address" },
+    { name: "phone" },
+    { labelText: "Date of birth" },
+    { labelText: "Street address" },
+    { labelText: "First name" },
+    { name: "zip" },
+    { labelText: "Username" },
   ])("contact metadata %o excludes single-line inputs", (o) => {
     expect(classifyField(meta(o), ok)).toEqual({ eligible: false, reason: "sensitive-metadata" });
   });
@@ -105,9 +171,18 @@ describe("metadata terms", () => {
   });
 
   it.each([
-    { labelText: "Describe the problem" }, { labelText: "Spinning wheel details" }, { name: "shipping_notes" }, { labelText: "Pan-fried recipe notes" },
-    { labelText: "Tinned food preferences" }, { labelText: "Pinned message" }, { labelText: "Tokenomics essay" }, { labelText: "Project name" },
-    { labelText: "Cover letter" }, { labelText: "Why do you want this job?" }, { labelText: "Company" }, { labelText: "Topping options" },
+    { labelText: "Describe the problem" },
+    { labelText: "Spinning wheel details" },
+    { name: "shipping_notes" },
+    { labelText: "Pan-fried recipe notes" },
+    { labelText: "Tinned food preferences" },
+    { labelText: "Pinned message" },
+    { labelText: "Tokenomics essay" },
+    { labelText: "Project name" },
+    { labelText: "Cover letter" },
+    { labelText: "Why do you want this job?" },
+    { labelText: "Company" },
+    { labelText: "Topping options" },
   ])("false positives avoided for %o", (o) => {
     expect(classifyField(meta({ tag: "textarea", ...o }), ok)).toMatchObject({ eligible: true });
   });

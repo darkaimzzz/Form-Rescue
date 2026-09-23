@@ -229,7 +229,9 @@ test("permission revoked in browser settings: capture stops, drafts purged, scri
   const ext = await context.newPage();
   await ext.goto("chrome://extensions");
   await ext.evaluate(async (id) => {
-    await (chrome as unknown as { developerPrivate: { updateExtensionConfiguration(c: object): Promise<void> } }).developerPrivate.updateExtensionConfiguration({ extensionId: id, hostAccess: "ON_CLICK" });
+    await (chrome as unknown as { developerPrivate: { updateExtensionConfiguration(c: object): Promise<void> } }).developerPrivate.updateExtensionConfiguration(
+      { extensionId: id, hostAccess: "ON_CLICK" },
+    );
   }, extId);
   await expect.poll(() => draftCount(sw), { timeout: 8000 }).toBe(0);
   expect(await sw.evaluate(() => chrome.scripting.getRegisteredContentScripts())).toHaveLength(0);

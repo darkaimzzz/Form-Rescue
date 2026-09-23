@@ -53,15 +53,18 @@ export const en = {
   onbTitle: "Your drafts stay in this browser profile.",
   onbLead: "Form Rescue saves what you type on the sites you choose, so you can get it back after a refresh, a closed tab, or an expired sign-in.",
   onbPoint1Title: "Sensitive fields are skipped",
-  onbPoint1: "Passwords, one-time codes, payment and identity fields, and forms that contain them are never saved. Detection is careful but not perfect — avoid enabling sites where you type highly sensitive prose.",
+  onbPoint1:
+    "Passwords, one-time codes, payment and identity fields, and forms that contain them are never saved. Detection is careful but not perfect — avoid enabling sites where you type highly sensitive prose.",
   onbPoint2Title: "Drafts expire after seven days",
   onbPoint2: "You can choose 1, 7, or 30 days in settings. Nothing is kept forever, and nothing leaves your device.",
   onbPoint3Title: "The last few seconds can be lost",
-  onbPoint3: "Drafts are saved about a second after you stop typing. If the browser crashes or the power fails before that, the newest words may not be recoverable.",
+  onbPoint3:
+    "Drafts are saved about a second after you stop typing. If the browser crashes or the power fails before that, the newest words may not be recoverable.",
   onbTryDemo: "Try the demo",
   onbEnable: "Enable on a site",
   onbEnableHow: "Open the site you want to protect, click the Form Rescue toolbar button, then choose “Enable protection for this site.”",
-  onbDemoLocal: "The public practice page isn't published yet. Developers can run “pnpm fixtures” in the source repository and open http://127.0.0.1:4173/demo.html.",
+  onbDemoLocal:
+    "The public practice page isn't published yet. Developers can run “pnpm fixtures” in the source repository and open http://127.0.0.1:4173/demo.html.",
   onbDemoReadme: "Read the README.",
 
   // library
@@ -92,7 +95,8 @@ export const en = {
   // recovery
   recTitle: "Review drafts for {host}",
   recNone: "No saved drafts match this page. Drafts from other pages of this site are in All drafts, where you can copy them.",
-  recOtherRoutes: "{count, plural, one {1 draft from another page of this site is in All drafts.} other {# drafts from other pages of this site are in All drafts.}}",
+  recOtherRoutes:
+    "{count, plural, one {1 draft from another page of this site is in All drafts.} other {# drafts from other pages of this site are in All drafts.}}",
   recChoose: "Choose one draft",
   recSavedAt: "Saved {when}",
   recUse: "Review this draft",
@@ -155,8 +159,10 @@ export const en = {
   setPrivacyTitle: "Privacy",
   setPrivacy:
     "Drafts are stored only in this browser profile, in extension storage that websites can't read. Nothing is uploaded and there is no telemetry. Storage is not encrypted by Form Rescue: anyone who can use this browser profile can open your drafts. Uninstalling the extension or clearing browser data deletes them. Deleted data is removed from the extension's database the next time it runs; this isn't forensic secure erasure.",
-  setRevocationNote: "If you remove Form Rescue's access to a site from the browser's own settings, its saved drafts are deleted the next time the extension runs.",
-  setDbError: "Form Rescue can't open its storage (code: {code}). Saving is stopped and your data is left untouched. Updating the extension or restarting the browser may help.",
+  setRevocationNote:
+    "If you remove Form Rescue's access to a site from the browser's own settings, its saved drafts are deleted the next time the extension runs.",
+  setDbError:
+    "Form Rescue can't open its storage (code: {code}). Saving is stopped and your data is left untouched. Updating the extension or restarting the browser may help.",
   dialogClose: "Close",
 } as const;
 

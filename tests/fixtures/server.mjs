@@ -14,7 +14,12 @@ export const PORTS = [4173, 4174];
 
 function handler(req, res) {
   const url = new URL(req.url, "http://x");
-  const cookies = Object.fromEntries((req.headers.cookie ?? "").split(/;\s*/).filter(Boolean).map((c) => c.split("=")));
+  const cookies = Object.fromEntries(
+    (req.headers.cookie ?? "")
+      .split(/;\s*/)
+      .filter(Boolean)
+      .map((c) => c.split("=")),
+  );
   // Synthetic session flow: /session/form needs a session cookie, else redirect to login.
   if (url.pathname === "/session/form" && cookies.session !== "1") {
     res.writeHead(302, { location: "/session/login.html?return=/session/form" }).end();
@@ -45,7 +50,12 @@ export async function startServers() {
   for (const port of PORTS)
     for (const host of ["127.0.0.1", "::1"]) {
       const srv = createServer(handler);
-      const ok = await new Promise((resolve) => srv.once("listening", () => resolve(true)).once("error", () => resolve(false)).listen(port, host));
+      const ok = await new Promise((resolve) =>
+        srv
+          .once("listening", () => resolve(true))
+          .once("error", () => resolve(false))
+          .listen(port, host),
+      );
       if (ok) servers.push(srv);
     }
   return () => servers.forEach((s) => s.close());

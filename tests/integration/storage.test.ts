@@ -136,7 +136,9 @@ describe("commits", () => {
   it("aborted transaction leaves no partial writes", async () => {
     await commitEdit(db, await input({ fields: [field("k1", "keep")] }));
     const before = await db.getAll("revisions");
-    await expect(commitEdit(db, await input({ sequence: 2, fields: [field("k1", "keep2"), field("k2", "z".repeat(LIMITS.textBytes + 10))] }))).rejects.toThrow();
+    await expect(
+      commitEdit(db, await input({ sequence: 2, fields: [field("k1", "keep2"), field("k2", "z".repeat(LIMITS.textBytes + 10))] })),
+    ).rejects.toThrow();
     expect(await db.getAll("revisions")).toEqual(before);
   });
 

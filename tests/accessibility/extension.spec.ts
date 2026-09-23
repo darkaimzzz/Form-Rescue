@@ -33,7 +33,9 @@ test("extension pages pass axe in every main state, reflow at 320 px, and suppor
   await popup.close();
 
   await enableSite(context, sw, extId, page);
-  await page.locator("#details").pressSequentially(`Accessible synthetic text ${RLO}reversed${PDF} and a very_long_unbroken_string_` + "x".repeat(200), { delay: 1 });
+  await page
+    .locator("#details")
+    .pressSequentially(`Accessible synthetic text ${RLO}reversed${PDF} and a very_long_unbroken_string_` + "x".repeat(200), { delay: 1 });
   const saved = await waitSaved(context, sw, extId, page);
   await audit(saved, "popup/saved");
 

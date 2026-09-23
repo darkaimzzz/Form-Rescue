@@ -19,6 +19,8 @@ export function openPage(path: string): void {
 }
 
 // Bidi overrides/isolates, zero-width and other invisible controls are shown as visible markers.
+// Matching control characters is the point here.
+// eslint-disable-next-line no-control-regex
 const INVISIBLE = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F\u061C\u200B-\u200F\u202A-\u202E\u2060-\u2069\uFEFF]/g;
 
 /** Display-only transformation. The stored value is never altered. */

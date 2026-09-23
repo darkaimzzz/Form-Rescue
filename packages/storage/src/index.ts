@@ -193,9 +193,7 @@ export async function commitEdit(db: Db, input: CommitInput): Promise<CommitResu
     if (input.epoch.global !== meta.globalEpoch || input.epoch.site !== policy.epoch) throw new StorageError("stale");
 
     const excluded = new Set(
-      (await tx.objectStore("fieldExclusions").index("origin").getAll(input.origin))
-        .filter((r) => r.mode === "exclude")
-        .map((r) => r.fieldKey),
+      (await tx.objectStore("fieldExclusions").index("origin").getAll(input.origin)).filter((r) => r.mode === "exclude").map((r) => r.fieldKey),
     );
 
     // Fields that became sensitive, were screened, or are excluded vanish site-wide first.
@@ -209,9 +207,7 @@ export async function commitEdit(db: Db, input: CommitInput): Promise<CommitResu
     }
 
     const revisions = tx.objectStore("revisions");
-    const prior: Revision | undefined = existing
-      ? revisionSchema.parse(await revisions.get(existing.latestRevisionId))
-      : undefined;
+    const prior: Revision | undefined = existing ? revisionSchema.parse(await revisions.get(existing.latestRevisionId)) : undefined;
     const snapshot = new Map((prior?.fields ?? []).map((f) => [f.fieldKey, f]));
     let skippedFields = 0;
     for (const f of input.fields) {
@@ -437,9 +433,7 @@ export async function getDraft(db: Db, draftId: string, now: number): Promise<{ 
 
 /** Current-page candidates: exact origin and route, excluding the asking document's own drafts. */
 export async function candidateDrafts(db: Db, origin: string, routeHash: string, ownSessionId: string | null, now: number): Promise<Draft[]> {
-  return (await listDrafts(db, now)).filter(
-    (d) => d.origin === origin && d.routeHash === routeHash && d.documentSessionId !== ownSessionId,
-  );
+  return (await listDrafts(db, now)).filter((d) => d.origin === origin && d.routeHash === routeHash && d.documentSessionId !== ownSessionId);
 }
 
 export async function markSubmitted(db: Db, key: { documentSessionId: string; routeHash: string; formKey: string; origin: string }): Promise<void> {

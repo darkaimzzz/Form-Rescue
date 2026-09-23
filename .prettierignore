@@ -1,0 +1,13 @@
+dist
+dist-e2e
+.astro
+coverage
+test-results
+release
+tmp
+pnpm-lock.yaml
+tests/fixtures/pages
+apps/website/public
+assets
+docs/PRD.md
+*.astro

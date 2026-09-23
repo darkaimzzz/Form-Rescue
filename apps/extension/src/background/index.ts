@@ -50,7 +50,9 @@ function hasher(): Promise<Hasher> {
     const key = await crypto.subtle.importKey("raw", raw, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
     return async (input: string) => {
       const sig = new Uint8Array(await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(input)));
-      return btoa(String.fromCharCode(...sig.subarray(0, 18))).replace(/\+/g, "-").replace(/\//g, "_");
+      return btoa(String.fromCharCode(...sig.subarray(0, 18)))
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_");
     };
   })();
   return hasherPromise;
@@ -106,9 +108,7 @@ async function registerFor(origin: string): Promise<void> {
   const id = scriptId(origin);
   const existing = await ext.scripting.getRegisteredContentScripts({ ids: [id] });
   if (existing.length > 0) return;
-  await ext.scripting.registerContentScripts([
-    { id, matches: [originPattern(origin)], js: ["content.js"], runAt: "document_start", allFrames: false },
-  ]);
+  await ext.scripting.registerContentScripts([{ id, matches: [originPattern(origin)], js: ["content.js"], runAt: "document_start", allFrames: false }]);
 }
 
 async function unregisterFor(origin: string): Promise<void> {
@@ -232,7 +232,11 @@ async function handleContent(msg: ContentMessage, ctx: Extract<SenderContext, { 
     const fKey = await computeFormKey(h, msg.form);
     const { fieldKey } = await fieldIdentity(h, fKey, msg.descriptor);
     const rules = await store.listFieldRules(d, ctx.origin);
-    return { ok: true, included: rules.some((r) => r.mode === "include-search" && r.fieldKey === fieldKey) && !rules.some((r) => r.mode === "exclude" && r.fieldKey === fieldKey) };
+    return {
+      ok: true,
+      included:
+        rules.some((r) => r.mode === "include-search" && r.fieldKey === fieldKey) && !rules.some((r) => r.mode === "exclude" && r.fieldKey === fieldKey),
+    };
   }
 
   // submitted
@@ -285,7 +289,10 @@ async function handleUi(msg: UiMessage): Promise<unknown> {
       if (!c) return { ok: true, supported: false, paused: meta.paused };
       const policy = await store.getPolicy(d, c.origin);
       const permission = await ext.permissions.contains({ origins: [originPattern(c.origin)] });
-      const status = await toContent<{ state: string; savedAt: number | null; error: string | null; documentSessionId: string; warning: string | null }>(msg.tabId, { type: "status" });
+      const status = await toContent<{ state: string; savedAt: number | null; error: string | null; documentSessionId: string; warning: string | null }>(
+        msg.tabId,
+        { type: "status" },
+      );
       const candidates =
         policy?.enabled && permission
           ? await store.candidateDrafts(d, c.origin, await computeRouteHash(await hasher(), c.url), status?.documentSessionId ?? null, t)
@@ -335,7 +342,11 @@ async function handleUi(msg: UiMessage): Promise<unknown> {
       const sites = await Promise.all(
         (await store.listPolicies(d))
           .filter((p) => p.enabled)
-          .map(async (p) => ({ origin: p.origin, hostname: hostnameOf(p.origin), permission: await ext.permissions.contains({ origins: [originPattern(p.origin)] }) })),
+          .map(async (p) => ({
+            origin: p.origin,
+            hostname: hostnameOf(p.origin),
+            permission: await ext.permissions.contains({ origins: [originPattern(p.origin)] }),
+          })),
       );
       return { ok: true, retentionDays: meta.retentionDays, paused: meta.paused, sites, stats: await store.stats(d, t), dbError };
     }
@@ -351,7 +362,8 @@ async function handleUi(msg: UiMessage): Promise<unknown> {
         drafts: drafted.flatMap((x) => {
           if (!x) return [];
           const k = `${x.draft.origin}|${x.draft.formKey}`;
-          if (!formLetters.has(k)) formLetters.set(k, String.fromCharCode(65 + ([...formLetters.keys()].filter((f) => f.startsWith(x.draft.origin + "|")).length % 26)));
+          if (!formLetters.has(k))
+            formLetters.set(k, String.fromCharCode(65 + ([...formLetters.keys()].filter((f) => f.startsWith(x.draft.origin + "|")).length % 26)));
           return [
             {
               id: x.draft.id,
@@ -372,7 +384,14 @@ async function handleUi(msg: UiMessage): Promise<unknown> {
       if (!x) return { ok: false, error: "not-found" };
       return {
         ok: true,
-        fields: x.revision.fields.map((f) => ({ fieldKey: f.fieldKey, kind: f.kind, label: f.genericLabel, ordinal: f.identity.ordinal, value: f.value, editedAt: f.editedAt })),
+        fields: x.revision.fields.map((f) => ({
+          fieldKey: f.fieldKey,
+          kind: f.kind,
+          label: f.genericLabel,
+          ordinal: f.identity.ordinal,
+          value: f.value,
+          editedAt: f.editedAt,
+        })),
       };
     }
     case "deleteDraft": {
@@ -410,7 +429,17 @@ async function handleUi(msg: UiMessage): Promise<unknown> {
         liveScript: !!capForTab(msg.tabId),
         sameOriginOther,
         candidates: full.flatMap((x) =>
-          x ? [{ id: x.draft.id, updatedAt: x.draft.updatedAt, status: x.draft.status, fieldKinds: x.revision.fields.map((f) => f.kind), fieldCount: x.revision.fields.length }] : [],
+          x
+            ? [
+                {
+                  id: x.draft.id,
+                  updatedAt: x.draft.updatedAt,
+                  status: x.draft.status,
+                  fieldKinds: x.revision.fields.map((f) => f.kind),
+                  fieldCount: x.revision.fields.length,
+                },
+              ]
+            : [],
         ),
       };
     }
@@ -454,7 +483,17 @@ async function handleUi(msg: UiMessage): Promise<unknown> {
         }
         return item;
       });
-      const plan: Plan = { planId: newId(), tabId: msg.tabId, capability: live[0], origin: c.origin, routeHash: route, draftId: x.draft.id, epoch, items, createdAt: t };
+      const plan: Plan = {
+        planId: newId(),
+        tabId: msg.tabId,
+        capability: live[0],
+        origin: c.origin,
+        routeHash: route,
+        draftId: x.draft.id,
+        epoch,
+        items,
+        createdAt: t,
+      };
       plans.set(plan.planId, plan);
       return { ok: true, planId: plan.planId, savedAt: x.draft.updatedAt, status: x.draft.status, items };
     }
@@ -504,7 +543,11 @@ async function handleUi(msg: UiMessage): Promise<unknown> {
     case "undoRestore": {
       const plan = plans.get(msg.planId);
       if (!plan?.restoreId) return { ok: false, error: "stale-plan" };
-      const reply = await toContent<{ ok: boolean; reverted: number; kept: number }>(plan.tabId, { type: "undo", capability: plan.capability, restoreId: plan.restoreId });
+      const reply = await toContent<{ ok: boolean; reverted: number; kept: number }>(plan.tabId, {
+        type: "undo",
+        capability: plan.capability,
+        restoreId: plan.restoreId,
+      });
       return reply ?? { ok: false, error: "stale-plan" };
     }
     case "pageFields": {

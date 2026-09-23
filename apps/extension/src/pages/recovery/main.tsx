@@ -44,7 +44,13 @@ const ERRORS: Record<string, StringKey> = {
 
 function isEmpty(v?: FieldValue): boolean {
   if (!v) return true;
-  return v.kind === "text" ? v.text === "" : v.kind === "select" ? v.values.every((x) => x === "") : v.kind === "checkbox" ? !v.checked : v.selectedOptionKey === null;
+  return v.kind === "text"
+    ? v.text === ""
+    : v.kind === "select"
+      ? v.values.every((x) => x === "")
+      : v.kind === "checkbox"
+        ? !v.checked
+        : v.selectedOptionKey === null;
 }
 
 function FieldsManager() {
@@ -84,11 +90,19 @@ function FieldsManager() {
               ) : f.search && f.included ? (
                 <span className="pill pill-ok">{t("recSearchIncluded")}</span>
               ) : f.search ? (
-                <button type="button" className="btn" onClick={async () => (await call({ type: "setFieldRule", planId: data.planId, ref: f.ref, mode: "include-search" })).ok && load()}>
+                <button
+                  type="button"
+                  className="btn"
+                  onClick={async () => (await call({ type: "setFieldRule", planId: data.planId, ref: f.ref, mode: "include-search" })).ok && load()}
+                >
                   {t("recIncludeSearch")}
                 </button>
               ) : (
-                <button type="button" className="btn btn-danger" onClick={async () => (await call({ type: "setFieldRule", planId: data.planId, ref: f.ref, mode: "exclude" })).ok && load()}>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={async () => (await call({ type: "setFieldRule", planId: data.planId, ref: f.ref, mode: "exclude" })).ok && load()}
+                >
                   {t("recExclude")}
                 </button>
               )}
@@ -137,7 +151,15 @@ function Recovery() {
     setBusy(false);
     if (!r.ok) return setError(t(ERRORS[r.error ?? ""] ?? "recStale"));
     const count = (o: ApplyOutcome) => r.outcomes.filter((x) => x.outcome === o).length;
-    setResult(t("recResult", { restored: count("restored"), skipped: count("skipped"), conflict: count("conflict"), unsupported: count("unsupported"), failed: count("failed") }));
+    setResult(
+      t("recResult", {
+        restored: count("restored"),
+        skipped: count("skipped"),
+        conflict: count("conflict"),
+        unsupported: count("unsupported"),
+        failed: count("failed"),
+      }),
+    );
   };
 
   // Move focus to the outcome once it is rendered so keyboard and screen-reader users land on it.
@@ -171,8 +193,8 @@ function Recovery() {
               <label key={c.id} className="check">
                 <input type="radio" name="draft" value={c.id} checked={chosen === c.id} onChange={() => setChosen(c.id)} />
                 <span>
-                  <time dateTime={new Date(c.updatedAt).toISOString()}>{t("recSavedAt", { when: exactTime(c.updatedAt) })}</time> ({relativeTime(c.updatedAt)}) ·{" "}
-                  {t("libFields", { count: c.fieldCount })}
+                  <time dateTime={new Date(c.updatedAt).toISOString()}>{t("recSavedAt", { when: exactTime(c.updatedAt) })}</time> ({relativeTime(c.updatedAt)})
+                  · {t("libFields", { count: c.fieldCount })}
                   {c.status === "submission-attempted" && <span className="muted"> · {t("libSubmitted")}</span>}
                 </span>
               </label>
@@ -220,7 +242,11 @@ function Recovery() {
                     </div>
                     {i.status === "direct" ? (
                       <label className="check">
-                        <input type="checkbox" checked={!!selected[i.fieldKey]} onChange={(e) => setSelected({ ...selected, [i.fieldKey]: e.target.checked })} />
+                        <input
+                          type="checkbox"
+                          checked={!!selected[i.fieldKey]}
+                          onChange={(e) => setSelected({ ...selected, [i.fieldKey]: e.target.checked })}
+                        />
                         <span>{populated ? t("recReplace") : t("recSelect", { label: i.label })}</span>
                       </label>
                     ) : (

@@ -3,6 +3,11 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "exports": { ".": "./src/index.ts" },
-  "dependencies": { "@form-rescue/core": "workspace:*", "idb": "8.0.3" }
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@form-rescue/core": "workspace:*",
+    "idb": "8.0.3"
+  }
 }

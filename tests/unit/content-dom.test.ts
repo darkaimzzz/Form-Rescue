@@ -74,7 +74,9 @@ describe("hard-excluded controls are rejected from metadata alone", () => {
   });
 
   it("describe-style enumeration never reads excluded values", () => {
-    document.body.innerHTML = cases.map(([, h], i) => h.replace(/id="x"/, `id="x${i}" class="t"`).replace(/for="x"/, `for="x${i}"`)).join("") + `<form><textarea id="ok" name="ok"></textarea></form>`;
+    document.body.innerHTML =
+      cases.map(([, h], i) => h.replace(/id="x"/, `id="x${i}" class="t"`).replace(/for="x"/, `for="x${i}"`)).join("") +
+      `<form><textarea id="ok" name="ok"></textarea></form>`;
     document.querySelectorAll(".t").forEach(trap);
     const read: string[] = [];
     for (const c of allControls()) {

@@ -118,10 +118,14 @@ export function isSensitiveContainer(container: Container): boolean {
   let hit = poisonCache.get(container);
   if (hit === undefined) {
     // Label and group text is checked once per container: per-control label lookups are O(n²) on big forms.
-    const groups = isControl(container) ? [] : Array.from(container.querySelectorAll("label, legend, [role=group][aria-label], [role=radiogroup][aria-label]")).slice(0, MAX_SCAN);
+    const groups = isControl(container)
+      ? []
+      : Array.from(container.querySelectorAll("label, legend, [role=group][aria-label], [role=radiogroup][aria-label]")).slice(0, MAX_SCAN);
     hit =
-      hasSensitiveTerms(groups.map((g) => bounded(g.getAttribute("aria-label") ?? g.textContent)), { includeContact: false }) ||
-      controlsIn(container).some((c) => isFormPoisoningControl(buildMeta(c, true)));
+      hasSensitiveTerms(
+        groups.map((g) => bounded(g.getAttribute("aria-label") ?? g.textContent)),
+        { includeContact: false },
+      ) || controlsIn(container).some((c) => isFormPoisoningControl(buildMeta(c, true)));
     poisonCache.set(container, hit);
   }
   return hit;

@@ -5,7 +5,12 @@ import { matchFields, scorePair, type CurrentField, type SavedField } from "@for
 const FORM = "form-a";
 const id = (o: Partial<SavedField["identity"]> = {}) => ({ groupHash: "g", ordinal: 0, ...o });
 const saved = (fieldKey: string, identity: SavedField["identity"], kind: SavedField["kind"] = "text"): SavedField => ({ fieldKey, kind, identity });
-const current = (ref: number, identity: SavedField["identity"], kind: SavedField["kind"] = "text", formKey = FORM): CurrentField => ({ ref, kind, identity, formKey });
+const current = (ref: number, identity: SavedField["identity"], kind: SavedField["kind"] = "text", formKey = FORM): CurrentField => ({
+  ref,
+  kind,
+  identity,
+  formKey,
+});
 
 describe("matchFields", () => {
   it("direct match on unique name + distinct label + group", () => {
@@ -84,18 +89,12 @@ describe("matchFields", () => {
   it("insufficient margin → ambiguous", () => {
     // Best: name(50)+group(20)+ordinal(5)+label(25)=100; second: id(60)+group(20)=80 → margin 20 < 25.
     const s = [saved("a", id({ nameHash: "n", labelHash: "l", stableIdHash: "i" }))];
-    const c = [
-      current(0, id({ nameHash: "n", labelHash: "l" })),
-      current(1, id({ stableIdHash: "i", ordinal: 1 })),
-    ];
+    const c = [current(0, id({ nameHash: "n", labelHash: "l" })), current(1, id({ stableIdHash: "i", ordinal: 1 }))];
     expect(matchFields(s, c, FORM)[0]).toMatchObject({ status: "manual", reason: "ambiguous" });
   });
 
   it("two saved fields can never claim one target", () => {
-    const s = [
-      saved("a", id({ stableIdHash: "i1", labelHash: "l" })),
-      saved("b", id({ stableIdHash: "i2", labelHash: "l2", ordinal: 1 })),
-    ];
+    const s = [saved("a", id({ stableIdHash: "i1", labelHash: "l" })), saved("b", id({ stableIdHash: "i2", labelHash: "l2", ordinal: 1 }))];
     const c = [current(0, id({ stableIdHash: "i1", labelHash: "l2" })), current(1, id({ stableIdHash: "i2", ordinal: 5, groupHash: "zz" }))];
     const r = matchFields(s, c, FORM);
     const directRefs = r.flatMap((m) => (m.status === "direct" ? [m.ref] : []));
@@ -105,7 +104,12 @@ describe("matchFields", () => {
   it("property: direct matches are always one-to-one, above threshold and within the draft's form", () => {
     const h = fc.constantFrom("a", "b", "c", undefined);
     const ident = fc.record({
-      stableIdHash: h, nameHash: h, labelHash: h, groupHash: fc.constantFrom("g", "h"), optionsHash: fc.constantFrom("o", undefined), ordinal: fc.nat(3),
+      stableIdHash: h,
+      nameHash: h,
+      labelHash: h,
+      groupHash: fc.constantFrom("g", "h"),
+      optionsHash: fc.constantFrom("o", undefined),
+      ordinal: fc.nat(3),
     });
     const kind = fc.constantFrom("text", "select", "checkbox", "radio") as fc.Arbitrary<SavedField["kind"]>;
     fc.assert(

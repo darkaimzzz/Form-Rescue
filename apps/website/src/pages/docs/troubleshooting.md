@@ -18,9 +18,9 @@ Form Rescue starts on a page when it loads. Pages that were already open before 
 
 The popup only reports "Saved" after the draft is stored. If it says **Couldn't save**:
 
-- *Storage is full* — delete old drafts in **All drafts** or **Settings**.
-- *A field is too large* — values over 64 KiB are skipped, not shortened.
-- *Site access was removed* — enable the site again.
+- _Storage is full_ — delete old drafts in **All drafts** or **Settings**.
+- _A field is too large_ — values over 64 KiB are skipped, not shortened.
+- _Site access was removed_ — enable the site again.
 
 ## My last sentence is missing
 
@@ -36,7 +36,7 @@ The page navigated (or a single-page app changed route) after you opened the rev
 
 ## A restored field went back to empty
 
-Some sites' code resets fields they didn't expect. Form Rescue reports these as *failed*; copy the text instead.
+Some sites' code resets fields they didn't expect. Form Rescue reports these as _failed_; copy the text instead.
 
 ## Drafts disappeared
 

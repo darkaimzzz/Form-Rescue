@@ -24,14 +24,24 @@ export const DAY_MS = 24 * 60 * 60 * 1000;
 export const SCHEMA_VERSION = 1;
 
 const meta = z.string().max(LIMITS.metaString);
-const id = z.string().min(8).max(64).regex(/^[A-Za-z0-9_-]+$/);
+const id = z
+  .string()
+  .min(8)
+  .max(64)
+  .regex(/^[A-Za-z0-9_-]+$/);
 const url = z.string().max(4096);
 
 export const fieldValueSchema = z.discriminatedUnion("kind", [
   z.strictObject({ kind: z.literal("text"), text: z.string().max(LIMITS.textBytes) }),
   z.strictObject({ kind: z.literal("select"), values: z.array(z.string().max(LIMITS.metaString * 5)).max(LIMITS.selectValues) }),
   z.strictObject({ kind: z.literal("checkbox"), checked: z.boolean() }),
-  z.strictObject({ kind: z.literal("radio"), selectedOptionKey: z.string().max(LIMITS.metaString * 5).nullable() }),
+  z.strictObject({
+    kind: z.literal("radio"),
+    selectedOptionKey: z
+      .string()
+      .max(LIMITS.metaString * 5)
+      .nullable(),
+  }),
 ]);
 export type FieldValue = z.infer<typeof fieldValueSchema>;
 

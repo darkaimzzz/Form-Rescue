@@ -27,8 +27,7 @@ export interface CurrentField {
 export type ManualReason = "no-match" | "weak-identity" | "ambiguous" | "duplicate-target" | "kind-or-options-changed" | "form-changed";
 
 export type FieldMatch =
-  | { fieldKey: string; status: "direct"; ref: number; score: number }
-  | { fieldKey: string; status: "manual"; reason: ManualReason; ref?: number };
+  { fieldKey: string; status: "direct"; ref: number; score: number } | { fieldKey: string; status: "manual"; reason: ManualReason; ref?: number };
 
 function counts(values: (string | undefined)[]): Map<string, number> {
   const m = new Map<string, number>();
@@ -111,8 +110,6 @@ export function matchFields(saved: SavedField[], current: CurrentField[], draftF
   // One-to-one: two saved fields may never target one current field.
   const targets = counts(provisional.map((m) => (m.status === "direct" ? String(m.ref) : undefined)));
   return provisional.map((m) =>
-    m.status === "direct" && targets.get(String(m.ref))! > 1
-      ? { fieldKey: m.fieldKey, status: "manual", reason: "duplicate-target" }
-      : m,
+    m.status === "direct" && targets.get(String(m.ref))! > 1 ? { fieldKey: m.fieldKey, status: "manual", reason: "duplicate-target" } : m,
   );
 }

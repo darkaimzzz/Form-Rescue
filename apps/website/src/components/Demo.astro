@@ -35,7 +35,7 @@ const example =
       <aside class="review" data-review hidden aria-label="Simulated recovery review">
         <p class="review-title">Review saved draft</p>
         <p class="small muted">Saved locally at <span data-saved-time>10:42</span></p>
-        <div class="saved-text" data-saved-text></div>
+        <div class="saved-text" data-saved-text tabindex="0" role="region" aria-label="Saved text"></div>
         <label class="check"><input type="checkbox" checked data-restore-choice /> Restore “Your message”</label>
         <p class="small warn">Restoring makes these values available to this website.</p>
       </aside>
@@ -208,7 +208,6 @@ const example =
     border-radius: var(--fr-radius-control);
     padding: var(--fr-space-3);
     resize: vertical;
-    transition: background var(--fr-slow) var(--fr-ease);
   }
   [data-state="restored"] textarea {
     background: var(--fr-accent-soft);
@@ -308,7 +307,6 @@ const example =
   }
   @keyframes rise {
     from {
-      opacity: 0;
       transform: translateY(8px);
     }
   }

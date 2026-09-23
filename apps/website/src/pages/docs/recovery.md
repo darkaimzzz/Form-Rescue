@@ -26,8 +26,8 @@ Form Rescue then reports how many fields were restored, skipped, conflicted, uns
 Just before restoring, Form Rescue checks again that the page is the same one you reviewed, that it's still enabled, and that each target field still holds the value you saw. If anything changed:
 
 - **The page navigated** (including single-page-app route changes): nothing is restored. Start the review again.
-- **A field changed after you reviewed it:** that field is skipped as a *conflict* and left alone.
-- **The site's code rejects the value** (some frameworks reset fields): the field is reported as *failed*. Use copy instead.
+- **A field changed after you reviewed it:** that field is skipped as a _conflict_ and left alone.
+- **The site's code rejects the value** (some frameworks reset fields): the field is reported as _failed_. Use copy instead.
 
 ## Copy-only fields
 
