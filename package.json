@@ -21,7 +21,7 @@
     "test:integration": "vitest run --project integration",
     "test:e2e:chrome": "pnpm --filter @form-rescue/extension build:e2e && playwright test --project=e2e",
     "test:a11y": "pnpm build && pnpm --filter @form-rescue/extension build:e2e && playwright test --project=a11y",
-    "test:performance": "pnpm --filter @form-rescue/extension build:e2e && playwright test --project=performance && node scripts/validate-release/website-budget.mjs",
+    "test:performance": "pnpm --filter @form-rescue/extension build:e2e && playwright test --project=performance && pnpm --filter @form-rescue/website build && node scripts/validate-release/website-budget.mjs",
     "build": "pnpm --filter @form-rescue/extension build && pnpm --filter @form-rescue/website build",
     "package": "pnpm build && node scripts/package-release/package.mjs",
     "release:validate": "node scripts/validate-release/validate.mjs",
