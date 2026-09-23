@@ -6,9 +6,9 @@ Form Rescue is in alpha. Only the latest released version receives security fixe
 
 ## Reporting a vulnerability
 
-**Private reporting route: NOT YET CONFIGURED.** Before the repository is made public, maintainers must enable GitHub private vulnerability reporting (Settings → Code security → Private vulnerability reporting) and replace this paragraph with the link. `pnpm release:validate --publish` fails until this is done.
+Report vulnerabilities privately through GitHub: open the repository's **Security** tab and choose **Report a vulnerability** (https://github.com/darkaimzzz/Form-Rescue/security/advisories/new). Only the maintainer, @darkaimzzz, can see these reports.
 
-Until then, do not file vulnerability details in public issues. If you need to report something, open a public issue that only asks for a private contact channel, without technical details.
+Please don't put vulnerability details in public issues.
 
 Please include: affected version and browser, a synthetic reproduction, impact, and whether it's known publicly. **Never include real drafts, credentials, private URLs or profile exports.**
 

@@ -30,9 +30,9 @@ Build environment for the first packages: Windows 11, Node 26.5.1 locally (CI pi
 | Repository URL                    | defaults in `apps/website/astro.config.mjs` and `apps/extension/src/ui/links.ts`                               | Set: https://github.com/darkaimzzz/Form-Rescue        |
 | Website origin                    | Vercel production domain (automatic) or `PUBLIC_SITE_ORIGIN`; `VITE_FR_WEBSITE_ORIGIN` for the extension build | Vercel; set `VITE_FR_WEBSITE_ORIGIN` before packaging |
 | Store URLs                        | `PUBLIC_CHROME_STORE_URL`, `PUBLIC_EDGE_STORE_URL`, `PUBLIC_FIREFOX_STORE_URL`                                 | Pending review/approval                               |
-| Maintainers                       | `.github/CODEOWNERS`                                                                                           | **Unknown**                                           |
-| Private vulnerability reporting   | `SECURITY.md`                                                                                                  | Not enabled                                           |
-| Conduct reporting route           | `CODE_OF_CONDUCT.md`                                                                                           | Not set                                               |
+| Maintainers                       | `.github/CODEOWNERS`                                                                                           | Set: @darkaimzzz                                      |
+| Private vulnerability reporting   | `SECURITY.md`                                                                                                  | GitHub private reporting (Security tab)               |
+| Conduct reporting route           | `CODE_OF_CONDUCT.md`                                                                                           | Maintainer on GitHub / private report form            |
 | Store developer accounts and fees | Chrome Web Store, Microsoft Partner Center, addons.mozilla.org                                                 | Owner action                                          |
 
 `pnpm release:validate --publish` fails until every item above is set. Nothing here is invented.

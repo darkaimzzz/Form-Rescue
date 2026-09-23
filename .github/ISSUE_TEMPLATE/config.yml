@@ -1,3 +1,8 @@
 blank_issues_enabled: false
-# A private vulnerability-reporting link is added here once GitHub private reporting is enabled (see SECURITY.md).
-contact_links: []
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/darkaimzzz/Form-Rescue/security/advisories/new
+    about: Please don't file security problems as public issues.
+  - name: Website and docs
+    url: https://form-rescue.vercel.app/docs/
+    about: Install steps, troubleshooting and privacy details.

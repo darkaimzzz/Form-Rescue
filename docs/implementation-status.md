@@ -53,5 +53,5 @@ Last updated: 2026-09-24. Overall: **complete as a casual open-source project.**
 2. Manual real-prompt grant/deny and signed-build persistence check in **Firefox**.
 3. **Screen reader** passes: NVDA on Windows, VoiceOver on macOS.
 4. Test **previous major versions** and macOS/Linux, or keep minimums at 153/156.
-5. Publication inputs (all unknown, none invented): copyright holder, repository URL, website origin, maintainers (CODEOWNERS), private vulnerability reporting, conduct reporting route, store accounts and credentials. `pnpm release:validate --publish` lists them.
+5. Store accounts and credentials (not needed for the current developer-build distribution). Copyright holder, repository, website, maintainers and reporting routes are set.
 6. Recorded usability check (new user completes the demo in under two minutes) — not done.

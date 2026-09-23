@@ -1,5 +1,2 @@
-# Maintainer ownership is not configured yet.
-# Before publication, replace this comment with real maintainer handles, e.g.:
-#   *   @<maintainer-handle>
-# `pnpm release:validate --publish` fails until a real owner line exists.
-# No fictional accounts are listed here.
+# Maintainer of every file in this repository.
+* @darkaimzzz
