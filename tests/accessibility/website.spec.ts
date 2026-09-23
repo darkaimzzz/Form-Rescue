@@ -98,7 +98,7 @@ test("mobile menu: keyboard opens, Escape closes and returns focus", async ({ pa
 test("prelaunch CTAs are honest: developer build link resolves, no store links", async ({ page, request }) => {
   await page.goto(`${SITE}/`);
   await expect(page.getByRole("link", { name: "Load the developer build" }).first()).toHaveAttribute("href", "/docs/getting-started/#developer-build");
-  await expect(page.getByText("Store release pending.").first()).toBeVisible();
+  await expect(page.getByText("Not in the browser stores.").first()).toBeVisible();
   await expect(page.getByRole("link", { name: /Install for/ })).toHaveCount(0);
   const html = await (await request.get(`${SITE}/docs/getting-started/`)).text();
   expect(html).toContain('id="developer-build"');

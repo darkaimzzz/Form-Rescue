@@ -1,6 +1,6 @@
 # Implementation status
 
-Last updated: 2026-09-24. Overall: **local implementation complete for the alpha; v1.0 release and publication pending** (blockers below). Evidence files are in `docs/evidence/` (copied from a clean-checkout run) unless noted.
+Last updated: 2026-09-24. Overall: **complete as a casual open-source project.** Decision (2026-09-24, owner): no browser-store publication. Distribution is the developer build (ZIPs on GitHub releases, or build from source) plus the website at https://form-rescue.vercel.app. Evidence files are in `docs/evidence/` (copied from a clean-checkout run) unless noted.
 
 ## Milestones
 
@@ -47,7 +47,7 @@ Last updated: 2026-09-24. Overall: **local implementation complete for the alpha
 - `web-ext lint`: 0 errors, 4 warnings from bundled zod (unused `Function` probe; jitless mode is set) and React DOM (`innerHTML` internals our code never feeds).
 - Dev-only audit exception: `extract-zip` via Lighthouse CI (see `docs/release.md`).
 
-## Release blockers (v1.0) and next actions
+## Open items (only needed if the project is ever published to stores or resumed)
 
 1. Manual smoke in **branded Google Chrome** with the real permission prompt (grant and deny).
 2. Manual real-prompt grant/deny and signed-build persistence check in **Firefox**.

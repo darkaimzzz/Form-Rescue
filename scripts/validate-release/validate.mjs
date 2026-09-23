@@ -50,12 +50,15 @@ for (const target of ["chrome", "firefox"]) {
 }
 
 // ---------------------------------------------------------------- bundles
+// Allowed: namespace/schema identifiers, React error docs, and the project's own user-clicked links.
 const URL_ALLOW = [
   /^http:\/\/www\.w3\.org\//,
   /^https?:\/\/json-schema\.org\//,
   /^https:\/\/react\.dev\/errors\//,
   /^http:\/\/127\.0\.0\.1:4173\/demo\.html/,
   /^https?:\/\/\[\$\{/,
+  /^https:\/\/form-rescue\.vercel\.app(\/|$)/,
+  /^https:\/\/github\.com\/darkaimzzz\/Form-Rescue(\/|$|#)/,
 ];
 const FORBIDDEN = [
   [/\bfetch\s*\(/, "fetch("],

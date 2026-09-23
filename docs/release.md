@@ -37,6 +37,16 @@ Build environment for the first packages: Windows 11, Node 26.5.1 locally (CI pi
 
 `pnpm release:validate --publish` fails until every item above is set. Nothing here is invented.
 
+## Current distribution (owner decision, 2026-09-24)
+
+Form Rescue is not published to browser stores. Users install the developer build:
+
+1. `VITE_FR_WEBSITE_ORIGIN=https://form-rescue.vercel.app pnpm package`
+2. Create a GitHub release for the tag and attach `release/form-rescue-<v>-chrome.zip`, `release/form-rescue-<v>-firefox.zip`, `release/SHA256SUMS.txt` (optionally the source ZIP and SBOM).
+3. The website is on Vercel (`vercel.json`); redeploy with `npx vercel deploy --prod --project form-rescue` or automatically once the GitHub repo is connected in Vercel.
+
+The sections below apply only if store publication is ever resumed.
+
 ## Publication workflow
 
 1. Complete validation, update version and changelog, get maintainer review.

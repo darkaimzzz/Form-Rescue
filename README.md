@@ -16,12 +16,12 @@
     <img src="assets/recordings/recovery-poster.jpg" width="720" alt="Still from the Form Rescue recording: a synthetic Contact support form with the subject and description restored, captioned 'Your words are back.'">
   </a>
   <br>
-  <sub><a href="assets/recordings/recovery.webm">Watch the 30-second recording</a> (real extension, synthetic test page, <a href="assets/recordings/recovery.vtt">captions</a>).</sub>
+  <sub>Website: <a href="https://form-rescue.vercel.app">form-rescue.vercel.app</a> · <a href="assets/recordings/recovery.webm">Watch the 30-second recording</a> (real extension, synthetic test page, <a href="assets/recordings/recovery.vtt">captions</a>).</sub>
 </p>
 
 Long answers, support requests and applications get lost when a page refreshes, navigates, signs you out or fails. Form Rescue is a small safety net: turn it on for a site, write as usual, and if the page lets you down, review what was saved and restore the fields you pick. Drafts stay in your browser profile — no account, no server, no telemetry.
 
-**Maturity: alpha.** Everything below is implemented and tested on synthetic pages; store listings are not published yet. See [docs/implementation-status.md](docs/implementation-status.md).
+**Maturity: alpha.** Everything below is implemented and tested on synthetic pages; it is distributed as a developer build, not through browser stores. See [docs/implementation-status.md](docs/implementation-status.md).
 
 [Install (developer build)](#install-the-developer-build) · [Website docs](apps/website/src/pages/docs/) · [Demo](apps/website/src/pages/demo.astro) · [Privacy](docs/privacy.md) · [Issues](.github/ISSUE_TEMPLATE/) · [License](LICENSE)
 
@@ -52,7 +52,7 @@ Long answers, support requests and applications get lost when a page refreshes, 
 
 ### Install the developer build
 
-Build it (see [contributor quick start](#contributor-quick-start)) or download a release ZIP once published, then:
+Form Rescue isn't in the browser stores. Download `form-rescue-<version>-chrome.zip` (Chrome/Edge) or `form-rescue-<version>-firefox.zip` from the [latest release](https://github.com/darkaimzzz/Form-Rescue/releases/latest) and unzip it, or build it (see [contributor quick start](#contributor-quick-start)). Then:
 
 - **Chrome:** `chrome://extensions` → Developer mode → _Load unpacked_ → `apps/extension/dist/chrome`.
 - **Edge:** `edge://extensions` → Developer mode → _Load unpacked_ → `apps/extension/dist/chrome`.

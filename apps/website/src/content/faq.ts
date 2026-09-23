@@ -74,6 +74,6 @@ export const faq: { q: string; a: string }[] = [
   },
   {
     q: "How can I build it myself?",
-    a: "The source is MIT-licensed. With Node.js 24 and pnpm, run pnpm install and pnpm build to produce the Chrome/Edge and Firefox builds. The contributing guide has the details.",
+    a: "The source is MIT-licensed. With Node.js 24 and pnpm, run pnpm install and pnpm build to produce the Chrome/Edge and Firefox builds, or download the ready-made ZIPs from the GitHub releases page. The contributing guide has the details.",
   },
 ];
