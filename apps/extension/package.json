@@ -1,0 +1,27 @@
+{
+  "name": "@form-rescue/extension",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs --target=all",
+    "build:e2e": "node scripts/build.mjs --target=chrome --e2e",
+    "dev:chrome": "node scripts/build.mjs --target=chrome --watch",
+    "dev:firefox": "node scripts/build.mjs --target=firefox --watch",
+    "lint:firefox": "web-ext lint --source-dir dist/firefox --self-hosted=false --warnings-as-errors=false"
+  },
+  "dependencies": {
+    "@form-rescue/core": "workspace:*",
+    "@form-rescue/design-tokens": "workspace:*",
+    "@form-rescue/storage": "workspace:*",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "vite": "8.3.0",
+    "web-ext": "10.7.0"
+  }
+}

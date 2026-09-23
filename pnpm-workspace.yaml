@@ -1,0 +1,9 @@
+packages:
+  - apps/*
+  - packages/*
+allowBuilds:
+  esbuild: true
+minimumReleaseAgeExclude:
+  - '@astrojs/markdown-satteri@0.4.2'
+  - astro@7.3.4
+  - prettier@3.9.9

@@ -1,0 +1,36 @@
+body {
+  width: 380px;
+  max-width: 100vw;
+}
+.popup {
+  padding: var(--fr-space-4);
+  min-height: 200px;
+}
+.popup-head {
+  display: flex;
+  align-items: center;
+  gap: var(--fr-space-2);
+  margin-bottom: var(--fr-space-4);
+}
+.site {
+  font-size: 1.25rem;
+  overflow-wrap: anywhere;
+  margin-bottom: var(--fr-space-2);
+}
+.state {
+  font-weight: 600;
+  margin-bottom: var(--fr-space-2);
+}
+.wide {
+  width: 100%;
+}
+.spaced {
+  margin: var(--fr-space-3) 0;
+}
+.popup-links {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--fr-border);
+  margin-top: var(--fr-space-3);
+  padding-top: var(--fr-space-2);
+}

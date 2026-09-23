@@ -1,0 +1,75 @@
+/*
+ * Form Rescue design tokens. Plain CSS custom properties shared by the
+ * extension UI and the website. Contrast pairs are verified in
+ * docs/accessibility.md (ink/base 16.9:1, muted/base 5.9:1, accent/white 6.6:1).
+ */
+:root {
+  --fr-base: #f7f8fa;
+  --fr-surface: #ffffff;
+  --fr-surface-2: #eef1f4;
+  --fr-ink: #151a23;
+  --fr-muted: #586170;
+  --fr-border: #d5dbe2;
+  --fr-border-strong: #8a94a3;
+  --fr-accent: #006b5b;
+  --fr-accent-hover: #00574a;
+  --fr-accent-soft: #e0f1ed;
+  --fr-on-accent: #ffffff;
+  --fr-danger: #b3261e;
+  --fr-danger-soft: #fbe9e7;
+  --fr-warn: #7a4b00;
+  --fr-warn-soft: #fff4dc;
+  --fr-focus: #005fcc;
+
+  --fr-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --fr-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+
+  --fr-space-1: 4px;
+  --fr-space-2: 8px;
+  --fr-space-3: 12px;
+  --fr-space-4: 16px;
+  --fr-space-5: 24px;
+  --fr-space-6: 32px;
+  --fr-space-7: 48px;
+  --fr-space-8: 72px;
+  --fr-space-9: 128px;
+
+  --fr-radius-control: 12px;
+  --fr-radius-card: 24px;
+  --fr-shadow: 0 1px 2px rgb(21 26 35 / 6%), 0 8px 24px rgb(21 26 35 / 8%);
+
+  --fr-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --fr-fast: 160ms;
+  --fr-slow: 450ms;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fr-base: #111418;
+    --fr-surface: #1a1e24;
+    --fr-surface-2: #232830;
+    --fr-ink: #eef1f5;
+    --fr-muted: #a9b2bf;
+    --fr-border: #333a44;
+    --fr-border-strong: #6b7584;
+    --fr-accent: #4fd1b5;
+    --fr-accent-hover: #7ee0cb;
+    --fr-accent-soft: #123a33;
+    --fr-on-accent: #0b1f1b;
+    --fr-danger: #ff8a80;
+    --fr-danger-soft: #3a1714;
+    --fr-warn: #ffcf70;
+    --fr-warn-soft: #3a2c10;
+    --fr-focus: #8ab4ff;
+    --fr-shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px rgb(0 0 0 / 30%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --fr-fast: 0ms;
+    --fr-slow: 0ms;
+  }
+}
