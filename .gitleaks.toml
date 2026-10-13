@@ -1,0 +1,9 @@
+# Gitleaks configuration: default rules, plus an allowlist for the unit test that
+# feeds deliberately fake, secret-shaped strings to the value screener
+# (packages/core/src/classification/screening.ts). Nothing in it is a real secret.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Synthetic secret-shaped test inputs for the value screener"
+paths = ['''^tests/unit/screening\.test\.ts$''']

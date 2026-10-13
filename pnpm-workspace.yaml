@@ -10,9 +10,16 @@ minimumReleaseAgeExclude:
 overrides:
   tmp: ">=0.2.6"
   uuid: ">=11.1.1"
+  shell-quote: ">=1.11.0"
+  basic-ftp: ">=6.2.1"
+  http-cache-semantics: ">=4.3.0"
+  sharp: ">=0.35.5"
+  source-map-js: ">=1.2.2"
 auditConfig:
   # Dev-only (Lighthouse CI -> puppeteer browser download, bypassed via CHROME_PATH); no patched version exists.
   # Justified exception, see docs/release.md "Dependency exceptions".
   ignoreGhsas:
     - GHSA-jmr9-qjv8-65gv
     - GHSA-7pqw-9j4j-h8q3
+    # node-forge via web-ext > @devicefarmer/adbkit (Android device deployment, never used; we only run web-ext lint). No patched version.
+    - GHSA-86w9-cpqp-85rv
