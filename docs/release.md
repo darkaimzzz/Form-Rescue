@@ -63,10 +63,17 @@ Enable on the practice page (grant prompt) → type → "Saved locally" → refr
 
 ## Dependency exceptions
 
-High/critical advisories need triage before release. Current state (`pnpm audit`, 2026-09-24):
+High/critical advisories need triage before release. Current state (`pnpm audit`, 2026-10-13):
 
-- `tmp` (GHSA-52f5-9888-hmc6, GHSA-ph9p-34f9-6g65) and `uuid` (GHSA-w5hq-g745-h8pq): dev-only via `@lhci/cli`; fixed with `overrides` in `pnpm-workspace.yaml`.
-- `extract-zip` (GHSA-jmr9-qjv8-65gv, GHSA-7pqw-9j4j-h8q3): dev-only via `@lhci/cli` → Lighthouse → Puppeteer's browser downloader; no patched version exists. Not exploitable in our use: Lighthouse runs against Playwright's already-installed Chromium via `CHROME_PATH`, so no archives are extracted. Ignored via `auditConfig.ignoreGhsas`; maintainers must re-approve this exception for each release. Nothing from this chain ships in the extension or website.
+- Fixed with `overrides` in `pnpm-workspace.yaml` (all dev/build tooling, nothing shipped): `tmp`, `uuid` (via `@lhci/cli`), `shell-quote` (via `web-ext`), `basic-ftp` (via Lighthouse/Puppeteer), `http-cache-semantics`, `sharp` (via Astro), `source-map-js` (via Astro/Vue build tooling).
+- Ignored via `auditConfig.ignoreGhsas`, no patched version, not reachable in our use:
+  - `extract-zip` (GHSA-jmr9-qjv8-65gv, GHSA-7pqw-9j4j-h8q3): Lighthouse CI → Puppeteer's browser downloader. Lighthouse runs against Playwright's installed Chromium via `CHROME_PATH`, so no archives are extracted.
+  - `node-forge` (GHSA-86w9-cpqp-85rv): `web-ext` → `@devicefarmer/adbkit`, used only for deploying to Android devices. We only run `web-ext lint`.
+- Below the CI gate (moderate): `sprintf-js` via `@lhci/cli`, no patched version.
+
+Maintainers must re-approve these exceptions for each release. Nothing from these chains ships in the extension or website.
+
+Secret scanning uses gitleaks with `.gitleaks.toml`, which allowlists only `tests/unit/screening.test.ts`: that test feeds deliberately fake, secret-shaped strings to the value screener.
 
 ## Rollback and incident response
 
