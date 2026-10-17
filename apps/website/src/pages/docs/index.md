@@ -10,7 +10,7 @@ It's an **alpha**. Everything described here is implemented and tested on synthe
 
 ## Start here
 
-- [Getting started](/docs/getting-started/): install the developer build and protect your first site.
+- [Getting started](/docs/getting-started/): install from Firefox Add-ons or load the developer build, and protect your first site.
 - [Recovering drafts](/docs/recovery/): review, restore, copy and undo.
 - [Privacy and storage](/docs/privacy-and-storage/): what is stored, where, for how long, and the limits.
 - [Permissions](/docs/permissions/): every permission and why it's needed.

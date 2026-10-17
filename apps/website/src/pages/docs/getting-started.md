@@ -1,10 +1,12 @@
 ---
 layout: ../../layouts/Doc.astro
 title: Getting started
-description: Install the Form Rescue developer build in Chrome, Edge or Firefox and protect your first site.
+description: Install Form Rescue from Firefox Add-ons, or load the developer build in Chrome or Edge, and protect your first site.
 ---
 
-Form Rescue isn't distributed through the browser stores. You install the developer build yourself, it takes about a minute.
+**Firefox:** install Form Rescue from [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/form-rescue/). It installs permanently and updates automatically.
+
+**Chrome and Edge:** Form Rescue isn't in those stores yet, so you load the developer build yourself. It takes about a minute (see [Developer build](#developer-build)).
 
 ## Three steps
 
@@ -14,7 +16,7 @@ Form Rescue isn't distributed through the browser stores. You install the develo
 
 ## Developer build
 
-You need the built extension folder.
+For Chrome and Edge (or to run a build you made yourself) you need the built extension folder.
 
 **Download (easiest):** get `form-rescue-<version>-chrome.zip` (Chrome and Edge) or `form-rescue-<version>-firefox.zip` from the [latest GitHub release](https://github.com/darkaimzzz/Form-Rescue/releases/latest) and unzip it into a folder you'll keep.
 
@@ -42,11 +44,13 @@ This produces `apps/extension/dist/chrome` (Chrome and Edge) and `apps/extension
 
 ### Firefox
 
+Use [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/form-rescue/) for a normal, permanent install. To run a development build instead:
+
 1. Open `about:debugging#/runtime/this-firefox`.
 2. Click **Load Temporary Add-on…** and choose `manifest.json` in the Firefox folder.
 3. In the Extensions menu, allow Form Rescue on a site when you enable it.
 
-**Development installs are temporary in Firefox:** they are removed when Firefox restarts, and the browser deletes their storage, including drafts. In Chrome and Edge an unpacked extension stays installed, but moving or deleting its folder breaks it.
+**Development installs are temporary in Firefox** (the Firefox Add-ons version is not): they are removed when Firefox restarts, and the browser deletes their storage, including drafts. In Chrome and Edge an unpacked extension stays installed, but moving or deleting its folder breaks it.
 
 ## Try it on a practice page
 

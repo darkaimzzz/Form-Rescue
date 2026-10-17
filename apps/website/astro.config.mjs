@@ -10,6 +10,8 @@ if (!process.env.PUBLIC_SITE_ORIGIN && process.env.VERCEL_ENV === "production" &
 }
 // The public repository is known; an explicit env value still takes precedence.
 process.env.PUBLIC_REPO_URL ??= "https://github.com/darkaimzzz/Form-Rescue";
+// Verified live listing (addons.mozilla.org, status "public"). Chrome and Edge have no listing.
+process.env.PUBLIC_FIREFOX_STORE_URL ??= "https://addons.mozilla.org/firefox/addon/form-rescue/";
 
 const origin = process.env.PUBLIC_SITE_ORIGIN?.replace(/\/$/, "");
 

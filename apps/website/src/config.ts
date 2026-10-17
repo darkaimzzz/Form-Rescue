@@ -7,7 +7,8 @@ function httpsUrl(v: string | undefined): string | null {
   if (!v) return null;
   try {
     const u = new URL(v);
-    return u.protocol === "https:" ? u.toString().replace(/\/$/, "") : null;
+    // Bare origins lose the trailing slash; paths keep theirs (avoids a redirect).
+    return u.protocol === "https:" ? (u.pathname === "/" ? u.origin : u.toString()) : null;
   } catch {
     return null;
   }
@@ -30,7 +31,7 @@ export const config = {
   tested: {
     chrome: "Chromium 153 (automated); Google Chrome 153 manual check pending",
     edge: "Microsoft Edge 153 (automated)",
-    firefox: "Firefox 156 (automated smoke)",
+    firefox: "Firefox 156 (automated smoke), published on Firefox Add-ons",
   },
 };
 

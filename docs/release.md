@@ -24,22 +24,22 @@ Build environment for the first packages: Windows 11, Node 26.5.1 locally (CI pi
 
 ## Configuration required before publication
 
-| Input                             | Where                                                                                                          | Status                                                |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| Copyright holder                  | `LICENSE`                                                                                                      | Set: darkaimzzz and Form Rescue contributors          |
-| Repository URL                    | defaults in `apps/website/astro.config.mjs` and `apps/extension/src/ui/links.ts`                               | Set: https://github.com/darkaimzzz/Form-Rescue        |
-| Website origin                    | Vercel production domain (automatic) or `PUBLIC_SITE_ORIGIN`; `VITE_FR_WEBSITE_ORIGIN` for the extension build | Vercel; set `VITE_FR_WEBSITE_ORIGIN` before packaging |
-| Store URLs                        | `PUBLIC_CHROME_STORE_URL`, `PUBLIC_EDGE_STORE_URL`, `PUBLIC_FIREFOX_STORE_URL`                                 | Pending review/approval                               |
-| Maintainers                       | `.github/CODEOWNERS`                                                                                           | Set: @darkaimzzz                                      |
-| Private vulnerability reporting   | `SECURITY.md`                                                                                                  | GitHub private reporting (Security tab)               |
-| Conduct reporting route           | `CODE_OF_CONDUCT.md`                                                                                           | Maintainer on GitHub / private report form            |
-| Store developer accounts and fees | Chrome Web Store, Microsoft Partner Center, addons.mozilla.org                                                 | Owner action                                          |
+| Input                             | Where                                                                                                             | Status                                                |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Copyright holder                  | `LICENSE`                                                                                                         | Set: darkaimzzz and Form Rescue contributors          |
+| Repository URL                    | defaults in `apps/website/astro.config.mjs` and `apps/extension/src/ui/links.ts`                                  | Set: https://github.com/darkaimzzz/Form-Rescue        |
+| Website origin                    | Vercel production domain (automatic) or `PUBLIC_SITE_ORIGIN`; `VITE_FR_WEBSITE_ORIGIN` for the extension build    | Vercel; set `VITE_FR_WEBSITE_ORIGIN` before packaging |
+| Store URLs                        | `PUBLIC_FIREFOX_STORE_URL` defaults to the live AMO listing in `apps/website/astro.config.mjs`; Chrome/Edge unset | Firefox live; Chrome and Edge not published           |
+| Maintainers                       | `.github/CODEOWNERS`                                                                                              | Set: @darkaimzzz                                      |
+| Private vulnerability reporting   | `SECURITY.md`                                                                                                     | GitHub private reporting (Security tab)               |
+| Conduct reporting route           | `CODE_OF_CONDUCT.md`                                                                                              | Maintainer on GitHub / private report form            |
+| Store developer accounts and fees | Chrome Web Store, Microsoft Partner Center, addons.mozilla.org                                                    | Owner action                                          |
 
 `pnpm release:validate --publish` fails until every item above is set. Nothing here is invented.
 
 ## Current distribution (owner decision, 2026-09-24)
 
-Form Rescue is not published to browser stores. Users install the developer build:
+Firefox: published on Firefox Add-ons (https://addons.mozilla.org/firefox/addon/form-rescue/); new versions need a signed AMO submission (upload `release/form-rescue-<v>-firefox.zip` and the source ZIP). Chrome and Edge are not published; users install the developer build:
 
 1. `VITE_FR_WEBSITE_ORIGIN=https://form-rescue.vercel.app pnpm package`
 2. Create a GitHub release for the tag and attach `release/form-rescue-<v>-chrome.zip`, `release/form-rescue-<v>-firefox.zip`, `release/SHA256SUMS.txt` (optionally the source ZIP and SBOM).

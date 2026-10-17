@@ -6,21 +6,21 @@ description: Which browsers and versions Form Rescue has actually been tested on
 
 Form Rescue is an alpha. This table lists only what has actually been exercised.
 
-| Browser                     | Version tested | How                                                                                                                      | Status  |
-| --------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------ | ------- |
-| Chromium (Playwright build) | 153.0.8010.12  | Full automated suite: recovery, privacy, durability incl. crash, scenarios, accessibility, performance                   | Passing |
-| Microsoft Edge              | 153.0.4234.48  | Full automated suite with the installed browser                                                                          | Passing |
-| Firefox                     | 156.0.1        | Automated smoke over WebDriver BiDi: install, enable, save, reload, review, restore, sensitive-form check, delete all    | Passing |
-| Google Chrome (branded)     | 153            | Chrome no longer loads unpacked extensions from the command line, so automation uses Chromium; a manual check is pending | Pending |
-| Brave, Opera, Vivaldi       | n/a            | Not tested                                                                                                               | Unknown |
-| Safari, mobile browsers     | n/a            | Not supported                                                                                                            | n/a     |
+| Browser                     | Version tested | How                                                                                                                                                                                                          | Status  |
+| --------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| Chromium (Playwright build) | 153.0.8010.12  | Full automated suite: recovery, privacy, durability incl. crash, scenarios, accessibility, performance                                                                                                       | Passing |
+| Microsoft Edge              | 153.0.4234.48  | Full automated suite with the installed browser                                                                                                                                                              | Passing |
+| Firefox                     | 156.0.1        | Published on [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/form-rescue/). Automated smoke over WebDriver BiDi: install, enable, save, reload, review, restore, sensitive-form check, delete all | Passing |
+| Google Chrome (branded)     | 153            | Chrome no longer loads unpacked extensions from the command line, so automation uses Chromium; a manual check is pending                                                                                     | Pending |
+| Brave, Opera, Vivaldi       | n/a            | Not tested                                                                                                                                                                                                   | Unknown |
+| Safari, mobile browsers     | n/a            | Not supported                                                                                                                                                                                                | n/a     |
 
 Tested on Windows 11. macOS and Linux runs, and older browser versions, haven't been done yet. The extension declares its minimum as the oldest version actually validated (Chrome/Edge 153, Firefox 156).
 
 ## Differences between browsers
 
 - **Background:** Chrome and Edge use a service worker; Firefox uses an event page. Both are stopped when idle; saved drafts don't depend on them staying alive.
-- **Firefox developer installs** are temporary and removed (with their storage) when Firefox restarts.
+- **Firefox:** the [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/form-rescue/) version installs permanently. Developer (temporary) installs are removed, with their storage, when Firefox restarts.
 - **Port matching:** both browsers grant site access by host; Form Rescue applies exact scheme + host + port itself.
 
 ## What's supported on pages

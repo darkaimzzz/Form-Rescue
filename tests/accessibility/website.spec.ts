@@ -95,13 +95,19 @@ test("mobile menu: keyboard opens, Escape closes and returns focus", async ({ pa
   await expect(button).toBeFocused();
 });
 
-test("prelaunch CTAs are honest: developer build link resolves, no store links", async ({ page, request }) => {
+test("install CTAs are honest: Firefox store link only, Chrome/Edge get the developer build", async ({ page, request }) => {
   await page.goto(`${SITE}/`);
-  await expect(page.getByRole("link", { name: "Load the developer build" }).first()).toHaveAttribute("href", "/docs/getting-started/#developer-build");
-  await expect(page.getByText("Not in the browser stores.").first()).toBeVisible();
-  await expect(page.getByRole("link", { name: /Install for/ })).toHaveCount(0);
+  const firefox = page.getByRole("link", { name: "Install for Firefox" }).first();
+  await expect(firefox).toHaveAttribute("href", "https://addons.mozilla.org/firefox/addon/form-rescue/");
+  await expect(page.getByRole("link", { name: /Install for (Chrome|Edge)/ })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Developer build for Chrome and Edge" }).first()).toHaveAttribute(
+    "href",
+    "/docs/getting-started/#developer-build",
+  );
+  await expect(page.getByText("Chrome and Edge aren't in the browser stores yet.", { exact: false }).first()).toBeVisible();
   const html = await (await request.get(`${SITE}/docs/getting-started/`)).text();
   expect(html).toContain('id="developer-build"');
+  expect(html).toContain("https://addons.mozilla.org/firefox/addon/form-rescue/");
 });
 
 test("internal links resolve", async ({ page, request }) => {

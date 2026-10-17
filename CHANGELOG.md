@@ -6,7 +6,9 @@ versions map to browser manifest versions.
 
 ## [Unreleased]
 
-Nothing yet.
+### Distribution
+
+- Form Rescue 0.1.0 is published on [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/form-rescue/). Chrome and Edge still use the developer build from GitHub releases.
 
 ## [0.1.0] (alpha, distributed as a developer build)
 

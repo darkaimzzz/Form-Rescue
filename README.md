@@ -21,9 +21,9 @@
 
 Long answers, support requests and applications get lost when a page refreshes, navigates, signs you out or fails. Form Rescue is a small safety net: turn it on for a site, write as usual, and if the page lets you down, review what was saved and restore the fields you pick. Drafts stay in your browser profile, no account, no server, no telemetry.
 
-**Maturity: alpha.** Everything below is implemented and tested on synthetic pages; it is distributed as a developer build, not through browser stores. See [docs/implementation-status.md](docs/implementation-status.md).
+**Maturity: alpha.** Everything below is implemented and tested on synthetic pages; it is on [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/form-rescue/); Chrome and Edge use the developer build. See [docs/implementation-status.md](docs/implementation-status.md).
 
-[Install (developer build)](#install-the-developer-build) · [Website docs](apps/website/src/pages/docs/) · [Demo](apps/website/src/pages/demo.astro) · [Privacy](docs/privacy.md) · [Issues](.github/ISSUE_TEMPLATE/) · [License](LICENSE)
+[Firefox Add-ons](https://addons.mozilla.org/firefox/addon/form-rescue/) · [Install (developer build)](#install-the-developer-build) · [Website docs](apps/website/src/pages/docs/) · [Demo](apps/website/src/pages/demo.astro) · [Privacy](docs/privacy.md) · [Issues](.github/ISSUE_TEMPLATE/) · [License](LICENSE)
 
 > Source: https://github.com/darkaimzzz/Form-Rescue. The website is deployed on Vercel (see [Deploying the website](#deploying-the-website)).
 
@@ -50,9 +50,13 @@ Long answers, support requests and applications get lost when a page refreshes, 
 2. **Write as usual.** Wait for _Saved locally_.
 3. **Review and recover** from _Review drafts_ after a refresh, closed tab or sign-in.
 
-### Install the developer build
+### Install on Firefox
 
-Form Rescue isn't in the browser stores. Download `form-rescue-<version>-chrome.zip` (Chrome/Edge) or `form-rescue-<version>-firefox.zip` from the [latest release](https://github.com/darkaimzzz/Form-Rescue/releases/latest) and unzip it, or build it (see [contributor quick start](#contributor-quick-start)). Then:
+Install Form Rescue from **[Firefox Add-ons](https://addons.mozilla.org/firefox/addon/form-rescue/)** (Firefox 156 or newer). It installs permanently and updates automatically.
+
+### Install the developer build (Chrome, Edge)
+
+Form Rescue isn't in the Chrome or Edge stores yet. Download `form-rescue-<version>-chrome.zip` (Chrome/Edge) or `form-rescue-<version>-firefox.zip` from the [latest release](https://github.com/darkaimzzz/Form-Rescue/releases/latest) and unzip it, or build it (see [contributor quick start](#contributor-quick-start)). Then:
 
 - **Chrome:** `chrome://extensions` → Developer mode → _Load unpacked_ → `apps/extension/dist/chrome`.
 - **Edge:** `edge://extensions` → Developer mode → _Load unpacked_ → `apps/extension/dist/chrome`.
@@ -83,12 +87,12 @@ No `<all_urls>`, `tabs`, `history`, `cookies`, `webRequest`, clipboard reading o
 
 ## Browser support
 
-| Browser                 | Tested version | Evidence                       | Status      |
-| ----------------------- | -------------- | ------------------------------ | ----------- |
-| Chromium (Playwright)   | 153.0.8010.12  | Full automated suite           | Passing     |
-| Microsoft Edge          | 153.0.4234.48  | Full automated suite           | Passing     |
-| Firefox                 | 156.0.1        | Automated WebDriver BiDi smoke | Passing     |
-| Google Chrome (branded) | 153            | Manual check                   | **Pending** |
+| Browser                 | Tested version | Evidence                                                                                                              | Status      |
+| ----------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
+| Chromium (Playwright)   | 153.0.8010.12  | Full automated suite                                                                                                  | Passing     |
+| Microsoft Edge          | 153.0.4234.48  | Full automated suite                                                                                                  | Passing     |
+| Firefox                 | 156.0.1        | Automated WebDriver BiDi smoke; [published on Firefox Add-ons](https://addons.mozilla.org/firefox/addon/form-rescue/) | Passing     |
+| Google Chrome (branded) | 153            | Manual check                                                                                                          | **Pending** |
 
 Windows 11 only so far. Details and evidence: [docs/browser-support.md](docs/browser-support.md).
 

@@ -1,9 +1,8 @@
 ---
 /**
- * Install call to action. Shows store buttons only for verified store URLs.
- * Before publication it links to real developer-install docs and says the
- * store release is pending. Browser detection only suggests; every option
- * stays visible and selectable.
+ * Install call to action. Store buttons appear only for verified store URLs;
+ * browsers without a listing get the developer build. Browser detection only
+ * suggests (it picks the primary button); every option stays visible.
  */
 import { browserNames, config, type Browser } from "../config";
 
@@ -11,32 +10,36 @@ interface Props {
   size?: "large" | "small";
 }
 const { size = "large" } = Astro.props;
-const live = (Object.entries(config.stores) as [Browser, string | null][]).filter(([, url]) => url !== null) as [Browser, string][];
+const all = Object.keys(config.stores) as Browser[];
+const live = all.filter((b) => config.stores[b] !== null);
+const devOnly = all.filter((b) => config.stores[b] === null);
+const list = (bs: Browser[]) => new Intl.ListFormat("en", { type: "conjunction" }).format(bs.map((b) => browserNames[b]));
 ---
 
 <div class:list={["install", size]} data-install>
-  {
-    live.length > 0 ? (
-      <div class="btn-row">
-        {live.map(([b, url], i) => (
-          <a class:list={["btn", i === 0 && "btn-primary"]} href={url} data-browser={b} rel="noopener">
-            Install for {browserNames[b]}
-          </a>
-        ))}
-      </div>
-    ) : (
-      <div class="btn-row">
-        <a class="btn btn-primary" href="/docs/getting-started/#developer-build">
-          Load the developer build
+  <div class="btn-row">
+    {
+      live.map((b, i) => (
+        <a class:list={["btn", i === 0 && "btn-primary"]} href={config.stores[b]} data-browser={b} rel="noopener">
+          {size === "small" ? `Get it for ${browserNames[b]}` : `Install for ${browserNames[b]}`}
         </a>
-        {size === "large" && <slot />}
-      </div>
-    )
-  }
+      ))
+    }
+    {
+      devOnly.length > 0 && (
+        <a class:list={["btn", live.length === 0 && "btn-primary"]} href="/docs/getting-started/#developer-build" data-browser={devOnly.join(" ")}>
+          {live.length === 0 ? "Load the developer build" : size === "small" ? "Developer build" : `Developer build for ${list(devOnly)}`}
+        </a>
+      )
+    }
+    {size === "large" && <slot />}
+  </div>
   {
-    size === "large" && live.length === 0 && (
+    size === "large" && (
       <p class="small muted note">
-        Not in the browser stores. Download the free developer build and load it in desktop Chrome, Edge or Firefox. It takes about a minute.
+        {live.length > 0 && `${list(live)}: install from the official add-on store. `}
+        {devOnly.length > 0 &&
+          `${live.length > 0 ? `${list(devOnly)} aren't` : "Not"} in the browser stores${live.length > 0 ? " yet" : ""}. Download the free developer build${live.length === 0 ? ` and load it in desktop ${list(devOnly)}` : ""}. It takes about a minute.`}
       </p>
     )
   }
@@ -46,13 +49,13 @@ const live = (Object.entries(config.stores) as [Browser, string | null][]).filte
 </div>
 
 <script>
-  // Suggest, never block: reorder live store buttons for the detected desktop browser and flag mobile.
+  // Suggest, never block: make the option for the detected desktop browser primary and first; flag mobile.
   const ua = navigator.userAgent;
   const mobile = /Android|iPhone|iPad|Mobile/i.test(ua);
   const detected = /Edg\//.test(ua) ? "edge" : /Firefox\//.test(ua) ? "firefox" : /Chrome\//.test(ua) ? "chrome" : null;
   for (const root of document.querySelectorAll<HTMLElement>("[data-install]")) {
     if (mobile) root.querySelector<HTMLElement>(".mobile-note")?.removeAttribute("hidden");
-    const match = root.querySelector<HTMLAnchorElement>(`[data-browser="${detected}"]`);
+    const match = detected ? root.querySelector<HTMLAnchorElement>(`[data-browser~="${detected}"]`) : null;
     if (match && match.parentElement) {
       root.querySelectorAll("[data-browser]").forEach((a) => a.classList.remove("btn-primary"));
       match.classList.add("btn-primary");
