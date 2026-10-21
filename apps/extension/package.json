@@ -15,7 +15,7 @@
     "@form-rescue/core": "workspace:*",
     "@form-rescue/design-tokens": "workspace:*",
     "@form-rescue/storage": "workspace:*",
-    "react": "19.3.0",
+    "react": "19.3.1",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
