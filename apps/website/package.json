@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@form-rescue/design-tokens": "workspace:*",
-    "@astrojs/sitemap": "3.7.4",
+    "@astrojs/sitemap": "3.7.6",
     "astro": "7.3.5"
   },
   "devDependencies": {
